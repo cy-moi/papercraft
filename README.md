@@ -1,5 +1,8 @@
-# Matter-Pixi-React Boilerplate
+# Matter-Pixi-React Testbed
 
-This is a Matter.js/Pixi.js/React App Boilerplate project. Directed from [the pixi boilerplate here](https://github.com/dopamine-lab/pixi-boilerplate).
+This is a Matter.js/Pixi.js/React App testbed.
 
-There are some packages need to be updated.
+
+# References
+
+[Pixi boilerplate](https://github.com/dopamine-lab/pixi-boilerplate).
