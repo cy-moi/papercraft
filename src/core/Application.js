@@ -5,7 +5,7 @@ import { Viewport } from 'pixi-viewport';
 import { center, fit } from './utils';
 import gsap from 'gsap';
 import pixi from 'gsap/PixiPlugin';
-const TWEEN = require('@tweenjs/tween.js')
+// const TWEEN = require('@tweenjs/tween.js')
 
 gsap.registerPlugin(pixi);
 export default class GameApplication extends Application {
@@ -21,7 +21,7 @@ export default class GameApplication extends Application {
 
     function animate() {
       requestAnimationFrame(animate)
-      TWEEN.update()
+      // TWEEN.update()
     }
 
     this.test()
@@ -99,10 +99,10 @@ export default class GameApplication extends Application {
   }
   test() {
     let position = {x: 100, y: 0}
-    let tween = new TWEEN.Tween(position)
-    tween.to({x: 200}, 1000)
-    tween.start()
-    tween.onUpdate(function (object) {
-    })
+    // let tween = new TWEEN.Tween(position)
+    // tween.to({x: 200}, 1000)
+    // tween.start()
+    // tween.onUpdate(function (object) {
+    // })
   }
 }

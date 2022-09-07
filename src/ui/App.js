@@ -46,7 +46,6 @@ function App() {
           {`This is a Boilerplate.`}
         </Typography>
       </div>
-      {/* <GitHubShareButton /> */}
     </div>
   );
 }

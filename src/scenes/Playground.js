@@ -36,7 +36,6 @@ export default class Playground extends Scene {
     this.tickCount = 0;
     const tickCountMax = config.runner.tickCountMax
 
-    await this.mountingTimeUi()
     const onTick = () => {
       Engine.update(this.engine, 1000 / config.runner.fps)
       window.app.ticker.update()
@@ -53,13 +52,6 @@ export default class Playground extends Scene {
       }
       requestAnimationFrame(onTick)
     }, 1000 / config.runner.fps)
-
-    // setTimeout(() => {
-    //   this.showGameOver(false)
-    // }, 3000)
-    // setTimeout(() => {
-    //   this.closeGameOver()
-    // }, 10000)
   }
 
   start(tickCountMax) {
@@ -94,31 +86,10 @@ export default class Playground extends Scene {
   async onCreated() {
   }
 
-  /**
-   * Show the gameover pad
-   * @param {boolean} isWinning - true代表显示成功面板，false代表显示失败面板
-   * @param {string} text - 想要显示在面板下的内容，有提示信息的作用。
-   */
-  showGameOver(isWinning = true, text) {
-    ShowGameOver(isWinning, text)
-  }
-  /**
-   * 关掉gameover显示板
-   */
-  closeGameOver() {
-    CloseGameOver()
-  }
-
   onResize({ width, height, percent = 1 }) {
   }
-  async mountingTimeUi() {
-    if('dashboard' in window && !dashboard.timePanel) {
-      await dashboard.createTimePanel()
-      this.timePanel = dashboard.timePanel
-    }
-  }
+
   reset() {
     this.tickCount = 0
-    this.closeGameOver()
   }
 }
