@@ -1,0 +1,40 @@
+.App{
+    z-index: 10000;
+    position: absolute;
+    margin: 1%;
+    padding: 1%;
+    width: 30%;
+    background-color: rgba(100, 149, 237, 0.1);
+}
+
+.SpawnButton {
+    /* padding: 3%; */
+}
+
+.cm-editor {
+    margin-top: 1%;
+    width: 70%;
+    background-color: transparent;
+    /* border-radius: 5%; */
+    border: solid;
+    border-color: cornflowerblue;
+    /* border-style: dotted; */
+}
+
+.Submit {
+    margin-top: 1%;
+}
+
+.Manual {
+    margin-top: 1%;
+}
+
+.ManualDoc {
+    width: 95%;
+    /* background-color: rgba(100, 149, 237, 0.7); */
+    color: cornflowerblue;
+    margin-top: 1%;
+    border: solid;
+    /* border-radius: 5px; */
+    padding: 2%;
+}
