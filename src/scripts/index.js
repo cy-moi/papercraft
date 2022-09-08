@@ -1,4 +1,4 @@
-import config from '../config';
+import config from 'Core/config';
 import {addCraft, getCraft, waitFrameToStop} from './api'
 
 window.addEventListener('gameInit', async (e) => {

@@ -1,8 +1,8 @@
 import { Sprite } from 'pixi.js';
-import Scene from './Scene';
-import {initEngine, addRectBody} from '../core/MatterEngine'
+import Scene from 'Core/Scene';
+import {initEngine, addRectBody} from 'Core/MatterEngine'
 import {Runner, Engine} from 'matter-js'
-import config from '../config';
+import config from './config';
 
 export default class Playground extends Scene {
   constructor() {

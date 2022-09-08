@@ -8,6 +8,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const config = {
   mode: 'development',
   entry: './src/index.js',
+  resolve: {
+    alias: {
+      Src: path.resolve(__dirname, 'src/'),
+      Core: path.resolve(__dirname, 'src/core/'),
+    },
+  },
   devtool: "cheap-module-source-map",
   devServer: {
     contentBase: path.resolve(__dirname, './src/assets'),

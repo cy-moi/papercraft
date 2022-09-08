@@ -1,4 +1,4 @@
-import Playground from './scenes/Playground';
+import Playground from './Playground';
 import { Container } from 'pixi.js';
 export default class Game extends Container {
   constructor() {

@@ -1,4 +1,4 @@
-import config from '../config';
+import config from './config';
 
 export function fit(element, { width, height, percent = 1 }, ignoreRatio = false, overscale = false) {
   const { width: widthGame, height: heightGame } = config.game

@@ -1,20 +1,19 @@
 import { Application, TextStyle, Text } from 'pixi.js';
-import config from '../config';
-import Game from '../Game';
+import config from './config';
+import Game from './Game';
 import { Viewport } from 'pixi-viewport';
-import { center, fit } from './utils';
+import { center, fit } from 'Core/utils';
 import gsap from 'gsap';
 import pixi from 'gsap/PixiPlugin';
 // const TWEEN = require('@tweenjs/tween.js')
 
 gsap.registerPlugin(pixi);
-export default class GameApplication extends Application {
+export default class CraftApp extends Application {
   constructor() {
     super(config.view);
 
     this.config = config;
   }
-
 
   async init() {
     animate()
@@ -99,10 +98,5 @@ export default class GameApplication extends Application {
   }
   test() {
     let position = {x: 100, y: 0}
-    // let tween = new TWEEN.Tween(position)
-    // tween.to({x: 200}, 1000)
-    // tween.start()
-    // tween.onUpdate(function (object) {
-    // })
   }
 }
