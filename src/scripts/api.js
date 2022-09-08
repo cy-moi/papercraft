@@ -10,8 +10,14 @@ export async function addCraft(config) {
   return craft
 }
 
-export async function removeCraft(host, id) {
+export function removeCraft(host, id) {
   const craft = host.craftAll.find(it => it.id === id)
+  host.removeChild(craft);
+}
+
+export function removeAllCrafts(host) {
+  const children = host.removeChildren(0);
+  return children;
 }
 
 export function getCraft(host, id) {

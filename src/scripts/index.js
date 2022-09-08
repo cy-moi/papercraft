@@ -1,10 +1,11 @@
 import config from 'Core/config';
-import {addCraft, getCraft, waitFrameToStop} from './api'
+import {addCraft, getCraft, waitFrameToStop, removeAllCrafts} from './api'
 
 window.addEventListener('gameInit', async (e) => {
   window.config = config
   window.addCraft = addCraft
   window.getCraft = getCraft
+  window.removeAllCrafts = removeAllCrafts
   window.waitFrameToStop = waitFrameToStop
 
   parent.postMessage('start', window.location.origin);

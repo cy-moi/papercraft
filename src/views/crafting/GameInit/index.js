@@ -3,7 +3,6 @@ import * as PIXI from 'pixi.js';
 import 'Src/scripts';
 
 if (process.env.NODE_ENV === 'development') {
-  // required for pixi dev tools to work
   window.PIXI = PIXI;
 }
 
@@ -23,7 +22,8 @@ document.addEventListener(
 window.counter = 0;
 
 window.selectShape = async function(shape, size = {}, radius = 0) {
-  const { playground, addCraft } = window;
+  const { playground, addCraft, removeAllCrafts } = window;
+  console.log(playground.children)
   await addCraft({
     id: `${shape}`,
     model: "MobileShape",

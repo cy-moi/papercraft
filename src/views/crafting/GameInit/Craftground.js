@@ -5,13 +5,11 @@ import { Viewport } from 'pixi-viewport';
 import { center, fit } from 'Core/utils';
 import gsap from 'gsap';
 import pixi from 'gsap/PixiPlugin';
-// const TWEEN = require('@tweenjs/tween.js')
 
 gsap.registerPlugin(pixi);
 export default class CraftApp extends Application {
   constructor() {
     super(config.view);
-
     this.config = config;
   }
 
@@ -20,7 +18,6 @@ export default class CraftApp extends Application {
 
     function animate() {
       requestAnimationFrame(animate)
-      // TWEEN.update()
     }
 
     this.test()

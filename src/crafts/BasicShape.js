@@ -7,9 +7,7 @@ class BasicShape extends Container {
 	constructor(id, options) {
 		super()
 		this.id = id;
-
-		this.trailRecords = []
-		this.trailLength = 0
+		// this.renderer = PIXI.autoDetectRenderer()
 
 	}
 
@@ -38,6 +36,7 @@ class BasicShape extends Container {
 		// TODO: fill shape with random color
 		switch (type) {
 			case 'rectangle':
+				console.log('rectangle')
 				this.physicBody = Matter.Bodies.rectangle(
 					0, 0, w, h,
 					{
@@ -46,7 +45,7 @@ class BasicShape extends Container {
 				this.graphics.beginFill(this.color); // Purple
 				this.graphics.drawRect(0, 0, w, h); // drawRect(x, y, width, height)
 				this.graphics.endFill();
-				this.hitArea = new PIXI.Rectangle(-w/2, -h/2, w, h);
+				// this.hitArea = new PIXI.Rectangle(-w/2, -h/2, w, h);
 				break;
 			case 'circle':
 				this.physicBody = Matter.Bodies.circle(
@@ -59,7 +58,7 @@ class BasicShape extends Container {
 				this.graphics.drawCircle(0, 0, radius); // drawRect(x, y, width, height)
 				this.graphics.endFill();
 				this.radius = radius;
-				this.hitArea = new PIXI.Circle(0, 0, radius);
+				// this.hitArea = new PIXI.Circle(0, 0, radius);
 				break;
 			case 'polygon':
 				this.physicBody = Matter.Bodies.polygon(
@@ -74,9 +73,10 @@ class BasicShape extends Container {
 		if (debug) {
 			// for debug
 		}
-
-		const texture = this.graphics.generateTexture();
-		this.sprite = new PIXI.heaven.Sprite(texture);
+		
+		console.log(this.parent)
+		const texture = window.app.renderer.generateTexture(this.graphics);
+		this.sprite = new PIXI.Sprite(texture);
 		this.sprite.anchor.set(0.5)
 
 		// interact with sprite
