@@ -4,7 +4,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { useState } from 'react';
 
 let code = `
-window.equipShoot("bullet", {x:0, y:0}, 1, 10, 
+window.equipShoot("bullet", {x:0, y:0}, 1, 5, 
   {
     radius: 10,
     blurSize: 5

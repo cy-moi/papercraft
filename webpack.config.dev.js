@@ -12,11 +12,12 @@ const config = {
     alias: {
       Src: path.resolve(__dirname, 'src/'),
       Core: path.resolve(__dirname, 'src/core/'),
+      Assets: path.resolve(__dirname, 'assets/')
     },
   },
   devtool: "cheap-module-source-map",
   devServer: {
-    contentBase: path.resolve(__dirname, './src/assets'),
+    contentBase: path.resolve(__dirname, './assets'),
     contentBasePublicPath: '/assets'
   },
   module: {

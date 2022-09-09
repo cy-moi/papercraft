@@ -21,7 +21,7 @@ export default class CraftApp extends Application {
     }
 
     this.test()
-    const groundTexture = PIXI.Texture.from('./assets/bg.png');
+    const groundTexture = PIXI.Texture.from('assets/bg.png');
 
     /* create a tiling sprite ...
     * requires a texture, a width and a height
