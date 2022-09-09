@@ -16,9 +16,12 @@ export function removeCraft(host, id) {
   host.removeChild(craft);
 }
 
-export function removeAllCrafts(host) {
+export async function removeAllCrafts(host) {
   const children = host.removeChildren(0);
-  return children;
+
+  return new Promise((resolve, reject)=> {
+    if(host.children.length == 0) resolve(children);
+  });
 }
 
 export function getCraft(host, id) {

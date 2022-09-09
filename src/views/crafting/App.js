@@ -4,8 +4,15 @@ import CodeMirror from '@uiw/react-codemirror';
 import { useState } from 'react';
 
 let code = `
-window.equipShoot("", {x:0, y:0}, 1, 10, "keypress");
-window.equipShoot("", {x: 0, y:0}, 0.5, 20, "keypress");
+window.equipShoot("bullet", {x:0, y:0}, 1, 10, 
+  {
+    radius: 10,
+    blurSize: 5
+  },"keypress");
+window.equipShoot("laser", {x:0, y:0}, 0.5, 20,
+  {
+    size: { width: 20, height: 2}
+  }, "keypress");
 it.setSpeed(10);
 waitFrameToStop(300);
 `;

@@ -14,7 +14,7 @@ class MobileShape extends BasicShape {
 	}
 
 	async init(options) {
-    console.log(options)
+    // console.log(options)
 		options.isStatic = false;
 		await super.init(options);
 

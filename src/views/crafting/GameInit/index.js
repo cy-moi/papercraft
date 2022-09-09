@@ -24,7 +24,7 @@ window.counter = 0;
 window.selectShape = async function(shape, size = {}, radius = 0) {
   const { playground, addCraft, removeAllCrafts } = window;
   // console.log(playground.children)
-
+  await removeAllCrafts(playground);
   await addCraft({
     id: `${shape}`,
     model: "MobileShape",
@@ -38,7 +38,7 @@ window.selectShape = async function(shape, size = {}, radius = 0) {
   })
 }
 
-window.equipShoot = async function(type, position, direction, speed, action) {
+window.equipShoot = async function(type, position, direction, speed, config, action) {
   const { playground, addCraft, removeAllCrafts } = window;
   if(!window.it) throw new Error("no body selected");
   const shooter = await addCraft({
@@ -48,7 +48,8 @@ window.equipShoot = async function(type, position, direction, speed, action) {
     host: window.it,
     position,
     direction,
-    speed
+    speed,
+    config
   })
   window.addEventListener(action, (e)=>{
     if(e.key === "a") shooter.shoot();

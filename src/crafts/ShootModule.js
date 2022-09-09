@@ -1,6 +1,8 @@
 import { Container, Sprite, Graphics } from 'pixi.js';
 import Matter from 'matter-js';
 import * as vec from '../utils/vec';
+import {borderRadius} from '@mui/system';
+import {breadcrumbsClasses} from '@mui/material';
 export const North = {x:0, y: -1};
 
 export default class Shooter extends Container {
@@ -15,7 +17,8 @@ export default class Shooter extends Container {
     host,
     position,
     direction, // from 0 to PI
-    speed
+    speed,
+    config
 	}) {
     this.graphics = new PIXI.Graphics();
     this.physicBody = Matter.Bodies.circle(
@@ -28,14 +31,25 @@ export default class Shooter extends Container {
     this.startPos = {...position };
     this.shootVec = direction;
     this.shootSpeed = speed;
-    this.graphics.beginFill(this.color); // Purple
-    this.graphics.drawCircle(0, 0, 10); // drawRect(x, y, width, height)
-    this.graphics.endFill();
-
-		this.bulletTexture = window.app.renderer.generateTexture(this.graphics);
-		// this.sprite = new PIXI.Sprite(texture);
-		// this.sprite.anchor.set(0.5);
-    // this.addChild(this.sprite);
+    // console.log(config)
+    const { size, radius, blurSize } = config;
+    console.log(type)
+    switch (type) {
+      case 'bullet':
+        console.log("circle")
+        this.graphics.beginFill(this.color); // Purple
+        this.graphics.drawCircle(0, 0, radius);
+        this.graphics.endFill();
+        break;
+      case 'laser':
+        console.log("rectangle")
+        const { width, height } = size;
+        this.graphics.beginFill(this.color);
+        this.graphics.drawRect(0, 0, width, height);
+        this.graphics.endFill();
+        break;
+    }
+    this.bulletTexture = window.app.renderer.generateTexture(this.graphics);
 
   }
 
