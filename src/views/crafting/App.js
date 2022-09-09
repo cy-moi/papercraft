@@ -3,8 +3,12 @@ import './App.css';
 import CodeMirror from '@uiw/react-codemirror';
 import { useState } from 'react';
 
-let code = `it.setSpeed(10)
-waitFrameToStop(3000)`;
+let code = `
+window.equipShoot("", {x:0, y:0}, 1, 10, "keypress");
+window.equipShoot("", {x: 0, y:0}, 0.5, 20, "keypress");
+it.setSpeed(10);
+waitFrameToStop(300);
+`;
 function App() {
   return (
     <div className="App">
@@ -27,6 +31,10 @@ function App() {
             console.log('value:', value);
           }}
         />
+        <div>
+          {/* <Button onClick={()=> window.equipShoot()}>add weapon</Button> */}
+          <Button onClick={() => eval(code)}>Run Code</Button>
+        </div>
     </div>
   );
 }

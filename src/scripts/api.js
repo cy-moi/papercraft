@@ -5,6 +5,7 @@ export async function addCraft(config) {
   const craftModel = craftShop.find(it => it.name === model)
   const craft = new craftModel.constructor(id)
   host.addChild(craft)
+  console.log("config", config)
   await craft.init(config)
   host.craftAll.push(craft)
   return craft
@@ -31,8 +32,7 @@ function delay(time) {
 
 export const waitFrameToStop = (frame) => {	
 	delay(frame).then(() => {
-		console.log('ran after 1 second1 passed')
-		it.setSpeed(0)
-		it.setSteering(0)
+		// console.log('ran after 1 second1 passed')
+    window.it.stop();
 	});
 }

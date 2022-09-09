@@ -23,7 +23,8 @@ window.counter = 0;
 
 window.selectShape = async function(shape, size = {}, radius = 0) {
   const { playground, addCraft, removeAllCrafts } = window;
-  console.log(playground.children)
+  // console.log(playground.children)
+
   await addCraft({
     id: `${shape}`,
     model: "MobileShape",
@@ -37,42 +38,19 @@ window.selectShape = async function(shape, size = {}, radius = 0) {
   })
 }
 
-// window.spawnRandomShape = async function() {
-//   const { playground, addCraft } = window
-//   if(Math.random() > 0.5) {
-//       await addCraft({
-//       id: "shape",
-//       model: "MobileShape",
-//       host: playground,
-//       type: 'circle',
-//       position: {
-//         x: Math.floor(Math.random() * 500),
-//         y: Math.floor(Math.random() * 500)
-//       },
-//       size: {},
-//       radius:  Math.floor(Math.random() * 100),
-//       isStatic: false,
-//       debug: false
-//     })
-//   } else {
-//     await addCraft({
-//       id: "shape",
-//       model: "MobileShape",
-//       host: playground,
-//       type: 'rectangle',
-//       position: {
-//         x: Math.floor(Math.random() * 500),
-//         y: Math.floor(Math.random() * 500)
-//       },
-//       size: {
-//         width: Math.floor(Math.random() * 500),
-//         height: Math.floor(Math.random() * 500)
-//       },
-//       radius:  Math.floor(Math.random() * 100),
-//       isStatic: false,
-//       debug: false
-//     })
-//   }
-// }
-
-
+window.equipShoot = async function(type, position, direction, speed, action) {
+  const { playground, addCraft, removeAllCrafts } = window;
+  if(!window.it) throw new Error("no body selected");
+  const shooter = await addCraft({
+    type,
+    id: "colorball",
+    model: "Weapon",
+    host: window.it,
+    position,
+    direction,
+    speed
+  })
+  window.addEventListener(action, (e)=>{
+    if(e.key === "a") shooter.shoot();
+  })
+}

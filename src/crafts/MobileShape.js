@@ -10,9 +10,11 @@ class MobileShape extends BasicShape {
 
 		this.steering = 0;
 		this.speed = 0;
+    this.craftAll = [];
 	}
 
 	async init(options) {
+    console.log(options)
 		options.isStatic = false;
 		await super.init(options);
 
@@ -38,7 +40,7 @@ class MobileShape extends BasicShape {
     const velocity = Matter.Vector.create(dx, dy)
 
     Matter.Body.setVelocity(this.physicBody, velocity);
-
+    this.craftAll.forEach(it=>it.update())
 	}
 
 	setSteering(wheelDiff) {

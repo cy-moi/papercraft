@@ -12,40 +12,36 @@ class BasicShape extends Container {
 	}
 
 	async init({
-		engine = window.playground.engine, host, ...options
+		type,
+		position: {x, y} = {},
+		size: { width, height } = {},
+		radius = 10,
+		sides,
+		slope,
+		isStatic,
+		debug,
 	}) {
-		const {
-			type,
-			position: { x, y },
-			size: { width: w, height: h },
-			radius,
-			sides,
-			slope,
-			isStatic,
-			debug,
-		} = options;
-
+		let engine = window.playground.engine
 		this.graphics = new PIXI.Graphics();
 
 		// this.addChild(this.graphics);
 		this.color = colors[Object.keys(colors)[this.getRandomInt(4)]]
 		this.x = x;
 		this.y = y;
-		this.position = { x: x, y: y };
+		this.position = { x, y };
 
 		// TODO: fill shape with random color
 		switch (type) {
 			case 'rectangle':
 				console.log('rectangle')
 				this.physicBody = Matter.Bodies.rectangle(
-					0, 0, w, h,
+					0, 0, width, height,
 					{
 						isStatic: isStatic
 					});
 				this.graphics.beginFill(this.color); // Purple
-				this.graphics.drawRect(0, 0, w, h); // drawRect(x, y, width, height)
+				this.graphics.drawRect(0, 0, width, height); // drawRect(x, y, width, height)
 				this.graphics.endFill();
-				// this.hitArea = new PIXI.Rectangle(-w/2, -h/2, w, h);
 				break;
 			case 'circle':
 				this.physicBody = Matter.Bodies.circle(
@@ -74,7 +70,7 @@ class BasicShape extends Container {
 			// for debug
 		}
 		
-		console.log(this.parent)
+		// console.log(this.parent)
 		const texture = window.app.renderer.generateTexture(this.graphics);
 		this.sprite = new PIXI.Sprite(texture);
 		this.sprite.anchor.set(0.5)
