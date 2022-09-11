@@ -25,7 +25,7 @@ window.selectShape = async function(shape, size = {}, radius = 0) {
   const { playground, addCraft, removeAllCrafts } = window;
   // console.log(playground.children)
   await removeAllCrafts(playground);
-  await addCraft({
+  window.it = await addCraft({
     id: `${shape}`,
     model: "MobileShape",
     host: playground,

@@ -3,7 +3,9 @@ import './App.css';
 import CodeMirror from '@uiw/react-codemirror';
 import { useState } from 'react';
 
-let code = `
+let code = 
+`// after RUN CODE
+// Press key 'a' to shoot
 window.equipShoot("bullet", {x:0, y:0}, 1, 5, 
   {
     radius: 10,
