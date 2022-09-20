@@ -24,7 +24,7 @@ window.counter = 0;
 window.selectShape = async function(shape, size = {}, radius = 0) {
   const { playground, addCraft, removeAllCrafts } = window;
   // console.log(playground.children)
-  await removeAllCrafts(playground);
+  // await removeAllCrafts(playground);
   window.it = await addCraft({
     id: `${shape}`,
     model: "MobileShape",
@@ -34,7 +34,22 @@ window.selectShape = async function(shape, size = {}, radius = 0) {
     size,
     radius,
     isStatic: false,
-    debug: false
+    debug: true 
+  })
+}
+
+window.testPolygon = async function() {
+  const { playground, addCraft, removeAllCrafts} =  window;
+  await addCraft({
+    id: "temp",
+    model: "MobileShape",
+    host: playground,
+    type: "polygon",
+    position: {x: 500, y: 500},
+    sides: 3,
+    radius: 50,
+    isStatic: false,
+    debug: true
   })
 }
 

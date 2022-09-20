@@ -37,7 +37,7 @@ function App() {
         }}
         onChange={(value, viewUpdate) => {
             code = value;
-            console.log('value:', value);
+            // console.log('value:', value);
           }}
         />
         <div>

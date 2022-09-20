@@ -1,3 +1,5 @@
+import * as PIXI from 'pixi.js';
+
 export class Line extends PIXI.Graphics {
   constructor(points, lineSize, lineColor) {
       super();
