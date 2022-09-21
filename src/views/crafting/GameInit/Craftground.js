@@ -15,19 +15,19 @@ export default class CraftApp extends Application {
   }
 
   async init() {
-    animate()
+    animate();
 
     function animate() {
-      requestAnimationFrame(animate)
+      requestAnimationFrame(animate);
     }
 
-    this.test()
+    // this.test();
     const groundTexture = PIXI.Texture.from('assets/bg.png');
 
     /* create a tiling sprite ...
-    * requires a texture, a width and a height
-    * in WebGL the image size should preferably be a power of two
-    */
+     * requires a texture, a width and a height
+     * in WebGL the image size should preferably be a power of two
+     */
     const bg = new PIXI.TilingSprite(
       groundTexture,
       this.screen.width,
@@ -35,7 +35,7 @@ export default class CraftApp extends Application {
     );
 
     this.stage.addChild(bg);
-    this.bg = bg
+    this.bg = bg;
 
     this.setupViewport();
 
@@ -51,8 +51,8 @@ export default class CraftApp extends Application {
       this.onResize({
         width: window.innerWidth,
         height: window.innerHeight,
-        percent: 0.8
-      })
+        percent: 0.8,
+      });
     });
   }
 
@@ -78,13 +78,13 @@ export default class CraftApp extends Application {
   }
 
   onResize({ width, height, percent = 1 }) {
-    this.renderer.resize(width, height)
+    this.renderer.resize(width, height);
 
-    this.bg.width = width
-    this.bg.height = height
+    this.bg.width = width;
+    this.bg.height = height;
 
     if (this.config.view.fit) {
-      fit(this.game, { width, height, percent })
+      fit(this.game, { width, height, percent });
     }
 
     if (this.config.view.center) {
@@ -95,6 +95,6 @@ export default class CraftApp extends Application {
 
   static test = () => {
     // const position = { x: 100, y: 0 }
-    console.log("test");
-  }
+    console.log('test');
+  };
 }
