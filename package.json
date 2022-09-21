@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src --max-warnings 0",
     "lintfix": "npm run lint -- --fix",
-    "release": "standard-version"
+    "release": "standard-version",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
