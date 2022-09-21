@@ -58,9 +58,8 @@ export default class Scene extends Container {
   }
   /* eslint-enable */
 
-  get finish() {
+  static finish = () => {
+    console.log("finished");
     return Promise.resolve();
   }
-
 }
-

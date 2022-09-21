@@ -9,6 +9,7 @@
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
+    "allowImportExportEverywhere": true,
     "ecmaFeatures": {
       "jsx": true
     }
@@ -16,6 +17,9 @@
   "extends": [
     "airbnb"
   ],
+  "globals": {
+    "ENV": true
+  },
   "settings": {
     "import/resolver": {
       "node": {
@@ -48,6 +52,8 @@
     ],
     "no-lonely-if": "off",
     "no-continue": "off",
+    "no-eval": "off",
+    "no-bitwise": "off",
     "prefer-destructuring": [
       "error",
       {

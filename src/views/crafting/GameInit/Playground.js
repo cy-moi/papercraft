@@ -1,7 +1,7 @@
 import { Sprite } from 'pixi.js';
 import Scene from 'Core/Scene';
-import {initEngine, addRectBody} from 'Core/MatterEngine'
-import {Runner, Engine} from 'matter-js'
+import { initEngine } from 'Core/MatterEngine'
+import { Runner, Engine } from 'matter-js'
 import config from './config';
 
 export default class Playground extends Scene {
@@ -25,16 +25,15 @@ export default class Playground extends Scene {
 
     this.engine = initEngine(this.width, this.height);
 
-    var options = {
+    const options = {
       fps: config.runner.fps
     }
     this.runner = Runner.create(options);
 
-
     // this.start(config.runner.tickCountMax)
 
     this.tickCount = 0;
-    const tickCountMax = config.runner.tickCountMax
+    const { tickCountMax } = config.runner
 
     const onTick = () => {
       Engine.update(this.engine, 1000 / config.runner.fps)
@@ -46,7 +45,7 @@ export default class Playground extends Scene {
       // this.timePanel.toggleCount()
     }
 
-    this.intervalTick =  setInterval(() => {
+    this.intervalTick = setInterval(() => {
       if (this.tickCount > tickCountMax) {
         clearInterval(this.intervalTick)
       }
@@ -59,7 +58,7 @@ export default class Playground extends Scene {
       clearInterval(this.intervalTick)
     }
     this.tickCount = 0;
-    this.intervalTick =  setInterval(() => {
+    this.intervalTick = setInterval(() => {
       if (this.tickCount > tickCountMax) {
         clearInterval(this.intervalTick)
       }
@@ -83,11 +82,11 @@ export default class Playground extends Scene {
     this.tickCount++;
   }
 
-  async onCreated() {
-  }
+  // async onCreated() {
+  // }
 
-  onResize({ width, height, percent = 1 }) {
-  }
+  // onResize({ width, height, percent = 1 }) {
+  // }
 
   reset() {
     this.tickCount = 0

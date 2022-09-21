@@ -1,5 +1,7 @@
 import config from 'Core/config';
-import {addCraft, getCraft, waitFrameToStop, removeAllCrafts} from './api'
+import {
+  addCraft, getCraft, waitFrameToStop, removeAllCrafts
+} from './api'
 
 window.addEventListener('gameInit', async (e) => {
   window.config = config
@@ -8,6 +10,7 @@ window.addEventListener('gameInit', async (e) => {
   window.removeAllCrafts = removeAllCrafts
   window.waitFrameToStop = waitFrameToStop
 
+  // eslint-disable-next-line no-restricted-globals
   parent.postMessage('start', window.location.origin);
 
   console.log(ENV)
@@ -19,5 +22,5 @@ window.addEventListener('gameInit', async (e) => {
 async function init() {
   console.log('>>> run script')
 
-  const { playground, addCraft } = window
+  // const { playground, addCraft } = window
 }

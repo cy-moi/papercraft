@@ -1,5 +1,6 @@
 import Playground from './Playground';
 import { Container } from 'pixi.js';
+
 export default class Game extends Container {
   constructor() {
     super();
@@ -14,13 +15,13 @@ export default class Game extends Container {
     window.dispatchEvent(new Event('gameInit'))
   }
 
-  switchScene(constructor) {
-    // this.removeChild(this.currentScene);
-    // this.currentScene = new constructor();
-    // this.addChild(this.currentScene);
+  // switchScene(constructor) {
+  // this.removeChild(this.currentScene);
+  // this.currentScene = new constructor();
+  // this.addChild(this.currentScene);
 
-    // return this.currentScene.onCreated();
-  }
+  // return this.currentScene.onCreated();
+  // }
 
   onResize({ width, height, percent = 1 }) {
     this.playground.onResize({ width, height, percent })

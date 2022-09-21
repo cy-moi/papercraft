@@ -1,24 +1,24 @@
-import { Container, Sprite, Graphics } from 'pixi.js';
 import Matter from 'matter-js';
 import * as vec from '../utils/vec';
-import BasicShape from './BasicShape.js';
-export const North = {x:0, y: -1}
+import BasicShape from './BasicShape';
+
+export const North = { x: 0, y: -1 }
 
 class MobileShape extends BasicShape {
-	constructor(id) {
-		super(id)
+  constructor(id) {
+    super(id)
 
-		this.steering = 0;
-		this.speed = 0;
+    this.steering = 0;
+    this.speed = 0;
     this.craftAll = [];
-	}
+  }
 
-	async init(options) {
+  async init(options) {
     // console.log(options)
-		options.isStatic = false;
-		await super.init(options);
+    options.isStatic = false;
+    await super.init(options);
 
-		let engine = window.playground.engine;
+    const { engine } = window.playground;
     this.engine = engine;
 
     this.angleOffset = vec.angleBetween(this.physicBody.axes[0], North);
@@ -26,28 +26,28 @@ class MobileShape extends BasicShape {
     Matter.Body.setAngle(this.physicBody, 0);
     Matter.World.add(engine.world, this.physicBody);
     Matter.Body.setPosition(this.physicBody, this.position)
-	}
+  }
 
-	update(){
-		this.x = this.physicBody.position.x
+  update() {
+    this.x = this.physicBody.position.x
     this.y = this.physicBody.position.y
     this.rotation = this.physicBody.angle
 
-		Matter.Body.setAngle(this.physicBody, this.physicBody.angle + this.steering);
+    Matter.Body.setAngle(this.physicBody, this.physicBody.angle + this.steering);
 
-    const dx = Math.cos(this.physicBody.angle + this.angleOffset) * this.speed / 2;
-    const dy = Math.sin(this.physicBody.angle + this.angleOffset) * this.speed / 2;
+    const dx = (Math.cos(this.physicBody.angle + this.angleOffset) * this.speed) / 2;
+    const dy = (Math.sin(this.physicBody.angle + this.angleOffset) * this.speed) / 2;
     const velocity = Matter.Vector.create(dx, dy)
 
     Matter.Body.setVelocity(this.physicBody, velocity);
-    this.craftAll.forEach(it=>it.update())
-	}
+    this.craftAll.forEach(it => it.update())
+  }
 
-	setSteering(wheelDiff) {
+  setSteering(wheelDiff) {
     // runner base fps = 30 -> 0.203
     // exact fps 32 -> 0.196
     // reason ?
-    const gammar = wheelDiff / 200 * 0.203
+    const gammar = (wheelDiff / 200) * 0.203
     this.steering = gammar
   }
 
@@ -56,14 +56,14 @@ class MobileShape extends BasicShape {
   }
 
   getCollisions() {
-    //console.log(Matter.Composite.allBodies(this.engine.world));
-    let collisions = Matter.Query.collides(this.physicBody, Matter.Composite.allBodies(this.engine.world));
-    // collisions.length > 0 ? console.log(collisions) : null;
-    // console.log
+    const collisions = Matter.Query.collides(
+      this.physicBody,
+      Matter.Composite.allBodies(this.engine.world)
+    );
     return collisions;
   }
 
-  stop(){
+  stop() {
     this.setSpeed(0)
     this.setSteering(0)
   }
@@ -80,11 +80,11 @@ class MobileShape extends BasicShape {
   }
 
   rotate(theta) {
-    Matter.Body.rotate(this.physicBody, theta/180 * Math.PI)
+    Matter.Body.rotate(this.physicBody, (theta / 180) * Math.PI)
   }
 
   setAngle(theta) {
-    Matter.Body.setAngle(this.physicBody, theta/180 * Math.PI)
+    Matter.Body.setAngle(this.physicBody, (theta / 180) * Math.PI)
   }
 }
 

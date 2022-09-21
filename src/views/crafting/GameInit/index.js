@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 window.counter = 0;
 
 window.selectShape = async function (shape, size = {}, radius = 0) {
-  const { playground, addCraft, removeAllCrafts } = window;
+  const { playground, addCraft } = window;
   // console.log(playground.children)
   // await removeAllCrafts(playground);
   window.it = await addCraft({
@@ -36,7 +36,7 @@ window.selectShape = async function (shape, size = {}, radius = 0) {
 };
 
 window.addPolygonCraft = async function (sides = 3) {
-  const { playground, addCraft, removeAllCrafts } = window;
+  const { playground, addCraft } = window;
   await addCraft({
     id: "temp",
     model: "MobileShape",
@@ -58,8 +58,8 @@ window.equipShoot = async function (
   config,
   action
 ) {
-  const { playground, addCraft, removeAllCrafts } = window;
-  if(!window.it) throw new Error("no body selected");
+  const { addCraft } = window;
+  if (!window.it) throw new Error("no body selected");
   const slots = window.it.getEquipSlots();
   console.log(slots)
   const shooter = await addCraft({

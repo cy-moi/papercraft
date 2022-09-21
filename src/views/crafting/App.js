@@ -1,9 +1,9 @@
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import './App.css';
 import CodeMirror from '@uiw/react-codemirror';
-import { useState } from 'react';
+import React from 'react';
 
-let code = 
+let code =
 `// after RUN CODE
 // Press key 'a' to shoot
 window.equipShoot("bullet", {x:0, y:0}, 1, 5, 
@@ -21,32 +21,31 @@ waitFrameToStop(300);
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+      <header className="App-header" />
       <div>
-        <Button variant="outlined" onClick={()=>window.selectShape("rectangle", {width: 100, height: 100})}>rectangle</Button>
-        <Button variant="outlined" onClick={()=>window.selectShape("circle", {}, 100)}>circle</Button>
-        <Button variant="outlined" onClick={()=>window.addPolygonCraft(3)}>Triangle</Button>
-        <Button variant="outlined" onClick={()=>window.addPolygonCraft(5)}>Penta</Button>
-        <Button variant="outlined" onClick={()=>window.addPolygonCraft(12)}>Dodecagon</Button>
+        <Button variant="outlined" onClick={() => window.selectShape("rectangle", { width: 100, height: 100 })}>rectangle</Button>
+        <Button variant="outlined" onClick={() => window.selectShape("circle", {}, 100)}>circle</Button>
+        <Button variant="outlined" onClick={() => window.addPolygonCraft(3)}>Triangle</Button>
+        <Button variant="outlined" onClick={() => window.addPolygonCraft(5)}>Penta</Button>
+        <Button variant="outlined" onClick={() => window.addPolygonCraft(12)}>Dodecagon</Button>
       </div>
       <CodeMirror
         value={code}
         options={{
-            theme: 'monokai',
-            keyMap: 'sublime',
-            tabSize: 2,
-            mode: 'js',
+          theme: 'monokai',
+          keyMap: 'sublime',
+          tabSize: 2,
+          mode: 'js',
         }}
         onChange={(value, viewUpdate) => {
-            code = value;
-            // console.log('value:', value);
-          }}
-        />
-        <div>
-          {/* <Button onClick={()=> window.equipShoot()}>add weapon</Button> */}
-          <Button onClick={() => eval(code)}>Run Code</Button>
-        </div>
+          code = value;
+          // console.log('value:', value);
+        }}
+      />
+      <div>
+        {/* <Button onClick={()=> window.equipShoot()}>add weapon</Button> */}
+        <Button onClick={() => eval(code)}>Run Code</Button>
+      </div>
     </div>
   );
 }

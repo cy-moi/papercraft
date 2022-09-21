@@ -1,10 +1,11 @@
-import { Application, TextStyle, Text } from 'pixi.js';
+import { Application } from 'pixi.js';
 import config from './config';
 import Game from './Game';
 import { Viewport } from 'pixi-viewport';
 import { center, fit } from 'Core/utils';
 import gsap from 'gsap';
 import pixi from 'gsap/PixiPlugin';
+import * as PIXI from 'pixi.js';
 
 gsap.registerPlugin(pixi);
 export default class CraftApp extends Application {
@@ -28,9 +29,9 @@ export default class CraftApp extends Application {
     * in WebGL the image size should preferably be a power of two
     */
     const bg = new PIXI.TilingSprite(
-        groundTexture,
-        this.screen.width,
-        this.screen.height,
+      groundTexture,
+      this.screen.width,
+      this.screen.height,
     );
 
     this.stage.addChild(bg);
@@ -64,7 +65,6 @@ export default class CraftApp extends Application {
       interaction: this.renderer.plugins.interaction,
     });
 
-
     document.body.appendChild(this.view);
 
     this.stage.addChild(viewport);
@@ -91,9 +91,10 @@ export default class CraftApp extends Application {
       center(this.game, { width, height });
     }
     this.game.onResize({ width, height, percent });
- 
   }
-  test() {
-    let position = {x: 100, y: 0}
+
+  static test = () => {
+    // const position = { x: 100, y: 0 }
+    console.log("test");
   }
 }
