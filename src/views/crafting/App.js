@@ -26,6 +26,8 @@ function App() {
       <div>
         <Button variant="outlined"  onClick={()=>window.selectShape("rectangle", {width: 100, height: 100})}>rectangle</Button>
         <Button variant="outlined" onClick={()=>window.selectShape("circle", {}, 100)}>circle</Button>
+        <Button variant="outlined" onClick={()=>window.addPolygonCraft(3)}>Triangle</Button>
+        <Button variant="outlined" onClick={()=>window.addPolygonCraft(5)}>Penta</Button>
       </div>
       <CodeMirror
         value={code}

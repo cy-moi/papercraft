@@ -132,42 +132,42 @@ class BasicShape extends Container {
 
 	// debug draw function
   addDebugOutline() {
-    this.pivotHint = new Graphics()
-    this.pivotHint.lineStyle(2, 0x0000ff)
-    this.pivotHint.drawCircle(this.pivot.x, this.pivot.y, 4)
-    this.addChild(this.pivotHint)
+    // this.pivotHint = new Graphics()
+    // this.pivotHint.lineStyle(2, 0x0000ff)
+    // this.pivotHint.drawCircle(this.pivot.x, this.pivot.y, 4)
+    // this.addChild(this.pivotHint)
 
-    const vv = new Array();
-    if(this.physicBody.parts.length > 1 ){
-      for(var j = 1; j < this.physicBody.parts.length; j++){
-        const convex = new Array();
-        for(let v of this.physicBody.parts[j].vertices) {
-          convex.push(v);
-        }
-        vv.push(convex);
-        // this.physicBody.parts[j].vertices.forEach(v=> {
-        //   vv.push({x: v.x, y: v.y})
-        // });
-      }
-      this.line = new utils.MultiPoly(vv);
-      this.line.position = {
-        x: -(this.physicBody.position.x - this.pivot.x),
-        y: -(this.physicBody.position.y - this.pivot.y)
-      }
-      this.addChild(this.line);
-      return;
-    } else {
-      this.physicBody.parts[0].vertices.forEach(v=> {
-        vv.push({x: v.x, y: v.y})
-      });
-    }
+    // const vv = new Array();
+    // if(this.physicBody.parts.length > 1 ){
+      // for(var j = 1; j < this.physicBody.parts.length; j++){
+        // const convex = new Array();
+        // for(let v of this.physicBody.parts[j].vertices) {
+          // convex.push(v);
+        // }
+        // vv.push(convex);
+        // // this.physicBody.parts[j].vertices.forEach(v=> {
+        // //   vv.push({x: v.x, y: v.y})
+        // // });
+      // }
+      // this.line = new utils.MultiPoly(vv);
+      // this.line.position = {
+        // x: -(this.physicBody.position.x - this.pivot.x),
+        // y: -(this.physicBody.position.y - this.pivot.y)
+      // }
+      // this.addChild(this.line);
+      // return;
+    // } else {
+      // this.physicBody.parts[0].vertices.forEach(v=> {
+        // vv.push({x: v.x, y: v.y})
+      // });
+    // }
 
-    this.line = new utils.Polygon(vv);
-    this.line.position = {
-      x: -(this.physicBody.position.x - this.pivot.x),
-      y: -(this.physicBody.position.y - this.pivot.y)
-    }
-    this.addChild(this.line)
+    // this.line = new utils.Polygon(vv);
+    // this.line.position = {
+      // x: -(this.physicBody.position.x - this.pivot.x),
+      // y: -(this.physicBody.position.y - this.pivot.y)
+    // }
+    // this.addChild(this.line)
   }
 
 }
