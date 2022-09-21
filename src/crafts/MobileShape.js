@@ -55,6 +55,14 @@ class MobileShape extends BasicShape {
     this.speed = speed
   }
 
+  getCollisions() {
+    //console.log(Matter.Composite.allBodies(this.engine.world));
+    let collisions = Matter.Query.collides(this.physicBody, Matter.Composite.allBodies(this.engine.world));
+    // collisions.length > 0 ? console.log(collisions) : null;
+    // console.log
+    return collisions;
+  }
+
   stop(){
     this.setSpeed(0)
     this.setSteering(0)

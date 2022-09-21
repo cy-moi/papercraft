@@ -1,8 +1,6 @@
 import { Container, Sprite, Graphics } from 'pixi.js';
 import Matter from 'matter-js';
 import * as vec from '../utils/vec';
-import {borderRadius} from '@mui/system';
-import {breadcrumbsClasses} from '@mui/material';
 import MobileShape from './MobileShape';
 export const North = {x:0, y: -1};
 
@@ -45,6 +43,7 @@ export default class Shooter extends Container {
           radius,
           position,
           isStatic: false,
+          debug: true
         }
         //this.graphics.beginFill(this.color); // Purple
         //this.graphics.drawCircle(0, 0, radius);
@@ -56,7 +55,8 @@ export default class Shooter extends Container {
           size,
           type: 'rectangle',
           position,
-          isStatic: false
+          isStatic: false,
+          debug: true,
         }
         //        const { width, height } = size;
         //this.graphics.beginFill(this.color);

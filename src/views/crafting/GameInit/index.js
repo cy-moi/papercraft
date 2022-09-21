@@ -59,14 +59,16 @@ window.equipShoot = async function (
   action
 ) {
   const { playground, addCraft, removeAllCrafts } = window;
-  if (!window.it) throw new Error("no body selected");
+  if(!window.it) throw new Error("no body selected");
+  const slots = window.it.getEquipSlots();
+  console.log(slots)
   const shooter = await addCraft({
     type,
     id: "colorball",
     model: "Weapon",
     host: window.it,
-    position,
-    direction,
+    position: slots[0].slot,
+    direction: slots[0].direction,
     speed,
     config,
   });
