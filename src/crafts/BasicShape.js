@@ -1,6 +1,5 @@
-import { Container, Sprite, Graphics, BlurFilter } from 'pixi.js';
+import { Container } from 'pixi.js';
 import 'pixi-heaven';
-import * as utils from '../utils/draw';
 import Matter from 'matter-js';
 import { colors } from '../utils/colors';
 
@@ -8,8 +7,6 @@ class BasicShape extends Container {
 	constructor(id, options) {
 		super()
 		this.id = id;
-		// this.renderer = PIXI.autoDetectRenderer()
-
 	}
 
 	async init({
@@ -72,7 +69,7 @@ class BasicShape extends Container {
 			prev.push(cur.y - this.pivot.y);
 			return prev;
 		}, []);
-		console.log(verts);
+		
 		this.graphics.beginFill(this.color);
 		this.graphics.drawPolygon(verts);
 		this.graphics.endFill();
