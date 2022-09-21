@@ -1,6 +1,7 @@
 import config from './config';
 
-export function fit(element, { width, height, percent = 1 }, ignoreRatio = false, overscale = false) {
+export function fit(element, { width, height, percent = 1 },
+                    ignoreRatio = false, overscale = false) {
   const { width: widthGame, height: heightGame } = config.game
   // console.log(widthGame, heightGame)
   const wScale = width / widthGame;
