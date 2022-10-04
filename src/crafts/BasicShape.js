@@ -2,6 +2,7 @@ import { Container, Graphics, Sprite } from 'pixi.js';
 import 'pixi-heaven';
 // import * as utils from '../utils/draw';
 import Matter from 'matter-js';
+import * as utils from '../utils/vec';
 import { colors } from '../utils/colors';
 
 class BasicShape extends Container {
@@ -96,12 +97,20 @@ class BasicShape extends Container {
   }
 
   getEquipSlots() {
+    const minpt = this.physicBody.bounds.min;
+    const center = {
+      x: minpt.x + (this.physicBody.bounds.max.x - minpt.x) / 2.0,
+      y: minpt.y + (this.physicBody.bounds.max.y - minpt.y) / 2.0,
+    };
     return this.physicBody.vertices.map((item) => ({
       slot: {
         x: item.x - this.physicBody.bounds.min.x,
         y: item.y - this.physicBody.bounds.min.y,
       },
-      direction: { x: item.x - this.pivot.x, y: item.y - this.pivot.y },
+      direction: utils.angleBetween(
+        { x: 0, y: 1 },
+        { x: center.x - item.x, y: item.y - center.y },
+      ),
     }));
   }
 

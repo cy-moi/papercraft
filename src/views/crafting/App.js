@@ -5,7 +5,9 @@ import React from 'react';
 
 let code = `// after RUN CODE
 // Press key 'a' to shoot
-window.equipShoot("bullet", {x:0, y:0}, 1, 5, 
+const pistol = it.getEquipSlots()[0];
+console.log(pistol);
+window.equipShoot("bullet", pistol.slot, pistol.direction, 5, 
   {
     radius: 10,
     blurSize: 5
