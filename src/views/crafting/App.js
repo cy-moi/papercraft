@@ -7,12 +7,13 @@ let code = `// after RUN CODE
 // Press key 'a' to shoot
 const pistol = it.getEquipSlots()[0];
 console.log(pistol);
+const laser = it.getEquipSlots()[1];
 window.equipShoot("bullet", pistol.slot, pistol.direction, 5, 
   {
     radius: 10,
     blurSize: 5
   },"keypress");
-window.equipShoot("laser", {x:0, y:0}, 0.5, 20,
+window.equipShoot("laser", laser.slot, laser.direction, 20,
   {
     size: { width: 20, height: 2}
   }, "keypress");

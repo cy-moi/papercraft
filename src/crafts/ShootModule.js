@@ -28,7 +28,6 @@ export default class Shooter extends Container {
     this.shootVec = direction;
     this.shootSpeed = speed;
     // let options;
-    // console.log(config)
     const { size, radius } = config;
     console.log(type);
     switch (type) {
@@ -42,9 +41,6 @@ export default class Shooter extends Container {
           isStatic: false,
           debug: true,
         };
-        // this.graphics.beginFill(this.color); // Purple
-        // this.graphics.drawCircle(0, 0, radius);
-        // this.graphics.endFill();
         break;
       case 'laser':
         console.log('rectangle');
@@ -55,16 +51,11 @@ export default class Shooter extends Container {
           isStatic: false,
           debug: true,
         };
-        //        const { width, height } = size;
-        // this.graphics.beginFill(this.color);
-        // this.graphics.drawRect(0, 0, width, height);
-        // this.graphics.endFill();
         break;
       default:
         console.log('default');
         break;
     }
-    // this.bulletTexture = window.app.renderer.generateTexture(this.graphics);
   }
 
   async shoot() {
@@ -72,8 +63,6 @@ export default class Shooter extends Container {
     const bullet = new MobileShape('bullet');
     await bullet.init(this.options);
 
-    // const bullet = new PIXI.Sprite(this.bulletTexture);
-    // bullet.anchor.set(0.5);
     // bullet.x = this.startPos.x;
     // bullet.y = this.startPos.y;
     bullet.rotation = this.shootVec;
