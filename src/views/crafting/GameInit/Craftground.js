@@ -30,7 +30,7 @@ export default class CraftApp extends Application {
      * requires a texture, a width and a height
      * in WebGL the image size should preferably be a power of two
      */
-    const bg = new PIXI.TilingSprite(
+    const bg = new PIXI.extras.TilingSprite(
       groundTexture,
       this.screen.width,
       this.screen.height,
