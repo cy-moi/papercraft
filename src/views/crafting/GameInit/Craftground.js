@@ -34,12 +34,14 @@ export default class CraftApp extends Application {
       this.screen.height,
     );
 
-    this.stage.addChild(bg);
-    this.bg = bg;
+    // this.stage.addChild(bg);
+    // this.bg = bg;
 
     this.setupViewport();
 
     this.game = new Game();
+    this.viewport.addChild(bg);
+    this.bg = bg;
     this.viewport.addChild(this.game);
 
     await this.game.init();

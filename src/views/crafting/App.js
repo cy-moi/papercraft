@@ -3,8 +3,7 @@ import './App.css';
 import CodeMirror from '@uiw/react-codemirror';
 import React from 'react';
 
-let code =
-`// after RUN CODE
+let code = `// after RUN CODE
 // Press key 'a' to shoot
 window.equipShoot("bullet", {x:0, y:0}, 1, 5, 
   {
@@ -23,11 +22,29 @@ function App() {
     <div className="App">
       <header className="App-header" />
       <div>
-        <Button variant="outlined" onClick={() => window.selectShape("rectangle", { width: 100, height: 100 })}>rectangle</Button>
-        <Button variant="outlined" onClick={() => window.selectShape("circle", {}, 100)}>circle</Button>
-        <Button variant="outlined" onClick={() => window.addPolygonCraft(3)}>Triangle</Button>
-        <Button variant="outlined" onClick={() => window.addPolygonCraft(5)}>Penta</Button>
-        <Button variant="outlined" onClick={() => window.addPolygonCraft(12)}>Dodecagon</Button>
+        <Button
+          variant="outlined"
+          onClick={() =>
+            window.selectShape('rectangle', { width: 100, height: 100 })
+          }
+        >
+          rectangle
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => window.selectShape('circle', {}, 100)}
+        >
+          circle
+        </Button>
+        <Button variant="outlined" onClick={() => window.addPolygonCraft(3)}>
+          Triangle
+        </Button>
+        <Button variant="outlined" onClick={() => window.addPolygonCraft(5)}>
+          Penta
+        </Button>
+        <Button variant="outlined" onClick={() => window.addPolygonCraft(12)}>
+          Dodecagon
+        </Button>
       </div>
       <CodeMirror
         value={code}
