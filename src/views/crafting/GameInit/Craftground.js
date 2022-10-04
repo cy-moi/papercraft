@@ -28,25 +28,25 @@ export default class CraftApp extends Application {
      * requires a texture, a width and a height
      * in WebGL the image size should preferably be a power of two
      */
-    const bg = new PIXI.TilingSprite(
+    const bg = new PIXI.extras.TilingSprite(
       groundTexture,
       this.screen.width,
       this.screen.height,
     );
 
-    // this.stage.addChild(bg);
-    // this.bg = bg;
-
     this.setupViewport();
 
-    this.game = new Game();
     this.viewport.addChild(bg);
-    this.bg = bg;
+    this.game = new Game();
     this.viewport.addChild(this.game);
 
     await this.game.init();
 
-    this.onResize(this.config.view);
+    this.onResize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+      percent: 1,
+    });
 
     window.addEventListener('resize', (event) => {
       // console.log(window.innerWidth, window.innerHeight)
@@ -59,7 +59,7 @@ export default class CraftApp extends Application {
   }
 
   setupViewport() {
-    const viewport = new Viewport({
+    let viewport = new Viewport({
       screenWidth: this.config.view.width,
       screenHeight: this.config.view.height,
       worldWidth: this.config.game.width,
@@ -68,6 +68,28 @@ export default class CraftApp extends Application {
     });
 
     document.body.appendChild(this.view);
+
+    viewport = viewport.clamp({
+      left: 0,
+      right: viewport.worldWidth,
+      underflow: 'top-left',
+      top: 0,
+      bottom: viewport.worldHeight,
+    });
+
+    viewport.clampZoom({ minScale: 0.8, maxScale: 1.2 });
+
+    viewport.on('zoomed', function (groundTexture) {
+      const bg = this.children[0];
+
+      // const groundTexture = PIXI.Texture.from('assets/bg.png');
+
+      bg.width = Math.max(this.screenWidth / this.scale.x, window.innerWidth);
+      bg.height = Math.max(
+        this.screenHeight / this.scale.y,
+        window.innerHeight,
+      );
+    });
 
     this.stage.addChild(viewport);
 
@@ -82,8 +104,8 @@ export default class CraftApp extends Application {
   onResize({ width, height, percent = 1 }) {
     this.renderer.resize(width, height);
 
-    this.bg.width = width;
-    this.bg.height = height;
+    // this.bg.width = width;
+    // this.bg.height = height;
 
     if (this.config.view.fit) {
       fit(this.game, { width, height, percent });
