@@ -20,6 +20,7 @@ class BasicShape extends Container {
     slope,
     isStatic,
     debug,
+    baseStats,
   }) {
     const { engine } = window.playground;
     this.graphics = new Graphics();
@@ -86,6 +87,8 @@ class BasicShape extends Container {
     this.x = x;
     this.y = y;
     this.position = { x, y };
+
+    this.baseStats = baseStats;
 
     // PIXI container size and position will be affected by the
     // contents added in it, so always add the debug lines at last
