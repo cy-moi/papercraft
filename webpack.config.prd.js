@@ -1,7 +1,7 @@
-const webpack = require("webpack");
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -14,22 +14,22 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: [/\.vert$/, /\.frag$/],
-        use: "raw-loader"
+        use: 'raw-loader',
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       // {
       //   test: /\.(gif|png|jpe?g|svg|xml|wav)$/i,
       //   use: "file-loader"
       // }
-    ]
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -37,15 +37,15 @@ module.exports = {
       ENV: JSON.stringify('prd'),
     }),
     new HtmlWebpackPlugin({
-      template: "./index.html"
+      template: './index.html',
     }),
     new webpack.ProvidePlugin({ 'window.decomp': 'poly-decomp' }),
     new CopyPlugin([
       {
         from: './src/assets',
-        to: './assets'
-      }
-    ])
+        to: './assets',
+      },
+    ]),
   ],
   output: {
     // filename: `${getAppName()}/[name].bundle.[hash:8].js`,
