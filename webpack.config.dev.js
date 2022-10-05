@@ -14,6 +14,7 @@ const config = {
       Core: path.resolve(__dirname, 'src/core/'),
       Assets: path.resolve(__dirname, 'assets/'),
     },
+    extensions: ['.js', '.tsx'],
   },
   devtool: 'cheap-module-source-map',
   devServer: {
@@ -23,7 +24,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: [/\.js$/, /\.jsx/, /\.tsx/],
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
