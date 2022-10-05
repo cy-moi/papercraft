@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
 window.counter = 0;
 
 window.selectShape = async function (shape, size = {}, radius = 0) {
-  const { playground, addCraft } = window;
+  const { playground, addCraft, removeAllCrafts } = window;
   // console.log(playground.children)
-  // await removeAllCrafts(playground);
+  await removeAllCrafts(playground);
   window.it = await addCraft({
     id: `${shape}`,
     model: 'MobileShape',
@@ -36,8 +36,9 @@ window.selectShape = async function (shape, size = {}, radius = 0) {
 };
 
 window.addPolygonCraft = async function (sides = 3) {
-  const { playground, addCraft } = window;
-  await addCraft({
+  const { playground, addCraft, removeAllCrafts } = window;
+  await removeAllCrafts(playground);
+  window.it = await addCraft({
     id: 'temp',
     model: 'MobileShape',
     host: playground,
