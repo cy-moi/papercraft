@@ -1,7 +1,8 @@
-import { Container, Graphics, Sprite } from 'pixi.js';
+import { Container, Graphics, Sprite, Texture } from 'pixi.js';
 import 'pixi-heaven';
 // import * as utils from '../utils/draw';
 import Matter from 'matter-js';
+// import keyboard from '../utils/keyboard';
 import * as utils from '../utils/vec';
 import { colors } from '../utils/colors';
 
@@ -22,9 +23,9 @@ class BasicShape extends Container {
     debug,
   }) {
     const { engine } = window.playground;
-    this.graphics = new Graphics();
+    const graphics = new Graphics();
 
-    // this.addChild(this.graphics);
+    // this.addChild(graphics);
     this.color = colors[Object.keys(colors)[this.getRandomInt(4)]];
 
     // TODO: fill shape with random color
@@ -69,12 +70,10 @@ class BasicShape extends Container {
       return prev;
     }, []);
 
-    this.graphics.beginFill(this.color);
-    this.graphics.drawPolygon(verts);
-    this.graphics.endFill();
-    this.sprite = new Sprite(
-      window.app.renderer.generateTexture(this.graphics),
-    );
+    graphics.beginFill(this.color);
+    graphics.drawPolygon(verts);
+    graphics.endFill();
+    this.sprite = new Sprite(window.app.renderer.generateTexture(graphics));
 
     // interact with sprite
     this.interactive = true;
@@ -95,6 +94,15 @@ class BasicShape extends Container {
       this.addDebugOutline();
     }
   }
+
+  setSprite(image) {
+    console.log(image);
+    this.sprite.texture = Texture.from(image);
+  }
+
+  // getSpriteImg() {
+  //   return this.sprite.texture.baseTexture.source;
+  // }
 
   getEquipSlots() {
     const minpt = this.physicBody.bounds.min;
@@ -121,22 +129,23 @@ class BasicShape extends Container {
   }
 
   clickEventHandler(e) {
+    window.it = this;
     // unselect last
-    if (window.it) {
-      window.it.selected = false;
-      window.it.alpha = 1.0;
-    }
-
-    // select this
-    this.selected = !this.selected;
-    // console.log("Mousedown")
-    if (this.selected) {
-      this.alpha = 0.5;
-      window.it = this;
-    } else {
-      this.alpha = 1.0;
-      window.it = null;
-    }
+    // if (window.it) {
+    //   window.it.selected = false;
+    //   window.it.alpha = 1.0;
+    // }
+    //
+    // // select this
+    // this.selected = !this.selected;
+    // // console.log("Mousedown")
+    // if (this.selected) {
+    //   this.alpha = 0.5;
+    //   window.it = this;
+    // } else {
+    //   this.alpha = 1.0;
+    //   window.it = null;
+    // }
   }
 
   getRandomInt = (max) => Math.floor(Math.random() * max);

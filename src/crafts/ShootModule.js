@@ -65,18 +65,19 @@ export default class Shooter extends Container {
 
     // bullet.x = this.startPos.x;
     // bullet.y = this.startPos.y;
-    bullet.rotation = this.shootVec;
+    bullet.setSpeed(this.shootSpeed);
+    bullet.setSteering(this.shootVec);
     this.addChild(bullet);
     this.bullets.push(bullet);
   }
 
   update() {
     this.bullets = this.bullets.map((bullet) => {
+      bullet.update();
       // console.log(bullet.x, bullet.y, bullet.rotation)
       // console.log(Math.cos(bullet.rotation))
-
-      bullet.x += Math.cos(this.shootVec) * this.shootSpeed;
-      bullet.y += Math.sin(this.shootVec) * this.shootSpeed;
+      // bullet.x += Math.cos(this.shootVec) * this.shootSpeed;
+      // bullet.y += Math.sin(this.shootVec) * this.shootSpeed;
       return bullet;
     });
   }

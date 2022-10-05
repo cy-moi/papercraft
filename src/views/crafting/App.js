@@ -1,13 +1,14 @@
 import { Button } from '@mui/material';
 import './App.css';
 import CodeMirror from '@uiw/react-codemirror';
-import React from 'react';
+import SketchPad from './components/SketchPad';
+import React, { useState, useEffect } from 'react';
 
 let code = `// after RUN CODE
 // Press key 'a' to shoot
-const pistol = it.getEquipSlots()[0];
+const pistol = window.it.getEquipSlots()[0];
 console.log(pistol);
-const laser = it.getEquipSlots()[1];
+const laser = window.it.getEquipSlots()[1];
 window.equipShoot("bullet", pistol.slot, pistol.direction, 5, 
   {
     radius: 10,
@@ -17,25 +18,33 @@ window.equipShoot("laser", laser.slot, laser.direction, 20,
   {
     size: { width: 20, height: 2}
   }, "keypress");
-it.setSpeed(10);
+window.it.setSpeed(10);
 waitFrameToStop(300);
 `;
 function App() {
+  const [it, setIt] = useState(window.it);
+
+  useEffect(() => {}, [it]);
+
   return (
     <div className="App">
       <header className="App-header" />
       <div>
         <Button
           variant="outlined"
-          onClick={() =>
-            window.selectShape('rectangle', { width: 100, height: 100 })
-          }
+          onClick={() => {
+            window.selectShape('rectangle', { width: 100, height: 100 });
+            setIt(window.it);
+          }}
         >
           rectangle
         </Button>
         <Button
           variant="outlined"
-          onClick={() => window.selectShape('circle', {}, 100)}
+          onClick={() => {
+            window.selectShape('circle', {}, 100);
+            setIt(window.it);
+          }}
         >
           circle
         </Button>
@@ -65,6 +74,9 @@ function App() {
       <div>
         {/* <Button onClick={()=> window.equipShoot()}>add weapon</Button> */}
         <Button onClick={() => eval(code)}>Run Code</Button>
+      </div>
+      <div>
+        <SketchPad it={it} />
       </div>
     </div>
   );

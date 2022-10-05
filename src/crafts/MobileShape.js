@@ -1,5 +1,6 @@
 import Matter from 'matter-js';
 import * as vec from '../utils/vec';
+import keyboard from '../utils/keyboard';
 import BasicShape from './BasicShape';
 
 export const North = { x: 0, y: -1 };
@@ -26,7 +27,9 @@ class MobileShape extends BasicShape {
     Matter.Body.setAngle(this.physicBody, 0);
     Matter.World.add(engine.world, this.physicBody);
 
-    // this.bindKeyHandler();
+    Matter.Body.setPosition(this.physicBody, this.position);
+
+    this.bindKeyHandler();
   }
 
   update() {
@@ -59,6 +62,30 @@ class MobileShape extends BasicShape {
 
   setSpeed(speed) {
     this.speed = speed;
+  }
+
+  bindKeyHandler() {
+    const upkey = keyboard('ArrowUp');
+    upkey.press = () => {
+      this.speed += 1;
+    };
+    const downKey = keyboard('ArrowDown');
+    downKey.press = () => {
+      this.speed -= 1;
+    };
+    const leftKey = keyboard('ArrowLeft');
+    leftKey.press = () => {
+      this.steering -= 0.01;
+    };
+    const rightKey = keyboard('ArrowRight');
+    rightKey.press = () => {
+      this.steering += 0.01;
+    };
+    const stopKey = keyboard('C');
+    stopKey.press = () => {
+      this.speed = 0;
+      this.steering = 0;
+    };
   }
 
   getCollisions() {
