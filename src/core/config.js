@@ -8,7 +8,7 @@ export default {
     fit: true,
     center: true,
     percent: 0.8,
-    antialias: true
+    antialias: true,
   },
   game: {
     width: 900,
@@ -16,15 +16,15 @@ export default {
     drag: true,
     pinch: true,
     decelerate: true,
-    wheel: true
+    wheel: true,
   },
   scenes: {
     Splash: {
-      hideDelay: 0
-    }
+      hideDelay: 0,
+    },
   },
   assets: {
-    root: '/'
+    root: '/',
   },
   runner: {
     fpsBase: 30, // fpsBase is the absolute ratio of time and tick count
@@ -36,7 +36,7 @@ export default {
     fill: 'white',
     fontFamily: 'Comic Sans MS',
     fontWeight: 'bold',
-    padding: 5
+    padding: 5,
   },
   dialogTextStyle: {
     breakWords: true,
@@ -45,6 +45,6 @@ export default {
     fontSize: 14,
     stroke: 'white',
     wordWrap: true,
-    wordWrapWidth: 180
-  }
-}
+    wordWrapWidth: 180,
+  },
+};

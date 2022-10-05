@@ -73,6 +73,7 @@
         "ignoreReadBeforeAssign": false
       }
     ],
+    "import/extensions": "off",
     "import": "off",
     "import/order": "off",
     "no-use-before-define": "off",

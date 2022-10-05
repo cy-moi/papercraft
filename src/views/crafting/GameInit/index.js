@@ -35,7 +35,7 @@ window.selectShape = async function (shape, size = {}, radius = 0) {
   });
 };
 
-window.addPolygonCraft = async function (sides = 3) {
+window.addPolygonCraft = async function (sides = 3, size = 50) {
   const { playground, addCraft } = window;
   await addCraft({
     id: 'temp',
@@ -44,7 +44,7 @@ window.addPolygonCraft = async function (sides = 3) {
     type: 'polygon',
     position: { x: 500, y: 500 },
     sides,
-    radius: 50,
+    radius: size ? size : 50,
     isStatic: false,
     debug: true,
   });

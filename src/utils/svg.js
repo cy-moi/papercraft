@@ -2,9 +2,9 @@
 
 async function loadSvg(url) {
   return fetch(url)
-    .then(res => res.text())
-    .then(data => (new DOMParser()).parseFromString(data, 'image/svg+xml'))
-    .then(doc => doc.querySelector('svg'))
+    .then((res) => res.text())
+    .then((data) => new DOMParser().parseFromString(data, 'image/svg+xml'))
+    .then((doc) => doc.querySelector('svg'));
 }
 
 function getVertexSetOfSvg(svg) {
@@ -27,8 +27,4 @@ function getSizeOfSvg(svg) {
   // return { width, height }
 }
 
-export {
-  loadSvg,
-  getVertexSetOfSvg,
-  getSizeOfSvg,
-}
+export { loadSvg, getVertexSetOfSvg, getSizeOfSvg };

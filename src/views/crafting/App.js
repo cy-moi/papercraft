@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import './App.css';
 import CodeMirror from '@uiw/react-codemirror';
 import React from 'react';
+import AppLayout from '../components/AppLayout';
 
 let code = `// after RUN CODE
 // Press key 'a' to shoot
@@ -56,6 +57,7 @@ function App() {
         {/* <Button onClick={()=> window.equipShoot()}>add weapon</Button> */}
         <Button onClick={() => eval(code)}>Run Code</Button>
       </div>
+      <AppLayout />
     </div>
   );
 }

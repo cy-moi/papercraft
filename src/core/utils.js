@@ -4,19 +4,19 @@ export function fit(
   element,
   { width, height, percent = 1 },
   ignoreRatio = false,
-  overscale = false
+  overscale = false,
 ) {
-  const { width: widthGame, height: heightGame } = config.game
+  const { width: widthGame, height: heightGame } = config.game;
   // console.log(widthGame, heightGame)
   const wScale = width / widthGame;
   const hScale = height / heightGame;
   // console.log('wScale, hScale', wScale, hScale)
   const max = overscale ? Infinity : 1;
-  const scale = Math.min(wScale, hScale, max) * percent
+  const scale = Math.min(wScale, hScale, max) * percent;
 
   /* eslint-disable no-param-reassign */
-  element.scale.x = (ignoreRatio ? wScale : scale)
-  element.scale.y = (ignoreRatio ? hScale : scale)
+  element.scale.x = ignoreRatio ? wScale : scale;
+  element.scale.y = ignoreRatio ? hScale : scale;
   /* eslint-enable no-param-reassign */
 }
 
@@ -31,19 +31,19 @@ export function fit(
 export function center(
   element,
   { width, height },
-  { vertically = true, horizontally = true } = {}
+  { vertically = true, horizontally = true } = {},
 ) {
   /* eslint-disable no-param-reassign */
-  element.x = horizontally ? (width / 2) - (element.width / 2) : element.x;
-  element.y = vertically ? (height / 2) - (element.height / 2) : element.y;
+  element.x = horizontally ? width / 2 - element.width / 2 : element.x;
+  element.y = vertically ? height / 2 - element.height / 2 : element.y;
   /* eslint-enable no-param-reassign */
 }
 
 export function angleBetween(vectorA, vectorB) {
-  const angleA = Math.atan2(vectorA.y, vectorA.x)
+  const angleA = Math.atan2(vectorA.y, vectorA.x);
   // console.log(vectorA, angleA)
-  const angleB = Math.atan2(vectorB.y, vectorB.x)
+  const angleB = Math.atan2(vectorB.y, vectorB.x);
   // console.log(vectorB, angleB)
 
-  return angleB - angleA
+  return angleB - angleA;
 }

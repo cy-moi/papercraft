@@ -9,8 +9,7 @@ import { Container } from 'pixi.js';
  */
 export default class Scene extends Container {
   /* eslint-disable */
-  constructor()
-  {
+  constructor() {
     super();
   }
 
@@ -21,20 +20,16 @@ export default class Scene extends Container {
    * @param  {Number} width  Window width
    * @param  {Number} height Window height
    */
-  onResize(width, height) {
-
-  }
+  onResize(width, height) {}
 
   /**
    * Define the assets used by this scene, so they can be loaded
    * and used by all subsequent scenes
    */
-  async preload({images, sounds} = {})
-  {
+  async preload({ images, sounds } = {}) {
     // note that we don't use Promise.all here
     // since images have to be loaded over the network first
     // and then uploaded to the gpu
-
     // return Assets.load({ images, sounds }, this.onLoadProgress.bind(this))
     //   .then(() => Assets.prepareImages(images));
   }
@@ -44,9 +39,7 @@ export default class Scene extends Container {
    *
    * @param  {Number} progress Current progress value as a number
    */
-  onLoadProgress(progress) {
-
-  }
+  onLoadProgress(progress) {}
 
   /**
    * Called by the game when this scene's assets have been loaded that the content animations
@@ -59,7 +52,7 @@ export default class Scene extends Container {
   /* eslint-enable */
 
   static finish = () => {
-    console.log("finished");
+    console.log('finished');
     return Promise.resolve();
-  }
+  };
 }

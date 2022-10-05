@@ -1,17 +1,17 @@
-import Matter from "matter-js"
+import Matter from 'matter-js';
 
 export function initEngine(w, h) {
   const engine = Matter.Engine.create({
     options: {
       width: w,
-      height: h
+      height: h,
     },
     gravity: {
       x: 0,
       y: 0,
-      scale: 0.001
-    }
-  })
+      scale: 0.001,
+    },
+  });
   return engine;
 }
 
@@ -38,24 +38,33 @@ export function addFromSVG(world, addr, pos, isStatic) {
     };
 
     const loadSvg = function (url) {
-      console.log(url)
+      console.log(url);
       return fetch(url)
         .then((response) => response.text())
-        .then((raw) => (new window.DOMParser()).parseFromString(raw, 'image/svg+xml'));
+        .then((raw) =>
+          new window.DOMParser().parseFromString(raw, 'image/svg+xml'),
+        );
     };
 
-    loadSvg(addr)
-      .then((root) => {
-        const paths = select(root, 'path');
-        const vertexSets = paths.map((path) => Matter.Svg.pathToVertices(path, 30));
+    loadSvg(addr).then((root) => {
+      const paths = select(root, 'path');
+      const vertexSets = paths.map((path) =>
+        Matter.Svg.pathToVertices(path, 30),
+      );
 
-        obj = Matter.Bodies.fromVertices(pos.x, pos.y, vertexSets, {
+      obj = Matter.Bodies.fromVertices(
+        pos.x,
+        pos.y,
+        vertexSets,
+        {
           isStatic,
-        }, true);
-        Matter.World.add(world, obj);
-      });
+        },
+        true,
+      );
+      Matter.World.add(world, obj);
+    });
   } else {
     throw new Error('Fetch is not available. Could not load SVG.');
   }
-  return obj
+  return obj;
 }
