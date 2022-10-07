@@ -1,20 +1,39 @@
-import { Application } from 'pixi.js';
+import { extensions, InteractionManager } from 'pixi.js-legacy';
 import config from './config';
 import Game from './Game';
 import { Viewport } from 'pixi-viewport';
 import { center, fit } from 'Core/utils';
 import gsap from 'gsap';
 import pixi from 'gsap/PixiPlugin';
-import * as PIXI from 'pixi.js';
+// import * as PIXI from 'pixi.js-legacy';
+import { EventSystem } from '@pixi/events';
 
 gsap.registerPlugin(pixi);
-export default class CraftApp extends Application {
+
+// function onClick(e) {
+//   if (selectedTarget) {
+//     selectedTarget.position.copyFrom(e.global);
+//   }
+// }
+
+const { PIXI } = window;
+
+export default class CraftApp extends window.PIXI.Application {
   constructor() {
     super(config.view);
     this.config = config;
+    // delete PIXI.Renderer.__plugins.interaction;
+    extensions.remove(InteractionManager);
   }
 
   async init() {
+    this.renderer.addSystem(EventSystem, 'events');
+
+    this.stage.interactive = true;
+    this.stage.hitArea = this.renderer.screen;
+
+    // this.stage.addEventListener('click', onClick);
+
     animate();
 
     function animate() {

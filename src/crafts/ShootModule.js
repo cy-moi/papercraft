@@ -1,4 +1,4 @@
-import { Container } from 'pixi.js';
+import { Container, Graphics } from 'pixi.js-legacy';
 import Matter from 'matter-js';
 import MobileShape from './MobileShape';
 
@@ -56,6 +56,15 @@ export default class Shooter extends Container {
         console.log('default');
         break;
     }
+    const g = new Graphics();
+    g.beginFill(0xffffff);
+    g.drawCircle(30, 30, 30);
+    g.endFill();
+    this.addChild(g);
+    this.x = position.x;
+    this.y = position.y;
+    this.position = { ...position };
+    this.rotation = direction;
   }
 
   async shoot() {
@@ -81,4 +90,6 @@ export default class Shooter extends Container {
       return bullet;
     });
   }
+
+  bindDragHandler() {}
 }

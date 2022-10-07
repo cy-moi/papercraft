@@ -1,5 +1,5 @@
-import { Container, Graphics, Sprite, Texture } from 'pixi.js';
-import 'pixi-heaven';
+import { Container, Graphics, Sprite, Texture } from 'pixi.js-legacy';
+// import 'pixi-heaven';
 // import * as utils from '../utils/draw';
 import Matter from 'matter-js';
 // import keyboard from '../utils/keyboard';
@@ -80,7 +80,7 @@ class BasicShape extends Container {
     this.buttonMode = true;
     this.selected = false;
     this.addChild(this.sprite);
-    this.on('mousedown', this.clickEventHandler);
+    // this.on('mousedown', this.clickEventHandler);
 
     this.x = x;
     this.y = y;

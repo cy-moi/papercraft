@@ -24,6 +24,29 @@ waitFrameToStop(300);
 function App() {
   const [it, setIt] = useState(window.it);
 
+  const useMousePosition = () => {
+    const [mousePosition, setMousePosition] = React.useState({
+      x: null,
+      y: null,
+    });
+
+    React.useEffect(() => {
+      const updateMousePosition = (ev) => {
+        setMousePosition({ x: ev.clientX, y: ev.clientY });
+      };
+
+      window.addEventListener('mousemove', updateMousePosition);
+
+      return () => {
+        window.removeEventListener('mousemove', updateMousePosition);
+      };
+    }, []);
+
+    return mousePosition;
+  };
+
+  const mousePosition = useMousePosition();
+
   useEffect(() => {}, [it]);
 
   return (
@@ -32,30 +55,37 @@ function App() {
       <div>
         <Button
           variant="outlined"
-          onClick={() => {
-            window.selectShape('rectangle', { width: 100, height: 100 });
-            setIt(window.it);
+          onClick={async () => {
+            await window.selectShape('rectangle', { width: 100, height: 100 });
+            setIt(window.getCraft(window.playground, window.it.id));
           }}
         >
           rectangle
         </Button>
         <Button
           variant="outlined"
-          onClick={() => {
-            window.selectShape('circle', {}, 100);
-            setIt(window.it);
+          onClick={async () => {
+            await window.selectShape('circle', {}, 100);
+            setIt(window.getCraft(window.playground, window.it.id));
           }}
         >
           circle
         </Button>
-        <Button variant="outlined" onClick={() => window.addPolygonCraft(3)}>
-          Triangle
-        </Button>
-        <Button variant="outlined" onClick={() => window.addPolygonCraft(5)}>
-          Penta
-        </Button>
-        <Button variant="outlined" onClick={() => window.addPolygonCraft(12)}>
-          Dodecagon
+        <Button
+          onClick={async () => {
+            const weapon = await window.getNewWeapon(
+              'bullet',
+              mousePosition,
+              1,
+              { radius: 5 },
+              'keypress',
+            );
+            console.log(weapon);
+            weapon.dragging = true;
+            weapon.bindDragHandler();
+          }}
+        >
+          weapon
         </Button>
       </div>
       <CodeMirror

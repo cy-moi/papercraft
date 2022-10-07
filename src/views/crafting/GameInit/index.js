@@ -1,29 +1,58 @@
-import Application from './Craftground';
-import * as PIXI from 'pixi.js';
+import * as PIXI from 'pixi.js-legacy';
 import 'Src/scripts';
+import CraftApp from './Craftground';
 
-if (process.env.NODE_ENV === 'development') {
-  window.PIXI = PIXI;
-}
+// if (process.env.NODE_ENV === 'development') {
+window.PIXI = PIXI;
+// }
+
+PIXI.extensions.remove(PIXI.InteractionManager);
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new Application({
+  const craftapp = new CraftApp({
     antialias: true,
     resolution: window.devicePixelRatio || 1,
   });
   // app.ticker.autoStart = false
-  app.ticker.stop();
-  window.app = app;
-  app.init();
+  // app.ticker.stop();
+  // window.app = app;
+  craftapp.init();
 });
 window.counter = 0;
+
+window.getNewWeapon = async function (
+  type,
+  position,
+  direction,
+  speed,
+  config,
+  action,
+) {
+  // const slots = window.it.getEquipSlots();
+  // console.log(slots)
+  const { playground, addCraft } = window;
+  const shooter = await addCraft({
+    type,
+    id: 'colorball',
+    model: 'Weapon',
+    host: playground,
+    position,
+    direction,
+    speed,
+    config,
+  });
+  window.addEventListener(action, (e) => {
+    if (e.key === 'a') shooter.shoot();
+  });
+  return shooter;
+};
 
 window.selectShape = async function (shape, size = {}, radius = 0) {
   const { playground, addCraft, removeAllCrafts } = window;
   // console.log(playground.children)
   await removeAllCrafts(playground);
   window.it = await addCraft({
-    id: `${shape}`,
+    id: `${shape}${playground.children.length}`,
     model: 'MobileShape',
     host: playground,
     type: shape,

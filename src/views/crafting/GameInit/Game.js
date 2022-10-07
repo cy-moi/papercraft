@@ -1,5 +1,5 @@
 import Playground from './Playground';
-import { Container } from 'pixi.js';
+import { Container } from 'pixi.js-legacy';
 
 export default class Game extends Container {
   constructor() {
@@ -8,11 +8,11 @@ export default class Game extends Container {
   }
 
   async init() {
-    this.playground = new Playground()
-    await this.playground.init()
-    this.addChild(this.playground)
-    window.playground = this.playground
-    window.dispatchEvent(new Event('gameInit'))
+    this.playground = new Playground();
+    await this.playground.init();
+    this.addChild(this.playground);
+    window.playground = this.playground;
+    window.dispatchEvent(new Event('gameInit'));
   }
 
   // switchScene(constructor) {
@@ -24,6 +24,6 @@ export default class Game extends Container {
   // }
 
   onResize({ width, height, percent = 1 }) {
-    this.playground.onResize({ width, height, percent })
+    this.playground.onResize({ width, height, percent });
   }
 }

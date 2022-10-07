@@ -3,28 +3,28 @@ export default {
     width: window.innerWidth,
     height: window.innerHeight,
     backgroundColor: 0xffffff,
-    worldWidth: 900,
-    worldHeight: 900,
+    worldWidth: window.innerWidth, // 900
+    worldHeight: window.innerHeight, // 900
     fit: true,
     center: true,
     percent: 0.8,
-    antialias: true
+    antialias: true,
   },
   game: {
-    width: 900,
-    height: 900,
+    width: window.innerWidth, // 900
+    height: window.innerHeight, // 900
     drag: true,
     pinch: true,
     decelerate: true,
-    wheel: true
+    wheel: true,
   },
   scenes: {
     Splash: {
-      hideDelay: 0
-    }
+      hideDelay: 0,
+    },
   },
   assets: {
-    root: '/'
+    root: '/',
   },
   runner: {
     fpsBase: 30, // fpsBase is the absolute ratio of time and tick count
@@ -36,7 +36,7 @@ export default {
     fill: 'white',
     fontFamily: 'Comic Sans MS',
     fontWeight: 'bold',
-    padding: 5
+    padding: 5,
   },
   dialogTextStyle: {
     breakWords: true,
@@ -45,6 +45,6 @@ export default {
     fontSize: 14,
     stroke: 'white',
     wordWrap: true,
-    wordWrapWidth: 180
-  }
-}
+    wordWrapWidth: 180,
+  },
+};
