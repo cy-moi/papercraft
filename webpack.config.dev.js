@@ -1,6 +1,6 @@
-const webpack = require("webpack");
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
@@ -12,13 +12,13 @@ const config = {
     alias: {
       Src: path.resolve(__dirname, 'src/'),
       Core: path.resolve(__dirname, 'src/core/'),
-      Assets: path.resolve(__dirname, 'assets/')
+      Assets: path.resolve(__dirname, 'assets/'),
     },
   },
-  devtool: "cheap-module-source-map",
+  devtool: 'cheap-module-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, './assets'),
-    contentBasePublicPath: '/assets'
+    contentBasePublicPath: '/assets',
   },
   module: {
     rules: [
@@ -26,29 +26,34 @@ const config = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
       },
       {
         test: [/\.vert$/, /\.frag$/],
-        use: "raw-loader"
+        use: 'raw-loader',
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       // {
       //   test: /\.(gif|png|jpe?g|svg|xml|wav)$/i,
       //   use: "file-loader"
       // }
-    ]
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
       ENV: JSON.stringify('dev'),
     }),
     new HtmlWebpackPlugin({
-      template: "./index.html"
+      template: './index.html',
     }),
     new webpack.ProvidePlugin({ 'window.decomp': 'poly-decomp' }),
     // new BundleAnalyzerPlugin()
@@ -72,4 +77,4 @@ const config = {
 // const speedMeasure = new SpeedMeasurePlugin();
 // module.exports = speedMeasure.wrap(config)
 
-module.exports = config
+module.exports = config;
