@@ -8,12 +8,12 @@ let code = `// after RUN CODE
 const pistol = it.getEquipSlots()[0];
 console.log(pistol);
 const laser = it.getEquipSlots()[1];
-window.equipShoot("bullet", pistol.slot, pistol.direction, 5, 
+window.equipShoot("bullet", 5, 
   {
     radius: 10,
     blurSize: 5
   },"keypress");
-window.equipShoot("laser", laser.slot, laser.direction, 20,
+window.equipShoot("laser", 20,
   {
     size: { width: 20, height: 2}
   }, "keypress");

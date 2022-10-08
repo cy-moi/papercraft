@@ -1,6 +1,6 @@
 import { Container, Graphics, Sprite } from 'pixi.js';
 import 'pixi-heaven';
-// import * as utils from '../utils/draw';
+import * as drawUtils from '../utils/draw';
 import Matter from 'matter-js';
 import * as utils from '../utils/vec';
 import { colors } from '../utils/colors';
@@ -63,6 +63,8 @@ class BasicShape extends Container {
       y: this.physicBody.position.y - this.physicBody.bounds.min.y,
     };
 
+    this.min = this.physicBody.bounds.min;
+
     const verts = this.physicBody.vertices.reduce((prev, cur) => {
       prev.push(cur.x - this.pivot.x);
       prev.push(cur.y - this.pivot.y);
@@ -94,24 +96,49 @@ class BasicShape extends Container {
       // for debug
       this.addDebugOutline();
     }
+
+    this.drawShootingVec();
   }
 
   getEquipSlots() {
     const minpt = this.physicBody.bounds.min;
-    const center = {
+    this.center = {
       x: minpt.x + (this.physicBody.bounds.max.x - minpt.x) / 2.0,
       y: minpt.y + (this.physicBody.bounds.max.y - minpt.y) / 2.0,
     };
-    return this.physicBody.vertices.map((item) => ({
+    return this.physicBody.parts[0].vertices.map((item) => ({
       slot: {
         x: item.x - this.physicBody.bounds.min.x,
         y: item.y - this.physicBody.bounds.min.y,
       },
+      vector: {
+        x: this.pivot.x - item.x,
+        y: this.pivot.y - item.y,
+      },
       direction: utils.angleBetween(
-        { x: 0, y: 1 },
-        { x: center.x - item.x, y: item.y - center.y },
+        { x: this.pivot.x, y: this.pivot.y + 100 },
+        { x: this.pivot.x - item.x, y: this.pivot.y - item.y },
       ),
     }));
+  }
+
+  drawShootingVec() {
+    const shootPos = this.getEquipSlots();
+    // console.log(shootPos);
+    shootPos.map((pos) => {
+      this.slot1 = new Graphics();
+      this.slot1.lineStyle(2, 0x0000ff);
+      this.slot1.drawCircle(pos.slot.x, pos.slot.y, 4);
+      this.addChild(this.slot1);
+      const arrow = new drawUtils.Line([
+        pos.slot.x,
+        pos.slot.y,
+        pos.vector.x,
+        pos.vector.y,
+      ]);
+      this.addChild(arrow);
+      return true;
+    });
   }
 
   update() {

@@ -50,15 +50,8 @@ window.addPolygonCraft = async function (sides = 3) {
   });
 };
 
-window.equipShoot = async function (
-  type,
-  position,
-  direction,
-  speed,
-  config,
-  action,
-) {
-  const { addCraft } = window;
+window.equipShoot = async function (type, speed, config, action) {
+  const { playground, addCraft } = window;
   if (!window.it) throw new Error('no body selected');
   // const slots = window.it.getEquipSlots();
   // console.log(slots)
@@ -66,9 +59,9 @@ window.equipShoot = async function (
     type,
     id: 'colorball',
     model: 'Weapon',
-    host: window.it,
-    position,
-    direction,
+    follow: window.it,
+    host: playground,
+    slot: 0,
     speed,
     config,
   });
