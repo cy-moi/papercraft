@@ -1,4 +1,5 @@
 import { Container, Sprite, Graphics } from 'pixi.js';
+// import { MouseEvents } from 'Src/utils/events';
 
 export const North = { x: 0, y: -1 };
 
@@ -17,20 +18,32 @@ export default class Shooter extends Container {
     speed,
     config,
   }) {
-    this.graphics = new Graphics();
     this.follow = follow;
     // const {x, y} = position;
     this.slotId = slot;
     const equip = this.follow.getEquipSlots()[slot];
     console.log(equip);
     this.startPos = equip.slot;
+
+    this.graphics = new Graphics();
+    this.graphics.lineStyle(5, 0xff00ff, 1);
+    this.graphics.arc(0, 0, 10, 0, Math.PI / 2.0);
+
+    const shooter = window.app.renderer.generateTexture(this.graphics);
+    this.graphics.clear();
+    this.sprite = new Sprite(shooter);
+    this.sprite.x = this.follow.min.x + this.startPos.x + 10; // plus radius * 2
+    this.sprite.y = this.follow.min.y + this.startPos.y + 10;
+    this.sprite.rotation = equip.direction;
+    this.addChild(this.sprite);
+
     // console.log(this.startPos);
     this.shootVec = equip.direction;
     this.shootSpeed = speed;
     // let options;
     // console.log(config)
     const { size, radius } = config;
-    const { width, height } = size;
+    // const { width, height } = size;
     console.log(type);
     switch (type) {
       case 'bullet':
@@ -44,13 +57,14 @@ export default class Shooter extends Container {
         console.log('rectangle');
 
         this.graphics.beginFill(this.color);
-        this.graphics.drawRect(0, 0, width, height);
+        this.graphics.drawRect(0, 0, size.width, size.height);
         this.graphics.endFill();
         break;
       default:
         break;
     }
     this.bulletTexture = window.app.renderer.generateTexture(this.graphics);
+    // this.mouse = MouseEvents(this);
   }
 
   async shoot() {
@@ -73,6 +87,8 @@ export default class Shooter extends Container {
     if (equip) {
       this.startPos = equip.slot;
       this.shootVec = equip.direction;
+      this.sprite.position.x = this.follow.min.x + this.startPos.x;
+      this.sprite.position.y = this.follow.min.y + this.startPos.y;
     }
     this.bullets.map((bullet) => {
       // console.log(bullet.x, bullet.y, bullet.rotation)

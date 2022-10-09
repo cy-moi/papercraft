@@ -1,5 +1,4 @@
 import { Container, Graphics, Sprite } from 'pixi.js';
-import 'pixi-heaven';
 import * as drawUtils from '../utils/draw';
 import Matter from 'matter-js';
 import * as utils from '../utils/vec';
@@ -116,7 +115,7 @@ class BasicShape extends Container {
         y: this.pivot.y - item.y,
       },
       direction: utils.angleBetween(
-        { x: this.pivot.x, y: this.pivot.y + 100 },
+        { x: this.pivot.x + 100, y: this.pivot.y },
         { x: this.pivot.x - item.x, y: this.pivot.y - item.y },
       ),
     }));

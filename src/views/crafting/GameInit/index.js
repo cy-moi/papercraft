@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resolution: window.devicePixelRatio || 1,
   });
   // app.ticker.autoStart = false
-  app.ticker.stop();
+  // app.ticker.stop();
   window.app = app;
   app.init();
 });
@@ -50,7 +50,7 @@ window.addPolygonCraft = async function (sides = 3) {
   });
 };
 
-window.equipShoot = async function (type, speed, config, action) {
+window.equipShoot = async function (type, slot, speed, config, action) {
   const { playground, addCraft } = window;
   if (!window.it) throw new Error('no body selected');
   // const slots = window.it.getEquipSlots();
@@ -61,7 +61,7 @@ window.equipShoot = async function (type, speed, config, action) {
     model: 'Weapon',
     follow: window.it,
     host: playground,
-    slot: 0,
+    slot,
     speed,
     config,
   });

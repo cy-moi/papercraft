@@ -17,7 +17,7 @@ export function setEventFunction(name, obj) {
   return obj.mouse[name];
 }
 
-export const MouseEvents = function (obj) {
+export const MouseEvents = (obj) => {
   obj.mouse = this;
   obj.interactive = true;
   this._clicked0 = false;
