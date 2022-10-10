@@ -63,6 +63,8 @@ class BasicShape extends Container {
       y: this.physicBody.position.y - this.physicBody.bounds.min.y,
     };
 
+    console.log(this.pivot, 'realpivot');
+
     this.min = this.physicBody.bounds.min;
 
     const verts = this.physicBody.vertices.reduce((prev, cur) => {
@@ -106,6 +108,7 @@ class BasicShape extends Container {
       x: minpt.x + (this.physicBody.bounds.max.x - minpt.x) / 2.0,
       y: minpt.y + (this.physicBody.bounds.max.y - minpt.y) / 2.0,
     };
+    // console.log(this.pivot);
     return this.physicBody.parts[0].vertices.map((item) => ({
       slot: {
         x: item.x - this.physicBody.bounds.min.x,
@@ -116,8 +119,8 @@ class BasicShape extends Container {
         y: this.pivot.y - item.y,
       },
       direction: utils.angleBetween(
-        { x: this.pivot.x + 100, y: this.pivot.y },
-        { x: this.pivot.x - item.x, y: this.pivot.y - item.y },
+        { x: this.position.x, y: this.position.y },
+        { x: this.position.x - item.x, y: this.position.y - item.y },
       ),
     }));
   }

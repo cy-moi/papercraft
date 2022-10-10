@@ -1,4 +1,5 @@
 export function angleBetween(vectorA, vectorB) {
+  // console.log(vectorA, vectorB);
   const angleA = Math.atan2(vectorA.y, vectorA.x);
   const angleB = Math.atan2(vectorB.y, vectorB.x);
 

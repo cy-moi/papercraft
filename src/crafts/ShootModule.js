@@ -149,9 +149,9 @@ export default class Shooter extends Container {
     this.bullets.map((bullet) => {
       // console.log(bullet.x, bullet.y, bullet.rotation)
       // console.log(Math.cos(bullet.rotation))
-      if (bullet.life > 500) {
+      if (bullet.life > 100) {
         this.removeChild(bullet);
-        bullet.destroy();
+        // bullet.destroy();
         return false;
       }
       bullet.x += Math.cos(this.shootVec) * this.shootSpeed;
