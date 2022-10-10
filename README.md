@@ -22,11 +22,11 @@ Refer to `package.json` and `yarn.lock` if any pacakge version conflicts happen.
 # TODO
 
 1. Add another layer of shape creation APIs which will create corresponding polygons.
-   2.✅ Add weapon/defense slot properties to static shape: another class of shapes inherented from the basic shapes. The MobileShape class will inherent this class.
-2. Add boudaries to the creation sesssion
-   4.✅ Fix the viewport, limit the movement with boundaries
-3. Procedural generation with terrains and enemies
-   6.☑️ The ui of vessel creation
+2. ✅ Add weapon/defense slot properties to static shape: another class of shapes inherented from the basic shapes. The MobileShape class will inherent this class.
+3. Add boudaries to the creation sesssion
+4. ✅ Fix the viewport, limit the movement with boundaries
+5. Procedural generation with terrains and enemies
+6. ☑️ The ui of vessel creation
 
 # References
 
