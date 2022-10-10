@@ -1,4 +1,5 @@
 import { Container, Graphics } from 'pixi.js';
+import { containersIntersect } from 'Src/utils/vec';
 
 export default class EquipSlotHint extends Container {
   constructor(id) {
@@ -20,7 +21,7 @@ export default class EquipSlotHint extends Container {
     this.alpha = 0.5;
     this.graphics.drawCircle(0, 0, radius);
     this.addChild(this.graphics);
-    this.on('pointerdown', this.onMouseClick);
+    // this.on('pointerdown', this.onMouseClick);
   }
 
   update() {
@@ -29,27 +30,20 @@ export default class EquipSlotHint extends Container {
   }
 
   checkInside(a) {
-    // source: https://www.html5gamedevs.com/topic/24408-collision-detection/?do=findComment&comment=139535
-    const ab = a.getBounds();
-    const bb = this.getBounds();
-    this.hit =
-      ab.x + ab.width > bb.x &&
-      ab.x < bb.x + bb.width &&
-      ab.y + ab.height > bb.y &&
-      ab.y < bb.y + bb.height;
+    this.hit = containersIntersect(a, this);
     return this.hit;
   }
 
-  onMouseClick() {
-    console.log('cliickkk');
-    this.alpha = 0.7;
-  }
-
-  onMouseHover() {
-    this.alpha = 1.0;
-  }
-
-  onMouseOut() {
-    this.alpha = 0.5;
-  }
+  // onMouseClick() {
+  //   console.log('cliickkk');
+  //   this.alpha = 0.7;
+  // }
+  //
+  // onMouseHover() {
+  //   this.alpha = 1.0;
+  // }
+  //
+  // onMouseOut() {
+  //   this.alpha = 0.5;
+  // }
 }
