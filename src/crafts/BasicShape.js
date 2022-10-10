@@ -3,6 +3,7 @@ import * as drawUtils from '../utils/draw';
 import Matter from 'matter-js';
 import * as utils from '../utils/vec';
 import { colors } from '../utils/colors';
+import EquipSlotHint from './EquipSlot';
 
 class BasicShape extends Container {
   constructor(id, options) {
@@ -124,11 +125,16 @@ class BasicShape extends Container {
   drawShootingVec() {
     const shootPos = this.getEquipSlots();
     // console.log(shootPos);
-    shootPos.map((pos) => {
-      this.slot1 = new Graphics();
-      this.slot1.lineStyle(2, 0x0000ff);
-      this.slot1.drawCircle(pos.slot.x, pos.slot.y, 4);
-      this.addChild(this.slot1);
+    this.slots = [];
+    shootPos.map((pos, ind) => {
+      const hint = new EquipSlotHint(`hint${ind}`);
+      hint.init({
+        position: pos.slot,
+        radius: 10,
+      });
+      this.slots.push(hint);
+      this.addChild(this.slots[ind]);
+
       const arrow = new drawUtils.Line([
         pos.slot.x,
         pos.slot.y,
@@ -148,21 +154,15 @@ class BasicShape extends Container {
 
   clickEventHandler(e) {
     // unselect last
-    if (window.it) {
+    if (window.it && window.it !== this) {
       window.it.selected = false;
       window.it.alpha = 1.0;
     }
 
     // select this
     this.selected = !this.selected;
-    // console.log("Mousedown")
-    if (this.selected) {
-      this.alpha = 0.5;
-      window.it = this;
-    } else {
-      this.alpha = 1.0;
-      window.it = null;
-    }
+    this.alpha = this.selected ? 0.5 : 1.0;
+    window.it = this.selected ? this : null;
   }
 
   getRandomInt = (max) => Math.floor(Math.random() * max);

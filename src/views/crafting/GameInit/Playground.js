@@ -22,6 +22,7 @@ export default class Playground extends Scene {
     ground.y = 500 - ground.height / 2;
 
     this.addChild(ground);
+    this.interactive = true;
 
     this.engine = initEngine(this.width, this.height);
 
