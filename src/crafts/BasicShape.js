@@ -67,14 +67,14 @@ class BasicShape extends Container {
 
     this.min = this.physicBody.bounds.min;
 
-    const verts = this.physicBody.vertices.reduce((prev, cur) => {
+    this.verts = this.physicBody.vertices.reduce((prev, cur) => {
       prev.push(cur.x - this.pivot.x);
       prev.push(cur.y - this.pivot.y);
       return prev;
     }, []);
 
     this.graphics.beginFill(this.color);
-    this.graphics.drawPolygon(verts);
+    this.graphics.drawPolygon(this.verts);
     this.graphics.endFill();
     this.sprite = new Sprite(
       window.app.renderer.generateTexture(this.graphics),
@@ -103,13 +103,13 @@ class BasicShape extends Container {
   }
 
   getEquipSlots() {
-    const minpt = this.physicBody.bounds.min;
-    this.center = {
-      x: minpt.x + (this.physicBody.bounds.max.x - minpt.x) / 2.0,
-      y: minpt.y + (this.physicBody.bounds.max.y - minpt.y) / 2.0,
+    // const vertNum = this.verts.length;
+    const north = {
+      x: (this.verts[0] - this.verts[2]) / 2.0 - this.pivot.x,
+      y: (this.verts[1] - this.verts[3]) / 2.0 - this.pivot.y,
     };
-    // console.log(this.pivot);
-    return this.physicBody.parts[0].vertices.map((item) => ({
+    console.log(this.verts, this.verts.length, this.verts[0]);
+    return this.physicBody.parts[0].vertices.map((item, ind) => ({
       slot: {
         x: item.x - this.physicBody.bounds.min.x,
         y: item.y - this.physicBody.bounds.min.y,
@@ -118,10 +118,12 @@ class BasicShape extends Container {
         x: this.pivot.x - item.x,
         y: this.pivot.y - item.y,
       },
-      direction: utils.angleBetween(
-        { x: this.position.x, y: this.position.y },
-        { x: this.position.x - item.x, y: this.position.y - item.y },
-      ),
+      direction:
+        this.rotation +
+        utils.angleBetween(
+          { x: item.x - this.pivot.x, y: item.y - this.pivot.y },
+          north,
+        ),
     }));
   }
 

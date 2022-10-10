@@ -17,6 +17,7 @@ export default class Shooter extends Container {
     follow,
     lifeSpan,
     slot, // from 0 to PI
+    direction,
     speed,
     config,
   }) {
@@ -36,11 +37,11 @@ export default class Shooter extends Container {
     this.sprite = new Sprite(shooter);
     this.sprite.x = this.follow.min.x + this.startPos.x + 10; // plus radius * 2
     this.sprite.y = this.follow.min.y + this.startPos.y + 10;
-    this.sprite.rotation = equip.direction;
+    this.sprite.rotation = direction || 0 - Math.PI / 4.0;
     this.addChild(this.sprite);
 
     // console.log(this.startPos);
-    this.shootVec = equip.direction;
+    this.shootVec = direction || 0;
     this.shootSpeed = speed;
     // let options;
     // console.log(config)
@@ -138,9 +139,10 @@ export default class Shooter extends Container {
     const equip = this.follow.getEquipSlots()[this.slotId];
     if (equip) {
       this.startPos = equip.slot;
-      this.shootVec = equip.direction;
+      // this.shootVec = equip.direction;
       this.sprite.position.x = this.follow.min.x + this.startPos.x;
       this.sprite.position.y = this.follow.min.y + this.startPos.y;
+      // this.sprite.rotation = equip.direction;
     }
   }
 
