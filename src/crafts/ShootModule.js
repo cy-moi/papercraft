@@ -95,6 +95,22 @@ export default class Shooter extends Container {
     this.data = event.data;
     this.alpha = 0.5;
     this.dragging = true;
+    this.detectSlot();
+    // this.slotId = t < 0 ? this.slotId : t;
+    this.updateSlot();
+  }
+
+  detectSlot() {
+    window.playground.craftAll.forEach((child) => {
+      if (child.slots && child.slots.length > 0) {
+        Object.keys(child.slots).forEach((slotId) => {
+          if (child.slots[slotId].checkInside(this)) {
+            this.slotId = slotId;
+          }
+        });
+      }
+    });
+    // return -1;
   }
 
   onDragEnd() {
@@ -102,19 +118,23 @@ export default class Shooter extends Container {
     this.dragging = false;
     // set the interaction data to null
     this.data = null;
+    this.updateSlot();
   }
 
   onDragMove() {
     if (this.dragging) {
       const newPosition = this.data.getLocalPosition(this.parent);
 
-      console.log(this.data, this);
+      // console.log(this.data, this);
       this.sprite.x = newPosition.x;
       this.sprite.y = newPosition.y;
+      this.detectSlot();
+      // this.slotId = t < 0 ? this.slotId : t;
+      // this.updateSlot();
     }
   }
 
-  update() {
+  updateSlot() {
     const equip = this.follow.getEquipSlots()[this.slotId];
     if (equip) {
       this.startPos = equip.slot;
@@ -122,6 +142,10 @@ export default class Shooter extends Container {
       this.sprite.position.x = this.follow.min.x + this.startPos.x;
       this.sprite.position.y = this.follow.min.y + this.startPos.y;
     }
+  }
+
+  update() {
+    this.updateSlot();
     this.bullets.map((bullet) => {
       // console.log(bullet.x, bullet.y, bullet.rotation)
       // console.log(Math.cos(bullet.rotation))

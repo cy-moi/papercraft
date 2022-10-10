@@ -150,6 +150,7 @@ class BasicShape extends Container {
     this.x = this.physicBody.position.x;
     this.y = this.physicBody.position.y;
     this.rotation = this.physicBody.angle;
+    this.slots.forEach((it) => it.update());
   }
 
   clickEventHandler(e) {

@@ -23,6 +23,23 @@ export default class EquipSlotHint extends Container {
     this.on('pointerdown', this.onMouseClick);
   }
 
+  update() {
+    if (this.hit) this.alpha = 1;
+    else this.alpha = 0.5;
+  }
+
+  checkInside(a) {
+    // source: https://www.html5gamedevs.com/topic/24408-collision-detection/?do=findComment&comment=139535
+    const ab = a.getBounds();
+    const bb = this.getBounds();
+    this.hit =
+      ab.x + ab.width > bb.x &&
+      ab.x < bb.x + bb.width &&
+      ab.y + ab.height > bb.y &&
+      ab.y < bb.y + bb.height;
+    return this.hit;
+  }
+
   onMouseClick() {
     console.log('cliickkk');
     this.alpha = 0.7;
