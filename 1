@@ -10,7 +10,6 @@ export default class Shooter extends Container {
     this.bullets = [];
     this.interactive = true;
     this.buttonMode = true;
-    this.label = 'weapon';
   }
 
   async init({
@@ -20,13 +19,11 @@ export default class Shooter extends Container {
     slot, // from 0 to PI
     direction,
     speed,
-    harm,
     config,
   }) {
     this.follow = follow;
-    this.slotId = slot || 0;
-    this.harm = harm || 10;
-
+    // const {x, y} = position;
+    this.slotId = slot;
     const equip = this.follow.getEquipSlots()[slot];
     console.log(equip);
     this.startPos = equip.slot;
@@ -41,9 +38,9 @@ export default class Shooter extends Container {
     this.sprite.x = this.follow.min.x + this.startPos.x + 10; // plus radius * 2
     this.sprite.y = this.follow.min.y + this.startPos.y + 10;
 
-    this.direction = direction || 0 - Math.PI / 4.0;
-
-    this.sprite.rotation = this.follow.rotation + this.direction;
+    this.direction =   direction || 0 - Math.PI / 4.0;
+    
+    this.sprite.rotation = this.follow.rotation + this.direction; 
     this.addChild(this.sprite);
 
     // console.log(this.startPos);
@@ -91,8 +88,7 @@ export default class Shooter extends Container {
     bullet.y = this.follow.min.y + this.startPos.y;
     bullet.rotation = this.shootVec;
     bullet.life = 0;
-
-    this.parent.addChild(bullet);
+    this.addChild(bullet);
     this.bullets.push(bullet);
   }
 
@@ -108,24 +104,13 @@ export default class Shooter extends Container {
     this.updateSlot();
   }
 
-  bulletHit(b) {
-    window.playground.craftAll.forEach((child) => {
-      if (child.slots && child !== this.follow) {
-        if (child.checkInside(b)) {
-          child.health -= this.harm;
-          b.life = Infinity;
-        }
-      }
-    });
-  }
-
   detectSlot() {
     window.playground.craftAll.forEach((child) => {
       if (child.slots && child.slots.length > 0) {
         Object.keys(child.slots).forEach((slotId) => {
           if (child.slots[slotId].checkInside(this)) {
             this.slotId = slotId;
-            this.follow = child.slots[slotId].host;
+            this.follow = child.slots[slotId].follow;
           }
         });
       }
@@ -167,26 +152,18 @@ export default class Shooter extends Container {
 
   update() {
     this.updateSlot();
-    // const initBullets = [];
-    this.bullets = this.bullets.slice(0).reduce((bullets, it) => {
+    this.bullets.map((bullet) => {
       // console.log(bullet.x, bullet.y, bullet.rotation)
       // console.log(Math.cos(bullet.rotation))
-      if (it.life > 100) {
-        this.parent.removeChild(it);
-        return bullets;
+      if (bullet.life > 100) {
+        this.removeChild(bullet);
         // bullet.destroy();
-        // return false;
+        return false;
       }
-      it.x += Math.cos(this.shootVec) * this.shootSpeed;
-      it.y += Math.sin(this.shootVec) * this.shootSpeed;
-      it.life += 1;
-
-      this.bulletHit(it);
-
-      bullets.push(it);
-      return bullets;
-    }, []);
-
-    // console.log(this.bullets.length);
+      bullet.x += Math.cos(this.shootVec) * this.shootSpeed;
+      bullet.y += Math.sin(this.shootVec) * this.shootSpeed;
+      bullet.life += 1;
+      return true;
+    });
   }
 }

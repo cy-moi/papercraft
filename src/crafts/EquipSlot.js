@@ -9,9 +9,9 @@ export default class EquipSlotHint extends Container {
     this.buttonMode = true;
   }
 
-  async init({ follow, position, radius }) {
+  async init({ host, position, radius }) {
     const { x, y } = position;
-    this.follow = follow;
+    this.host = host;
     this.x = x;
     this.y = y;
     // console.log(this.x, this.y, this.follow, this.follow.min);

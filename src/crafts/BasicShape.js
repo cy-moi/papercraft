@@ -17,7 +17,7 @@ class BasicShape extends Container {
     size: { width, height } = {},
     radius = 10,
     sides,
-    slope,
+    health,
     isStatic,
     debug,
   }) {
@@ -26,6 +26,7 @@ class BasicShape extends Container {
 
     // this.addChild(this.graphics);
     this.color = colors[Object.keys(colors)[this.getRandomInt(4)]];
+    this.health = health || 200;
 
     // TODO: fill shape with random color
     switch (type) {
@@ -34,6 +35,8 @@ class BasicShape extends Container {
         this.physicBody = Matter.Bodies.rectangle(0, 0, width, height, {
           isStatic,
         });
+        this.checkInside = (a) =>
+          utils.polygonIntersect(this.physicBody.vertices, a);
         break;
       case 'circle':
         this.physicBody = Matter.Bodies.circle(0, 0, radius, {
@@ -41,12 +44,16 @@ class BasicShape extends Container {
           frictionAir: 0.1,
         });
         this.radius = radius;
+        this.checkInside = (a) =>
+          utils.circleIntersect(this.physicBody.position, radius, a);
         // this.hitArea = new PIXI.Circle(0, 0, radius);
         break;
       case 'polygon':
         this.physicBody = Matter.Bodies.polygon(0, 0, sides, radius, {
           isStatic,
         });
+        this.checkInside = (a) =>
+          utils.polygonIntersect(this.physicBody.vertices, a);
         // console.log(this.physicBody.vertices);
         break;
       default:
@@ -108,7 +115,7 @@ class BasicShape extends Container {
       x: (this.verts[0] - this.verts[2]) / 2.0 - this.pivot.x,
       y: (this.verts[1] - this.verts[3]) / 2.0 - this.pivot.y,
     };
-    console.log(this.verts, this.verts.length, this.verts[0]);
+    // console.log(this.verts, this.verts.length, this.verts[0]);
     return this.physicBody.parts[0].vertices.map((item, ind) => ({
       slot: {
         x: item.x - this.physicBody.bounds.min.x,
@@ -134,6 +141,7 @@ class BasicShape extends Container {
     shootPos.map((pos, ind) => {
       const hint = new EquipSlotHint(`hint${ind}`);
       hint.init({
+        host: this,
         position: pos.slot,
         radius: 10,
       });
@@ -150,6 +158,12 @@ class BasicShape extends Container {
       return true;
     });
   }
+
+  // checkInside(a) {
+  //
+  //   this.hit = utils.containersIntersect(a, this);
+  //   return this.hit;
+  // }
 
   update() {
     this.x = this.physicBody.position.x;
