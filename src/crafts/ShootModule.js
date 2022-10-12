@@ -4,7 +4,7 @@ import { Container, Sprite, Graphics } from 'pixi.js';
 export const North = { x: 0, y: -1 };
 
 export default class Shooter extends Container {
-  constructor(id, options) {
+  constructor(id, _options) {
     super();
     this.id = id;
     this.bullets = [];
@@ -22,6 +22,7 @@ export default class Shooter extends Container {
     speed,
     harm,
     config,
+    color,
   }) {
     this.follow = follow;
     this.slotId = slot || 0;

@@ -35,8 +35,7 @@ class BasicShape extends Container {
         this.physicBody = Matter.Bodies.rectangle(0, 0, width, height, {
           isStatic,
         });
-        this.checkInside = (a) =>
-          utils.polygonIntersect(this.physicBody.vertices, a);
+        this.checkInside = (a) => utils.polygonIntersect(this.physicBody.vertices, a);
         break;
       case 'circle':
         this.physicBody = Matter.Bodies.circle(0, 0, radius, {
@@ -44,16 +43,14 @@ class BasicShape extends Container {
           frictionAir: 0.1,
         });
         this.radius = radius;
-        this.checkInside = (a) =>
-          utils.circleIntersect(this.physicBody.position, radius, a);
+        this.checkInside = (a) => utils.circleIntersect(this.physicBody.position, radius, a);
         // this.hitArea = new PIXI.Circle(0, 0, radius);
         break;
       case 'polygon':
         this.physicBody = Matter.Bodies.polygon(0, 0, sides, radius, {
           isStatic,
         });
-        this.checkInside = (a) =>
-          utils.polygonIntersect(this.physicBody.vertices, a);
+        this.checkInside = (a) => utils.polygonIntersect(this.physicBody.vertices, a);
         // console.log(this.physicBody.vertices);
         break;
       default:

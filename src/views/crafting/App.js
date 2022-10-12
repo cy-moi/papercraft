@@ -27,9 +27,7 @@ function App() {
       <div>
         <Button
           variant="outlined"
-          onClick={() =>
-            window.selectShape('rectangle', { width: 100, height: 100 })
-          }
+          onClick={() => window.selectShape('rectangle', { width: 100, height: 100 })}
         >
           rectangle
         </Button>
