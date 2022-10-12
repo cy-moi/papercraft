@@ -178,8 +178,8 @@ export default class Shooter extends Container {
         // bullet.destroy();
         // return false;
       }
-      it.x += Math.cos(this.shootVec) * this.shootSpeed;
-      it.y += Math.sin(this.shootVec) * this.shootSpeed;
+      it.x += Math.cos(it.rotation) * this.shootSpeed;
+      it.y += Math.sin(it.rotation) * this.shootSpeed;
       it.life += 1;
 
       this.bulletHit(it);
