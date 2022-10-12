@@ -7,13 +7,13 @@ import WeaponCard from './WeaponCard';
 
 function AppLayout() {
   const [dashboard, setDashboard] = useState('Core');
-  
+
   const changeSession = (e) => {
-    const event = document.createEvent("HTMLEvents");
-    event.initEvent("changeSession", true, true);
-    event.eventName = "changeSession";
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('changeSession', true, true);
+    event.eventName = 'changeSession';
     document.dispatchEvent(event);
-  }
+  };
 
   return (
     <>
@@ -28,7 +28,7 @@ function AppLayout() {
       >
         {/* select menu */}
         {dashboard === 'Core' && <ShapeCarousel />}
-        {dashboard === 'Weapons' && <WeaponCard value={'Weapon1'} size={15} />}
+        {dashboard === 'Weapons' && <WeaponCard value="Weapon1" size={15} />}
       </Box>
 
       <Box

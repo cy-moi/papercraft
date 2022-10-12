@@ -50,10 +50,7 @@ function StatsCard() {
           color="white"
           key={index.toString()}
         >
-          {key}
-          {' '}
-          :
-          {stats[key]}
+          {key} :{stats[key]}
         </Typography>
       ))}
     </Paper>
