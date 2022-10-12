@@ -26,6 +26,8 @@ class MobileShape extends BasicShape {
     Matter.Body.setAngle(this.physicBody, 0);
     Matter.World.add(engine.world, this.physicBody);
     Matter.Body.setPosition(this.physicBody, this.position);
+
+    // this.bindKeyHandler();
   }
 
   update() {
@@ -91,6 +93,11 @@ class MobileShape extends BasicShape {
 
   setAngle(theta) {
     Matter.Body.setAngle(this.physicBody, (theta / 180) * Math.PI);
+  }
+
+  destroy() {
+    window.playground.removeChild(this);
+    super.destroy();
   }
 }
 

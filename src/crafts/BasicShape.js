@@ -3,6 +3,7 @@ import * as drawUtils from '../utils/draw';
 import Matter from 'matter-js';
 import * as utils from '../utils/vec';
 import { colors } from '../utils/colors';
+import { bindKeyHandler, unbindKeyHandler } from '../utils/keyboard';
 import EquipSlotHint from './EquipSlot';
 
 class BasicShape extends Container {
@@ -36,7 +37,8 @@ class BasicShape extends Container {
         this.physicBody = Matter.Bodies.rectangle(0, 0, width, height, {
           isStatic,
         });
-        this.checkInside = (a) => utils.polygonIntersect(this.physicBody.vertices, a);
+        this.checkInside = (a) =>
+          utils.polygonIntersect(this.physicBody.vertices, a);
         break;
       case 'circle':
         this.physicBody = Matter.Bodies.circle(0, 0, radius, {
@@ -44,14 +46,16 @@ class BasicShape extends Container {
           frictionAir: 0.1,
         });
         this.radius = radius;
-        this.checkInside = (a) => utils.circleIntersect(this.physicBody.position, radius, a);
+        this.checkInside = (a) =>
+          utils.circleIntersect(this.physicBody.position, radius, a);
         // this.hitArea = new PIXI.Circle(0, 0, radius);
         break;
       case 'polygon':
         this.physicBody = Matter.Bodies.polygon(0, 0, sides, radius, {
           isStatic,
         });
-        this.checkInside = (a) => utils.polygonIntersect(this.physicBody.vertices, a);
+        this.checkInside = (a) =>
+          utils.polygonIntersect(this.physicBody.vertices, a);
         // console.log(this.physicBody.vertices);
         break;
       default:
@@ -170,6 +174,8 @@ class BasicShape extends Container {
     this.y = this.physicBody.position.y;
     this.rotation = this.physicBody.angle;
     this.slots.forEach((it) => it.update());
+    this.alpha = this.selected ? 0.5 : 1.0;
+    window.it = this.selected ? this : null;
   }
 
   clickEventHandler(e) {
@@ -177,12 +183,12 @@ class BasicShape extends Container {
     if (window.it && window.it !== this) {
       window.it.selected = false;
       window.it.alpha = 1.0;
+      unbindKeyHandler(window.it);
     }
 
     // select this
+    bindKeyHandler(this);
     this.selected = !this.selected;
-    this.alpha = this.selected ? 0.5 : 1.0;
-    window.it = this.selected ? this : null;
   }
 
   getRandomInt = (max) => Math.floor(Math.random() * max);
