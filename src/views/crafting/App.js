@@ -1,8 +1,8 @@
 import { Button } from '@mui/material';
 import './App.css';
 import CodeMirror from '@uiw/react-codemirror';
-import React from 'react';
-import AppLayout from '../components/AppLayout.tsx';
+import React, { useState, useEffect } from 'react';
+import AppLayout from '../components/AppLayout.jsx';
 
 let code = `// after RUN CODE
 // Press key 'a' to shoot
@@ -22,13 +22,28 @@ it.setSpeed(10);
 waitFrameToStop(300);
 `;
 function App() {
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    function handleChnageSession() {
+      setShow(false);
+    }
+
+    document.addEventListener('changeSession', handleChnageSession);
+
+    return (_) => {
+      document.removeEventListener('changeSession', handleChnageSession);
+    };
+  });
+
   return (
     <div className="App">
       <header className="App-header" />
       <div>
         <Button
           variant="outlined"
-          onClick={() => window.selectShape('rectangle', { width: 100, height: 100 })}
+          onClick={() =>
+            window.selectShape('rectangle', { width: 100, height: 100 })
+          }
         >
           rectangle
         </Button>
@@ -57,7 +72,7 @@ function App() {
         {/* <Button onClick={()=> window.equipShoot()}>add weapon</Button> */}
         <Button onClick={() => eval(code)}>Run Code</Button>
       </div>
-      <AppLayout />
+      {show ? <AppLayout /> : null}
     </div>
   );
 }

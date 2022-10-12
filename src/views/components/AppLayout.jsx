@@ -7,6 +7,14 @@ import WeaponCard from './WeaponCard';
 
 function AppLayout() {
   const [dashboard, setDashboard] = useState('Core');
+  
+  const changeSession = (e) => {
+    const event = document.createEvent("HTMLEvents");
+    event.initEvent("changeSession", true, true);
+    event.eventName = "changeSession";
+    document.dispatchEvent(event);
+  }
+
   return (
     <>
       <Box
@@ -53,6 +61,7 @@ function AppLayout() {
         size="large"
         color="success"
         variant="contained"
+        onClick={changeSession}
         sx={{
           // make button black
           backgroundColor: '#1A2027',

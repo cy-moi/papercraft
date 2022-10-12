@@ -5,6 +5,11 @@ import 'Src/scripts';
 if (process.env.NODE_ENV === 'development') {
   window.PIXI = PIXI;
 }
+//
+// document.addEventListener("changeSession", () => {
+//   window.session = 'battle'
+//   console.log("????");
+// });
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Application({
