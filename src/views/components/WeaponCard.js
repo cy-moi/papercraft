@@ -2,9 +2,10 @@ import React from 'react';
 
 import { Box, Grid, Typography } from '@mui/material';
 
-function WeaponCard({ value, size: number }) {
+function WeaponCard({ weapon }) {
+  console.log(weapon);
   return (
-    <Grid item key={value}>
+    <Grid item key={weapon.value}>
       <Box
         sx={{
           display: 'flex',
@@ -19,11 +20,25 @@ function WeaponCard({ value, size: number }) {
             transform: 'scale(1.25)',
           },
         }}
-        onClick={() => {}}
+        /* eslint-disable-next-line max-len */
+        onClick={() => {
+          window.equipShoot(
+            weapon.type,
+            weapon.slot,
+            weapon.speed,
+            weapon.config,
+            weapon.action,
+          );
+        }}
       >
-        <img src={`assets/${value}.svg`} width={50} height={60} alt={value} />
+        <img
+          src={`assets/${weapon.value}.svg`}
+          width={50}
+          height={60}
+          alt={weapon.value}
+        />
         <Typography fontSize={8} variant="h6" component="div" color="white">
-          Damage: {value}
+          {weapon.value}
         </Typography>
       </Box>
     </Grid>

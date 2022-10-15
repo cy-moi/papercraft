@@ -27,6 +27,8 @@ export default class Shooter extends Container {
     this.follow = follow;
     this.slotId = slot || 0;
     this.harm = harm || 10;
+    this.lifeSpan = lifeSpan || 100;
+    this.color = color || 0x000000;
 
     const equip = this.follow.getEquipSlots()[slot];
     console.log(equip);
