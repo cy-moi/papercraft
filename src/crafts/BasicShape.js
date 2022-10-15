@@ -170,6 +170,10 @@ class BasicShape extends Container {
   // }
 
   update() {
+    if (this.health < 0) {
+      this.removeSelf();
+      return;
+    }
     this.x = this.physicBody.position.x;
     this.y = this.physicBody.position.y;
     this.rotation = this.physicBody.angle;
@@ -189,6 +193,14 @@ class BasicShape extends Container {
     // select this
     bindKeyHandler(this);
     this.selected = !this.selected;
+  }
+
+  removeSelf() {
+    Matter.Composite.remove(engine.world, this.physicBody);
+    const { playground } = window
+    let modules = plaground.children.find(it => it.follow && it.follow === this);
+    playground.removeChild(modules);
+    playground.removeChild(this);
   }
 
   getRandomInt = (max) => Math.floor(Math.random() * max);
