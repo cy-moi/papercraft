@@ -196,9 +196,11 @@ class BasicShape extends Container {
   }
 
   removeSelf() {
-    Matter.Composite.remove(engine.world, this.physicBody);
-    const { playground } = window
-    let modules = plaground.children.find(it => it.follow && it.follow === this);
+    Matter.Composite.remove(this.engine.world, this.physicBody);
+    const { playground } = window;
+    const modules = playground.children.find(
+      (it) => it.follow && it.follow === this,
+    );
     playground.removeChild(modules);
     playground.removeChild(this);
   }

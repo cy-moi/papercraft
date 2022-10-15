@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import './App.css';
 import CodeMirror from '@uiw/react-codemirror';
 import React, { useState, useEffect } from 'react';
-import AppLayout from '../components/AppLayout.jsx';
+import AppLayout from '../components/AppLayout';
 
 let code = `// after RUN CODE
 // Press key 'a' to shoot
