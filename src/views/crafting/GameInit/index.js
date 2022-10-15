@@ -23,7 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 window.counter = 0;
 
-window.selectShape = async function (shape, size = {}, radius = 0) {
+window.selectShape = async function (
+  shape,
+  size = {},
+  radius = 0,
+  sides = 0,
+  type = '',
+) {
   const { playground, addCraft } = window;
   // console.log(playground.children)
   // await removeAllCrafts(playground);
@@ -31,9 +37,13 @@ window.selectShape = async function (shape, size = {}, radius = 0) {
     id: `${shape}`,
     model: 'MobileShape',
     host: playground,
-    type: shape,
-    position: { x: 500, y: 500 },
+    type: type === '' ? shape : type,
+    position: {
+      x: 500,
+      y: 500,
+    },
     size,
+    sides,
     radius,
     isStatic: false,
     debug: true,
@@ -47,7 +57,10 @@ window.addPolygonCraft = async function (sides = 3, size = 50) {
     model: 'MobileShape',
     host: playground,
     type: 'polygon',
-    position: { x: 500, y: 500 },
+    position: {
+      x: 500,
+      y: 500,
+    },
     sides,
     radius: size ? size : 50,
     isStatic: false,

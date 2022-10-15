@@ -1,9 +1,17 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 
-function ShapeCard({ value, size }) {
+// interface ShapeCardProps {
+//   value: string;
+//   type: string;
+//   size: any;
+//   radius: number;
+//   sides: number;
+// }
+
+function ShapeCard({ shape }) {
   return (
-    <Grid item key={value}>
+    <Grid item key={shape.value}>
       <Box
         sx={{
           display: 'flex',
@@ -20,12 +28,23 @@ function ShapeCard({ value, size }) {
         }}
         onClick={() => {
           // @ts-ignore
-          window.addPolygonCraft(3, size);
+          window.selectShape(
+            shape.value,
+            shape.size,
+            shape.radius,
+            shape.sides,
+            shape.type,
+          );
         }}
       >
-        <img src={`assets/${value}.svg`} width={50} height={60} alt={value} />
+        <img
+          src={`assets/${shape.value}.svg`}
+          width={50}
+          height={60}
+          alt={shape.value}
+        />
         <Typography fontSize={8} variant="h6" component="div" color="white">
-          {value}
+          {shape.value}
         </Typography>
       </Box>
     </Grid>

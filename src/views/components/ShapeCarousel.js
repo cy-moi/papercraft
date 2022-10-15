@@ -2,14 +2,58 @@ import React, { useState } from 'react';
 import { Grid, Slider } from '@mui/material';
 import ShapeCard from './ShapeCard';
 
+// create a function to generate a list of shapes based on the slider value
+const shapeList = (sliderValue) => [
+  {
+    value: 'circle',
+    type: '',
+    size: {},
+    radius: sliderValue,
+    sides: 0,
+  },
+  {
+    value: 'rectangle',
+    type: '',
+    size: {
+      width: 1.5 * sliderValue,
+      height: sliderValue,
+    },
+    radius: 0,
+    sides: 4,
+  },
+  {
+    value: 'triangle',
+    type: 'polygon',
+    size: {},
+    radius: sliderValue,
+    sides: 3,
+  },
+  {
+    value: 'pentagon',
+    type: 'polygon',
+    size: {
+      width: 1.5 * sliderValue,
+      height: sliderValue,
+    },
+    radius: sliderValue,
+    sides: 5,
+  },
+  {
+    value: 'decagon',
+    type: 'polygon',
+    size: {},
+    radius: sliderValue,
+    sides: 12,
+  },
+];
+
 function ShapeCarousel() {
-  const shapeList = ['circle', 'rectangle', 'triangle', 'pentagon', 'decagon'];
   const [sliderValue, setSliderValue] = useState(50);
 
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-      {shapeList.map((value, index) => (
-        <ShapeCard value={value} size={sliderValue} />
+      {shapeList(sliderValue).map((value, index) => (
+        <ShapeCard shape={value} key={index.toString()} />
       ))}
       <Slider
         sx={{
