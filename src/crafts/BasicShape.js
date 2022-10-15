@@ -179,16 +179,18 @@ class BasicShape extends Container {
     this.rotation = this.physicBody.angle;
     this.slots.forEach((it) => it.update());
     this.alpha = this.selected ? 0.5 : 1.0;
-    window.it = this.selected ? this : null;
+    if (this.selected) window.it = this;
   }
 
   clickEventHandler(e) {
     // unselect last
     if (window.it && window.it !== this) {
       window.it.selected = false;
-      window.it.alpha = 1.0;
+      // window.it.alpha = 1.0;
       unbindKeyHandler(window.it);
     }
+
+    window.it = this;
 
     // select this
     bindKeyHandler(this);
