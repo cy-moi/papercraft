@@ -36,9 +36,9 @@ export function polygonIntersect(verts, container) {
 
   // (y - y0) (x1 - x0) - (x - x0) (y1 - y0)
   const { x, y } = container.position;
-  console.log(x, y, verts);
+  // console.log(x, y, verts);
   return verts.slice(0).reduce((inside, v, ind, arr) => {
-    console.log(inside);
+    // console.log(inside);
     if (!inside) arr.splice(1);
     const next = (ind + 1) % arr.length;
     // console.log(next);

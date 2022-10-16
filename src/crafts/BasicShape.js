@@ -28,7 +28,7 @@ class BasicShape extends Container {
 
     // this.addChild(this.graphics);
     this.color = colors[Object.keys(colors)[this.getRandomInt(4)]];
-    this.health = health || 200;
+    this.health = health || 100;
 
     // TODO: fill shape with random color
     switch (type) {
