@@ -109,7 +109,7 @@ class BasicShape extends Container {
       // for debug
       this.addDebugOutline();
     }
-
+    this.drawForward();
     this.drawShootingVec();
   }
 
@@ -138,6 +138,17 @@ class BasicShape extends Container {
     }));
   }
 
+  drawForward() {
+    const { x, y } = this.pivot;
+    const arrow = new drawUtils.Line([
+      x,
+      y,
+      x + Math.cos(this.rotation) * 100,
+      y + Math.sin(this.rotation) * 100,
+    ]);
+    this.addChild(arrow);
+  }
+
   drawShootingVec() {
     const shootPos = this.getEquipSlots();
     // console.log(shootPos);
@@ -152,13 +163,13 @@ class BasicShape extends Container {
       this.slots.push(hint);
       this.addChild(this.slots[ind]);
 
-      const arrow = new drawUtils.Line([
-        pos.slot.x,
-        pos.slot.y,
-        pos.vector.x,
-        pos.vector.y,
-      ]);
-      this.addChild(arrow);
+      // const arrow = new drawUtils.Line([
+      //   pos.slot.x,
+      //   pos.slot.y,
+      //   pos.vector.x,
+      //   pos.vector.y,
+      // ]);
+      // this.addChild(arrow);
       return true;
     });
   }
@@ -202,6 +213,10 @@ class BasicShape extends Container {
     const { playground } = window;
     const modules = playground.children.find(
       (it) => it.follow && it.follow === this,
+    );
+    playground.craftAll.splice(
+      playground.craftAll.findIndex((el) => el === this),
+      1,
     );
     playground.removeChild(modules);
     playground.removeChild(this);

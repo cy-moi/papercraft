@@ -1,9 +1,5 @@
-// const { playground, addCraft } = window;
+const { playground } = window;
 
-// const changeSession = () => {
-//   const event = document.createEvent("HTMLEvents");
-//   event.initEvent("changeSession", true, true);
-//   event.eventName = "changeSession";
-//   document.dispatchEvent(event);
-//   console.log("press start");
-// }
+export const initBattle = () => {
+  playground.viewport.follow({ target: window.it });
+};

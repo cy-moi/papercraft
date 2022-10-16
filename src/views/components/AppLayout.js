@@ -2,19 +2,13 @@ import React, { useState } from 'react';
 import ShapeCarousel from './ShapeCarousel';
 // import StatsCard from './StatsCard';
 import SelectMenu from './SelectMenu';
+import { changeSession } from 'Src/utils/events';
 import { Box, Button } from '@mui/material';
 import WeaponCarousel from './WeaponCarousel';
 import StatsCard from './StatsCard';
 
 function AppLayout() {
   const [dashboard, setDashboard] = useState('Core');
-
-  const changeSession = (e) => {
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('changeSession', true, true);
-    event.eventName = 'changeSession';
-    document.dispatchEvent(event);
-  };
 
   return (
     <>
