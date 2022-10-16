@@ -6,6 +6,8 @@ import { colors } from '../utils/colors';
 import { bindKeyHandler, unbindKeyHandler } from '../utils/keyboard';
 import EquipSlotHint from './EquipSlot';
 
+export const North = { x: 0, y: -1 };
+
 class BasicShape extends Container {
   constructor(id, options) {
     super();
@@ -22,8 +24,10 @@ class BasicShape extends Container {
     isStatic,
     debug,
     baseStats,
+    mouseHandler,
   }) {
     const { engine } = window.playground;
+    this.engine = engine;
     this.graphics = new Graphics();
 
     // this.addChild(this.graphics);
@@ -63,8 +67,8 @@ class BasicShape extends Container {
         break;
     }
 
-    Matter.Composite.add(engine.world, this.physicBody);
-    Matter.Body.setPosition(this.physicBody, this.position);
+    // Matter.Composite.add(engine.world, this.physicBody);
+    // Matter.Body.setPosition(this.physicBody, this.position);
 
     // console.log(this.parent)
     this.pivot = {
@@ -72,7 +76,7 @@ class BasicShape extends Container {
       y: this.physicBody.position.y - this.physicBody.bounds.min.y,
     };
 
-    console.log(this.pivot, 'realpivot');
+    // console.log(this.pivot, 'realpivot');
 
     this.min = this.physicBody.bounds.min;
 
@@ -94,7 +98,9 @@ class BasicShape extends Container {
     this.buttonMode = true;
     this.selected = false;
     this.addChild(this.sprite);
-    this.on('mousedown', this.clickEventHandler);
+
+    const handler = mouseHandler || this.clickEventHandler;
+    this.on('mousedown', handler);
 
     this.x = x;
     this.y = y;
@@ -105,12 +111,15 @@ class BasicShape extends Container {
     // PIXI container size and position will be affected by the
     // contents added in it, so always add the debug lines at last
     // or it will affect the position of the sprite.
-    if (debug) {
-      // for debug
-      this.addDebugOutline();
-    }
+    // if (debug) this.addDebugOutline();
     // this.drawForward();
-    this.drawShootingVec();
+    if (debug) this.drawShootingVec();
+
+    this.angleOffset = utils.angleBetween(this.physicBody.axes[0], North);
+    Matter.Axes.rotate(this.physicBody.axes, this.angleOffset);
+    Matter.Body.setAngle(this.physicBody, 0);
+    Matter.World.add(engine.world, this.physicBody);
+    Matter.Body.setPosition(this.physicBody, this.position);
   }
 
   getEquipSlots() {
@@ -152,22 +161,9 @@ class BasicShape extends Container {
       this.slots.push(hint);
       this.addChild(this.slots[ind]);
 
-      // const arrow = new drawUtils.Line([
-      //   pos.slot.x,
-      //   pos.slot.y,
-      //   pos.vector.x,
-      //   pos.vector.y,
-      // ]);
-      // this.addChild(arrow);
       return true;
     });
   }
-
-  // checkInside(a) {
-  //
-  //   this.hit = utils.containersIntersect(a, this);
-  //   return this.hit;
-  // }
 
   update() {
     if (this.health < 0) {
@@ -177,7 +173,7 @@ class BasicShape extends Container {
     this.x = this.physicBody.position.x;
     this.y = this.physicBody.position.y;
     this.rotation = this.physicBody.angle;
-    this.slots.forEach((it) => it.update());
+    if (this.slots) this.slots.forEach((it) => it.update());
     this.alpha = this.selected ? 0.5 : 1.0;
     if (this.selected) window.it = this;
   }
@@ -214,42 +210,7 @@ class BasicShape extends Container {
   getRandomInt = (max) => Math.floor(Math.random() * max);
 
   // debug draw function
-  addDebugOutline = () => {
-    // this.pivotHint = new Graphics();
-    // this.pivotHint.lineStyle(2, 0x0000ff);
-    // this.pivotHint.drawCircle(this.pivot.x, this.pivot.y, 4)
-    // this.addChild(this.pivotHint)
-    // const vv = [];
-    // if (this.physicBody.parts.length > 1) {
-    //   for (let j = 1; j < this.physicBody.parts.length; j++) {
-    //     const convex = [];
-    //     for (const v of this.physicBody.parts[j].vertices) {
-    //       convex.push(v);
-    //     }
-    //     vv.push(convex);
-    //     // this.physicBody.parts[j].vertices.forEach(v=> {
-    //     //   vv.push({x: v.x, y: v.y})
-    //     // });
-    //   }
-    //   this.line = new utils.MultiPoly(vv);
-    //   this.line.position = {
-    //     x: -(this.physicBody.position.x - this.pivot.x),
-    //     y: -(this.physicBody.position.y - this.pivot.y)
-    //   }
-    //   this.addChild(this.line);
-    //   return;
-    // } else {
-    //   this.physicBody.parts[0].vertices.forEach(v => {
-    //     vv.push({ x: v.x, y: v.y })
-    //   });
-    // }
-    // this.line = new utils.Polygon(vv);
-    // this.line.position = {
-    //   x: -(this.physicBody.position.x - this.pivot.x),
-    //   y: -(this.physicBody.position.y - this.pivot.y)
-    // }
-    // this.addChild(this.line)
-  };
+  addDebugOutline = () => {};
 }
 
 export default BasicShape;

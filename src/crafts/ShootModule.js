@@ -1,4 +1,5 @@
 import { Container, Sprite, Graphics } from 'pixi.js';
+// import * as utils from 'Src/utils/vec';
 // import { MouseEvents } from 'Src/utils/events';
 
 export const North = { x: 0, y: -1 };
@@ -115,31 +116,6 @@ export default class Shooter extends Container {
     this.updateSlot();
   }
 
-  bulletHit(b) {
-    window.playground.craftAll.forEach((child) => {
-      if (child.slots && child !== this.follow) {
-        if (child.checkInside(b)) {
-          child.health -= this.harm;
-          b.life = Infinity;
-        }
-      }
-    });
-  }
-
-  detectSlot() {
-    window.playground.craftAll.forEach((child) => {
-      if (child.slots && child.slots.length > 0) {
-        Object.keys(child.slots).forEach((slotId) => {
-          if (child.slots[slotId].checkInside(this)) {
-            this.slotId = slotId;
-            this.follow = child.slots[slotId].host;
-          }
-        });
-      }
-    });
-    // return -1;
-  }
-
   onDragEnd() {
     this.alpha = 1;
     this.dragging = false;
@@ -163,6 +139,31 @@ export default class Shooter extends Container {
     }
   }
 
+  bulletHit(b) {
+    window.playground.craftAll.forEach((child) => {
+      if (child.id !== 'shooter' && child !== this.follow) {
+        if (child.checkInside(b)) {
+          child.health -= this.harm;
+          b.life = Infinity;
+        }
+      }
+    });
+  }
+
+  detectSlot() {
+    window.playground.craftAll.forEach((child) => {
+      if (child.slots && child.slots.length > 0) {
+        Object.keys(child.slots).forEach((slotId) => {
+          if (child.slots[slotId].checkInside(this)) {
+            this.slotId = slotId;
+            this.follow = child.slots[slotId].host;
+          }
+        });
+      }
+    });
+    // return -1;
+  }
+
   updateSlot() {
     const equip = this.follow.getEquipSlots()[this.slotId];
     if (equip) {
@@ -182,6 +183,7 @@ export default class Shooter extends Container {
       // console.log(Math.cos(bullet.rotation))
       if (it.life > 100) {
         this.parent.removeChild(it);
+        // this.parent.craftAll.splice(this.parent.craftAll.indexOf(e => e === it), 1);
         return bullets;
         // bullet.destroy();
         // return false;

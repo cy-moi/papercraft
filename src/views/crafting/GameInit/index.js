@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 window.counter = 0;
 
-window.selectShape = async function (
+window.selectShape = async function add(
   shape,
   size = {},
   radius = 0,
@@ -29,7 +29,7 @@ window.selectShape = async function (
   // console.log(playground.children)
   // await removeAllCrafts(playground);
   window.it = await addCraft({
-    id: `${shape}`,
+    id: 'actor',
     model: 'MobileShape',
     host: playground,
     type: type === '' ? shape : type,
@@ -45,10 +45,10 @@ window.selectShape = async function (
   });
 };
 
-window.addPolygonCraft = async function (sides = 3, size = 50) {
+window.addPolygonCraft = async function add(sides = 3, size = 50) {
   const { playground, addCraft } = window;
   await addCraft({
-    id: 'temp',
+    id: 'actor',
     model: 'MobileShape',
     host: playground,
     type: 'polygon',
@@ -63,7 +63,7 @@ window.addPolygonCraft = async function (sides = 3, size = 50) {
   });
 };
 
-window.equipShoot = async function (
+window.equipShoot = async function shoot(
   type,
   slot,
   speed,
@@ -79,7 +79,7 @@ window.equipShoot = async function (
   // console.log(slots)
   const shooter = await addCraft({
     type,
-    id: 'colorball',
+    id: 'shooter',
     model: 'Weapon',
     follow: window.it,
     host: playground,

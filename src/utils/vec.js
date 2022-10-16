@@ -31,6 +31,10 @@ export function circleIntersect(center, r, container) {
   return (x - ab.x) ** 2 + (y - ab.y) ** 2 < r ** 2;
 }
 
+export function getSquaredDistance(pt1, pt2) {
+  return (pt1.x - pt2.x) ** 2 + (pt1.y - pt2.y) ** 2;
+}
+
 export function polygonIntersect(verts, container) {
   // const ab = container.getBounds();
 

@@ -6,6 +6,16 @@
     width: 30%;
     background-color: rgba(100, 149, 237, 0.1);
 }
+
+.Footer{
+    z-index: 10000;
+    position: fixed;
+    bottom: 0;
+    left: 30%;
+    margin: 1%;
+    padding: 1%;
+    width: 30%;
+}
 .cm-editor {
     margin-top: 1%;
     width: 70%;
