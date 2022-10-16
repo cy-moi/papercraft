@@ -43,7 +43,6 @@ function AppLayout() {
           flexDirection: 'row',
           justifyContent: 'flex-end',
           height: '100%',
-          width: '100%',
           right: '20px',
         }}
       >
@@ -54,7 +53,6 @@ function AppLayout() {
         sx={{
           position: 'fixed',
           height: '100%',
-          width: '100%',
           left: '20px',
         }}
       >

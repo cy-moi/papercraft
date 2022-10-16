@@ -11,7 +11,7 @@ function StatsCard() {
   return (
     <Paper
       sx={{
-        width: '10%',
+        width: '100%',
         height: '30%',
         backgroundColor: '#1A2027',
         display: 'flex',
