@@ -136,7 +136,7 @@ export const initBattle = async () => {
     model: 'AutoShape',
     host: playground,
     type: 'polygon',
-    follow: it,
+    aim: it,
     position: { x: 200, y: config.boundary.height / 4.0 },
     radius: Math.random() * 50 + 50,
     sides: 5,
@@ -166,4 +166,12 @@ export const initBattle = async () => {
     });
     shooter.autoAim(it);
   });
+};
+
+export const exitBattle = () => {
+  const { playground, it, removeAllCrafts } = window;
+  removeAllCrafts(playground);
+  it.buttonMode = true;
+  it.health = 100;
+  playground.addChild(it);
 };

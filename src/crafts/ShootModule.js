@@ -77,7 +77,8 @@ export default class Shooter extends Container {
       default:
         break;
     }
-    this.bulletTexture = window.app.renderer.generateTexture(this.graphics);
+    this.bulletTexture =
+      config.texture || window.app.renderer.generateTexture(this.graphics);
     this.on('pointerdown', this.onDragStart)
       .on('pointerup', this.onDragEnd)
       .on('pointerupoutside', this.onDragEnd)

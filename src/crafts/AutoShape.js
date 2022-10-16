@@ -9,16 +9,16 @@ class AutoShape extends MobileShape {
 
   async init(options) {
     await super.init(options);
-    const { follow } = options;
-    this.follow = follow;
+    const { aim } = options;
+    this.aim = aim;
   }
 
   update() {
     super.update();
-    this.setSpeed(this.follow.speed);
+    this.setSpeed(this.aim.speed);
     const angle = vec.angleBetween(this.forward, {
-      x: this.x - this.follow.x,
-      y: this.y - this.follow.y,
+      x: this.x - this.aim.x,
+      y: this.y - this.aim.y,
     });
     this.setSteering(angle);
   }

@@ -27,7 +27,7 @@ function App() {
   const [show, setShow] = useState(true);
   useEffect(() => {
     function handleChnageSession() {
-      setShow(false);
+      setShow(!show);
     }
 
     document.addEventListener('changeSession', handleChnageSession);

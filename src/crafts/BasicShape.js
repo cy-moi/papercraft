@@ -5,6 +5,7 @@ import * as utils from '../utils/vec';
 import { colors } from '../utils/colors';
 import { bindKeyHandler, unbindKeyHandler } from '../utils/keyboard';
 import EquipSlotHint from './EquipSlot';
+import { changeCraftSession } from '../utils/events';
 
 export const North = { x: 0, y: -1 };
 
@@ -24,6 +25,7 @@ class BasicShape extends Container {
     isStatic,
     debug,
     baseStats,
+    texture,
     mouseHandler,
   }) {
     const { engine } = window.playground;
@@ -89,9 +91,9 @@ class BasicShape extends Container {
     this.graphics.beginFill(this.color);
     this.graphics.drawPolygon(this.verts);
     this.graphics.endFill();
-    this.sprite = new Sprite(
-      window.app.renderer.generateTexture(this.graphics),
-    );
+    this.texture =
+      texture || window.app.renderer.generateTexture(this.graphics);
+    this.sprite = new Sprite(this.texture);
 
     // interact with sprite
     this.interactive = true;
@@ -167,6 +169,7 @@ class BasicShape extends Container {
 
   update() {
     if (this.health < 0) {
+      if (this === window.it) changeCraftSession();
       this.removeSelf();
       return;
     }
