@@ -29,15 +29,12 @@ Refer to `package.json` and `yarn.lock` if any pacakge version conflicts happen.
 4. ✅ Fix the viewport, limit the movement with boundaries
 5. Procedural generation with terrains and enemies
 6. ☑️ The ui of vessel creation
-<<<<<<< HEAD
-=======
 
 # Bucket
 1. Arrows for weapons
 2. Arrow damage depends on color
 3. Drag and drop should be handeled by pixi
 4. 
->>>>>>> origin/ui
 
 # References
 
