@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
 import './App.css';
 import CodeMirror from '@uiw/react-codemirror';
+import { initBattle } from 'Src/views/battle';
 import React, { useState, useEffect } from 'react';
 import AppLayout from '../components/AppLayout';
 
@@ -72,7 +73,7 @@ function App() {
         {/* <Button onClick={()=> window.equipShoot()}>add weapon</Button> */}
         <Button onClick={() => eval(code)}>Run Code</Button>
       </div>
-      {show ? <AppLayout /> : null}
+      {show ? <AppLayout /> : initBattle()}
     </div>
   );
 }

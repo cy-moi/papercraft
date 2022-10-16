@@ -79,7 +79,7 @@ export default class CraftApp extends Application {
       bottom: viewport.worldHeight,
     });
 
-    viewport.clampZoom({ minScale: 0.8, maxScale: 1.2 });
+    // viewport.clampZoom({ minScale: 0.8, maxScale: 1.2 });
 
     viewport.on('zoomed', function (groundTexture) {
       const bg = this.children[0];

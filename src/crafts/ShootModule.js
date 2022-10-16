@@ -2,6 +2,7 @@ import { Container, Sprite, Graphics } from 'pixi.js';
 // import { MouseEvents } from 'Src/utils/events';
 
 export const North = { x: 0, y: -1 };
+const OFFSET = Math.PI / 8.0;
 
 export default class Shooter extends Container {
   constructor(id, _options) {
@@ -43,14 +44,14 @@ export default class Shooter extends Container {
     this.sprite = new Sprite(shooter);
     this.sprite.x = this.follow.min.x + this.startPos.x + 10; // plus radius * 2
     this.sprite.y = this.follow.min.y + this.startPos.y + 10;
-
+    this.shootVec = this.follow.rotation + this.direction;
     this.direction = direction || 0 - Math.PI / 4.0;
 
-    this.sprite.rotation = this.follow.rotation + this.direction;
+    this.sprite.rotation = this.shootVec - Math.Pi / 4.0;
     this.addChild(this.sprite);
 
     // console.log(this.startPos);
-    this.shootVec = this.sprite.rotation;
+
     this.shootSpeed = speed;
     // let options;
     // console.log(config)
@@ -100,6 +101,9 @@ export default class Shooter extends Container {
   }
 
   onDragStart(event) {
+    const { app } = window;
+    app.viewport.plugins.remove('drag');
+
     // store a reference to the data
     // the reason for this is because of multitouch
     // we want to track the movement of this particular touch
@@ -142,6 +146,8 @@ export default class Shooter extends Container {
     // set the interaction data to null
     this.data = null;
     this.updateSlot();
+
+    window.app.viewport.drag();
   }
 
   onDragMove() {
@@ -164,7 +170,7 @@ export default class Shooter extends Container {
       this.shootVec = this.follow.rotation + this.direction;
       this.sprite.position.x = this.follow.min.x + this.startPos.x;
       this.sprite.position.y = this.follow.min.y + this.startPos.y;
-      this.sprite.rotation = this.follow.rotation + this.direction;
+      this.sprite.rotation = this.shootVec - OFFSET;
     }
   }
 

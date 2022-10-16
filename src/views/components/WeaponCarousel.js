@@ -1,9 +1,9 @@
-import React from 'react';
-import { Grid } from '@mui/material';
+import React, { useState } from 'react';
+import { Grid, Slider } from '@mui/material';
 import WeaponCard from './WeaponCard';
 
 // weapons array
-const weapons = [
+const weapons = (sliderValue) => [
   {
     value: 'Bullets',
     type: 'bullet',
@@ -13,6 +13,7 @@ const weapons = [
       radius: 10,
       blurSize: 5,
     },
+    direction: sliderValue,
     action: 'keypress',
   },
   {
@@ -23,17 +24,33 @@ const weapons = [
     config: {
       size: { width: 20, height: 2 },
     },
+    direction: sliderValue,
     action: 'keypress',
   },
 ];
 
 function WeaponCarousel() {
-  console.log('weapons', weapons);
+  const [sliderValue, setSliderValue] = useState(1.57);
+
+  // console.log('weapons', weapons);
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-      {weapons.map((value, index) => (
+      {weapons(sliderValue).map((value, index) => (
         <WeaponCard weapon={value} key={`${index.toString()}weapon`} />
       ))}
+      <Slider
+        sx={{
+          color: '#1A2027',
+          marginTop: '10px',
+        }}
+        orientation="horizontal"
+        defaultValue={1.57}
+        min={0}
+        max={Math.PI * 2}
+        aria-label="Vertical slider"
+        getAriaValueText={(value) => value}
+        onChange={(event, value) => setSliderValue(value)}
+      />
     </Grid>
   );
 }

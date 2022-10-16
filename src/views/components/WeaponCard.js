@@ -26,6 +26,7 @@ function WeaponCard({ weapon }) {
             weapon.type,
             weapon.slot,
             weapon.speed,
+            weapon.direction,
             weapon.config,
             weapon.action,
           );

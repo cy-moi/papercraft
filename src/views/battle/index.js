@@ -1,5 +1,5 @@
-const { playground } = window;
-
 export const initBattle = () => {
-  playground.viewport.follow({ target: window.it });
+  const { app } = window;
+  app.viewport.fit(window.it);
+  app.viewport.follow(window.it);
 };

@@ -67,6 +67,7 @@ window.equipShoot = async function (
   type,
   slot,
   speed,
+  direction,
   config,
   action,
   color = 'blue',
@@ -86,6 +87,7 @@ window.equipShoot = async function (
     lifeSpan,
     slot,
     speed,
+    direction,
     config,
   });
   window.addEventListener(action, (e) => {
