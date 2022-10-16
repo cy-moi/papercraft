@@ -1,5 +1,5 @@
 import Matter from 'matter-js';
-import * as vec from '../utils/vec';
+import * as drawUtils from '../utils/draw';
 import BasicShape from './BasicShape';
 
 export const North = { x: 0, y: -1 };
@@ -18,16 +18,21 @@ class MobileShape extends BasicShape {
     options.isStatic = false;
     await super.init(options);
 
-    const { engine } = window.playground;
-    this.engine = engine;
-
-    this.angleOffset = vec.angleBetween(this.physicBody.axes[0], North);
-    Matter.Axes.rotate(this.physicBody.axes, this.angleOffset);
-    Matter.Body.setAngle(this.physicBody, 0);
-    Matter.World.add(engine.world, this.physicBody);
-    Matter.Body.setPosition(this.physicBody, this.position);
-
+    const { debug } = options;
     // this.bindKeyHandler();
+    if (debug) this.drawForward();
+  }
+
+  drawForward() {
+    const { x, y } = this.pivot;
+    this.forward = new drawUtils.Line([
+      x,
+      y,
+      x + Math.cos(this.rotation + this.angleOffset) * 20,
+      y + Math.sin(this.rotation + this.angleOffset) * 20,
+    ]);
+
+    this.addChild(this.forward);
   }
 
   update() {

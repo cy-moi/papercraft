@@ -1,34 +1,51 @@
-import { Button } from '@mui/material';
+// import { Button } from '@mui/material';
 import './App.css';
-import CodeMirror from '@uiw/react-codemirror';
-import React from 'react';
-import AppLayout from '../components/AppLayout.tsx';
+// import CodeMirror from '@uiw/react-codemirror';
+// import { initBattle } from 'Src/views/battle';
+import React, { useState, useEffect } from 'react';
+import AppLayout from '../components/AppLayout';
+import Healthbar from '../components/Healthbar';
 
-let code = `// after RUN CODE
-// Press key 'a' to shoot
-const pistol = it.getEquipSlots()[0];
-console.log(pistol);
-const laser = it.getEquipSlots()[1];
-window.equipShoot("bullet", 0, 5, 
-  {
-    radius: 10,
-    blurSize: 5
-  },"keypress");
-window.equipShoot("laser", 1, 20,
-  {
-    size: { width: 20, height: 2}
-  }, "keypress");
-it.setSpeed(10);
-waitFrameToStop(300);
-`;
+// const code = `// after RUN CODE
+// // Press key 'a' to shoot
+// const pistol = it.getEquipSlots()[0];
+// console.log(pistol);
+// const laser = it.getEquipSlots()[1];
+// window.equipShoot("bullet", 0, 5,
+//   {
+//     radius: 10,
+//     blurSize: 5
+//   },"keypress");
+// window.equipShoot("laser", 1, 20,
+//   {
+//     size: { width: 20, height: 2}
+//   }, "keypress");
+// it.setSpeed(10);
+// waitFrameToStop(300);
+// `;
 function App() {
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    function handleChnageSession() {
+      setShow(false);
+    }
+
+    document.addEventListener('changeSession', handleChnageSession);
+
+    return (_) => {
+      document.removeEventListener('changeSession', handleChnageSession);
+    };
+  });
+
   return (
-    <div className="App">
-      <header className="App-header" />
+    <div>
+      {/* <header className="App-header" />
       <div>
         <Button
           variant="outlined"
-          onClick={() => window.selectShape('rectangle', { width: 100, height: 100 })}
+          onClick={() =>
+            window.selectShape('rectangle', { width: 100, height: 100 })
+          }
         >
           rectangle
         </Button>
@@ -54,10 +71,18 @@ function App() {
         }}
       />
       <div>
-        {/* <Button onClick={()=> window.equipShoot()}>add weapon</Button> */}
-        <Button onClick={() => eval(code)}>Run Code</Button>
-      </div>
-      <AppLayout />
+        <Button onClick={() => eval(code)}>Run Cod
+        </Button>
+      </div> */}
+
+      {show ? (
+        <AppLayout />
+      ) : (
+        <div className="Footer">
+          {' '}
+          <Healthbar />{' '}
+        </div>
+      )}
     </div>
   );
 }

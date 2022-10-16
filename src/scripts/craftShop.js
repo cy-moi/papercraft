@@ -2,6 +2,8 @@ import BasicShape from '../crafts/BasicShape';
 import MobileShape from '../crafts/MobileShape';
 import ShootModule from '../crafts/ShootModule';
 import EquipSlot from '../crafts/EquipSlot';
+import AutoShape from '../crafts/AutoShape';
+import AutoShooter from '../crafts/AutoShooter';
 
 const craftShop = [
   {
@@ -19,6 +21,14 @@ const craftShop = [
   {
     name: 'WeaponSlot',
     constructor: EquipSlot,
+  },
+  {
+    name: 'AutoShape',
+    constructor: AutoShape,
+  },
+  {
+    name: 'AutoShooter',
+    constructor: AutoShooter,
   },
 ];
 

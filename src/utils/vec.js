@@ -31,14 +31,18 @@ export function circleIntersect(center, r, container) {
   return (x - ab.x) ** 2 + (y - ab.y) ** 2 < r ** 2;
 }
 
+export function getSquaredDistance(pt1, pt2) {
+  return (pt1.x - pt2.x) ** 2 + (pt1.y - pt2.y) ** 2;
+}
+
 export function polygonIntersect(verts, container) {
   // const ab = container.getBounds();
 
   // (y - y0) (x1 - x0) - (x - x0) (y1 - y0)
   const { x, y } = container.position;
-  console.log(x, y, verts);
+  // console.log(x, y, verts);
   return verts.slice(0).reduce((inside, v, ind, arr) => {
-    console.log(inside);
+    // console.log(inside);
     if (!inside) arr.splice(1);
     const next = (ind + 1) % arr.length;
     // console.log(next);

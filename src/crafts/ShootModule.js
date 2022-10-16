@@ -1,7 +1,9 @@
 import { Container, Sprite, Graphics } from 'pixi.js';
+// import * as utils from 'Src/utils/vec';
 // import { MouseEvents } from 'Src/utils/events';
 
 export const North = { x: 0, y: -1 };
+const OFFSET = Math.PI / 8.0;
 
 export default class Shooter extends Container {
   constructor(id, _options) {
@@ -27,6 +29,8 @@ export default class Shooter extends Container {
     this.follow = follow;
     this.slotId = slot || 0;
     this.harm = harm || 10;
+    this.lifeSpan = lifeSpan || 100;
+    this.color = color || 0x000000;
 
     const equip = this.follow.getEquipSlots()[slot];
     console.log(equip);
@@ -41,14 +45,14 @@ export default class Shooter extends Container {
     this.sprite = new Sprite(shooter);
     this.sprite.x = this.follow.min.x + this.startPos.x + 10; // plus radius * 2
     this.sprite.y = this.follow.min.y + this.startPos.y + 10;
-
+    this.shootVec = this.follow.rotation + this.direction;
     this.direction = direction || 0 - Math.PI / 4.0;
 
-    this.sprite.rotation = this.follow.rotation + this.direction;
+    this.sprite.rotation = this.shootVec - Math.Pi / 4.0;
     this.addChild(this.sprite);
 
     // console.log(this.startPos);
-    this.shootVec = this.sprite.rotation;
+
     this.shootSpeed = speed;
     // let options;
     // console.log(config)
@@ -98,6 +102,9 @@ export default class Shooter extends Container {
   }
 
   onDragStart(event) {
+    const { app } = window;
+    app.viewport.plugins.remove('drag');
+
     // store a reference to the data
     // the reason for this is because of multitouch
     // we want to track the movement of this particular touch
@@ -109,9 +116,32 @@ export default class Shooter extends Container {
     this.updateSlot();
   }
 
+  onDragEnd() {
+    this.alpha = 1;
+    this.dragging = false;
+    // set the interaction data to null
+    this.data = null;
+    this.updateSlot();
+
+    window.app.viewport.drag();
+  }
+
+  onDragMove() {
+    if (this.dragging) {
+      const newPosition = this.data.getLocalPosition(this.parent);
+
+      // console.log(this.data, this);
+      this.sprite.x = newPosition.x;
+      this.sprite.y = newPosition.y;
+      this.detectSlot();
+      // this.slotId = t < 0 ? this.slotId : t;
+      // this.updateSlot();
+    }
+  }
+
   bulletHit(b) {
     window.playground.craftAll.forEach((child) => {
-      if (child.slots && child !== this.follow) {
+      if (child.id !== 'shooter' && child !== this.follow) {
         if (child.checkInside(b)) {
           child.health -= this.harm;
           b.life = Infinity;
@@ -134,27 +164,6 @@ export default class Shooter extends Container {
     // return -1;
   }
 
-  onDragEnd() {
-    this.alpha = 1;
-    this.dragging = false;
-    // set the interaction data to null
-    this.data = null;
-    this.updateSlot();
-  }
-
-  onDragMove() {
-    if (this.dragging) {
-      const newPosition = this.data.getLocalPosition(this.parent);
-
-      // console.log(this.data, this);
-      this.sprite.x = newPosition.x;
-      this.sprite.y = newPosition.y;
-      this.detectSlot();
-      // this.slotId = t < 0 ? this.slotId : t;
-      // this.updateSlot();
-    }
-  }
-
   updateSlot() {
     const equip = this.follow.getEquipSlots()[this.slotId];
     if (equip) {
@@ -162,7 +171,7 @@ export default class Shooter extends Container {
       this.shootVec = this.follow.rotation + this.direction;
       this.sprite.position.x = this.follow.min.x + this.startPos.x;
       this.sprite.position.y = this.follow.min.y + this.startPos.y;
-      this.sprite.rotation = this.follow.rotation + this.direction;
+      this.sprite.rotation = this.shootVec - OFFSET;
     }
   }
 
@@ -174,6 +183,7 @@ export default class Shooter extends Container {
       // console.log(Math.cos(bullet.rotation))
       if (it.life > 100) {
         this.parent.removeChild(it);
+        // this.parent.craftAll.splice(this.parent.craftAll.indexOf(e => e === it), 1);
         return bullets;
         // bullet.destroy();
         // return false;
