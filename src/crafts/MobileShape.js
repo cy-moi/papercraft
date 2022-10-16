@@ -1,4 +1,5 @@
 import Matter from 'matter-js';
+import * as drawUtils from '../utils/draw';
 import * as vec from '../utils/vec';
 import BasicShape from './BasicShape';
 
@@ -28,6 +29,18 @@ class MobileShape extends BasicShape {
     Matter.Body.setPosition(this.physicBody, this.position);
 
     // this.bindKeyHandler();
+    this.drawForward();
+  }
+
+  drawForward() {
+    const { x, y } = this.pivot;
+    const arrow = new drawUtils.Line([
+      x,
+      y,
+      x + Math.cos(this.rotation + this.angleOffset) * 100,
+      y + Math.sin(this.rotation + this.angleOffset) * 100,
+    ]);
+    this.addChild(arrow);
   }
 
   update() {

@@ -1,5 +1,5 @@
 import { Container, Graphics, Sprite } from 'pixi.js';
-import * as drawUtils from '../utils/draw';
+// import * as drawUtils from '../utils/draw';
 import Matter from 'matter-js';
 import * as utils from '../utils/vec';
 import { colors } from '../utils/colors';
@@ -109,7 +109,7 @@ class BasicShape extends Container {
       // for debug
       this.addDebugOutline();
     }
-    this.drawForward();
+    // this.drawForward();
     this.drawShootingVec();
   }
 
@@ -136,17 +136,6 @@ class BasicShape extends Container {
           north,
         ),
     }));
-  }
-
-  drawForward() {
-    const { x, y } = this.pivot;
-    const arrow = new drawUtils.Line([
-      x,
-      y,
-      x + Math.cos(this.rotation) * 100,
-      y + Math.sin(this.rotation) * 100,
-    ]);
-    this.addChild(arrow);
   }
 
   drawShootingVec() {
