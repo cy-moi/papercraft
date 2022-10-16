@@ -4,12 +4,13 @@ import ShapeCard from './ShapeCard';
 
 function ShapeCarousel() {
   const shapeList = ['circle', 'rectangle', 'triangle', 'pentagon', 'decagon'];
+  const nShapes = [1, 4, 3, 5, 10]
   const [sliderValue, setSliderValue] = useState(50);
 
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
       {shapeList.map((value, index) => (
-        <ShapeCard value={value} size={sliderValue} />
+        <ShapeCard value={value} size={sliderValue} sides={nShapes[index]} />
       ))}
       <Slider
         sx={{

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 
-function ShapeCard({ value, size }) {
+function ShapeCard({ value, size, sides }) {
   return (
     <Grid item key={value}>
       <Box
@@ -20,7 +20,7 @@ function ShapeCard({ value, size }) {
         }}
         onClick={() => {
           // @ts-ignore
-          window.addPolygonCraft(3, size);
+          window.addPolygonCraft(sides, size);
         }}
       >
         <img src={`assets/${value}.svg`} width={50} height={60} alt={value} />
