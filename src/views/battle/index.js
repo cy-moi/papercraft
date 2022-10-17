@@ -1,4 +1,5 @@
 import config from './config';
+import { battleColors } from 'Src/utils/colors';
 
 export const initBattle = async () => {
   const { addCraft, playground, it, removeAllCrafts } = window;
@@ -13,7 +14,7 @@ export const initBattle = async () => {
   followers.forEach((s) => playground.addChild(s));
 
   // const obstacles = [];
-  // const attackers = [];
+  playground.attackers = [];
 
   const seeds = Array.from({ length: 10 }, () =>
     Math.floor(Math.random() * config.game.width),
@@ -32,6 +33,7 @@ export const initBattle = async () => {
     mouseHandler: () => {
       console.log('do nothing');
     },
+    color: battleColors.yellow,
   });
 
   addCraft({
@@ -47,6 +49,7 @@ export const initBattle = async () => {
     mouseHandler: () => {
       console.log('do nothing');
     },
+    color: battleColors.yellow,
   });
 
   addCraft({
@@ -65,6 +68,7 @@ export const initBattle = async () => {
     mouseHandler: () => {
       console.log('do nothing');
     },
+    color: battleColors.yellow,
   });
 
   addCraft({
@@ -80,6 +84,7 @@ export const initBattle = async () => {
     mouseHandler: () => {
       console.log('do nothing');
     },
+    color: battleColors.yellow,
   });
 
   seeds.forEach(async (value, id) => {
@@ -98,6 +103,7 @@ export const initBattle = async () => {
       mouseHandler: () => {
         console.log('do nothing');
       },
+      color: battleColors.yellow,
     });
 
     addCraft({
@@ -113,6 +119,7 @@ export const initBattle = async () => {
       mouseHandler: () => {
         console.log('do nothing');
       },
+      color: battleColors.red,
     });
 
     addCraft({
@@ -121,13 +128,30 @@ export const initBattle = async () => {
       host: playground,
       type: 'circle',
       position: { x: 200, y: config.boundary.height / 4.0 },
-      radius: Math.random() * 50,
+      radius: Math.random() * 30 + 10,
       isStatic: true,
       debug: false,
       health: Infinity,
       mouseHandler: () => {
         console.log('do nothing');
       },
+      color: battleColors.red,
+    });
+    addCraft({
+      id: 'moveObstacles',
+      model: 'MobileShape',
+      host: playground,
+      type: 'polygon',
+      position: { x: 200, y: config.boundary.height / 4.0 },
+      radius: Math.random() * 30 + 10,
+      sides: Math.random() * 15 + 5,
+      isStatic: true,
+      debug: false,
+      health: Infinity,
+      mouseHandler: () => {
+        console.log('do nothing');
+      },
+      color: battleColors.red,
     });
   });
 
@@ -138,7 +162,7 @@ export const initBattle = async () => {
     type: 'polygon',
     aim: it,
     position: { x: 200, y: config.boundary.height / 4.0 },
-    radius: Math.random() * 50 + 50,
+    radius: Math.random() * 50 + 30,
     sides: 5,
     isStatic: false,
     debug: true,
@@ -146,7 +170,9 @@ export const initBattle = async () => {
     mouseHandler: () => {
       console.log('do nothing');
     },
+    color: battleColors.green,
   });
+  playground.attackers.push(attacker);
 
   attacker.getEquipSlots().forEach(async (slot, ind) => {
     const shooter = await addCraft({
@@ -155,14 +181,14 @@ export const initBattle = async () => {
       model: 'AutoShooter',
       follow: attacker,
       host: playground,
-      color: '0xFF0000',
       lifeSpan: 100,
       slot: ind,
       speed: 20,
-      direction: 1.0,
+      direction: Math.PI * 2.0 * 0.5 * (ind + 1),
       config: {
         size: { width: 20, height: 2 },
       },
+      color: battleColors.purple,
     });
     shooter.autoAim(it);
   });

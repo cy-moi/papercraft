@@ -1,9 +1,9 @@
 import { Container, Sprite, Graphics } from 'pixi.js';
+import { colors } from '../utils/colors';
 // import * as utils from 'Src/utils/vec';
 // import { MouseEvents } from 'Src/utils/events';
 
 export const North = { x: 0, y: -1 };
-const OFFSET = Math.PI / 8.0;
 
 export default class Shooter extends Container {
   constructor(id, _options) {
@@ -25,30 +25,40 @@ export default class Shooter extends Container {
     harm,
     config,
     color,
+    texture,
   }) {
+    this.OFFSET = Math.PI / 4.0;
     this.follow = follow;
     this.slotId = slot || 0;
     this.harm = harm || 10;
     this.lifeSpan = lifeSpan || 100;
-    this.color = color || 0x000000;
+    this.color = color || colors[Object.keys(colors)[this.getRandomInt(4)]];
+
+    const { size, radius, bulletTexture } = config;
+    const { width, height } = size || { widht: radius * 2, height: radius * 2 };
 
     const equip = this.follow.getEquipSlots()[slot];
-    console.log(equip);
     this.startPos = equip.slot;
-
     this.graphics = new Graphics();
-    this.graphics.lineStyle(5, 0xff00ff, 1);
-    this.graphics.arc(0, 0, 10, 0, Math.PI / 2.0);
+    this.graphics.beginFill(this.color);
 
-    const shooter = window.app.renderer.generateTexture(this.graphics);
-    this.graphics.clear();
-    this.sprite = new Sprite(shooter);
+    if (texture) {
+      this.sprite = Sprite.from(texture);
+    } else {
+      this.graphics.lineStyle(5, this.color, 1);
+      this.graphics.arc(0, 0, 10, 0, Math.PI / 2.0);
+
+      const shooter = window.app.renderer.generateTexture(this.graphics);
+      this.graphics.clear();
+      this.sprite = new Sprite(shooter);
+    }
+
     this.sprite.x = this.follow.min.x + this.startPos.x + 10; // plus radius * 2
     this.sprite.y = this.follow.min.y + this.startPos.y + 10;
     this.shootVec = this.follow.rotation + this.direction;
     this.direction = direction || 0 - Math.PI / 4.0;
 
-    this.sprite.rotation = this.shootVec - Math.Pi / 4.0;
+    this.sprite.rotation = this.shootVec - this.OFFSET;
     this.addChild(this.sprite);
 
     // console.log(this.startPos);
@@ -56,8 +66,7 @@ export default class Shooter extends Container {
     this.shootSpeed = speed;
     // let options;
     // console.log(config)
-    const { size, radius } = config;
-    // const { width, height } = size;
+
     console.log(type);
     switch (type) {
       case 'bullet':
@@ -71,14 +80,19 @@ export default class Shooter extends Container {
         console.log('rectangle');
 
         this.graphics.beginFill(this.color);
-        this.graphics.drawRect(0, 0, size.width, size.height);
+        this.graphics.drawRect(0, 0, width, height);
         this.graphics.endFill();
         break;
       default:
         break;
     }
-    this.bulletTexture =
-      config.texture || window.app.renderer.generateTexture(this.graphics);
+    this.bulletTexture = window.app.renderer.generateTexture(this.graphics);
+    if (bulletTexture) {
+      this.bulletSprite = Sprite.from(texture);
+      this.bulletSprite.width = width || radius * 2;
+      this.bulletSprite.height = height || radius * 2;
+    }
+
     this.on('pointerdown', this.onDragStart)
       .on('pointerup', this.onDragEnd)
       .on('pointerupoutside', this.onDragEnd)
@@ -87,11 +101,10 @@ export default class Shooter extends Container {
   }
 
   async shoot() {
-    console.log('shoot');
     // let bullet = new MobileShape('bullet');
     // await bullet.init(this.options);
 
-    const bullet = new Sprite(this.bulletTexture);
+    const bullet = this.bulletSprite || new Sprite(this.bulletTexture);
     bullet.anchor.set(0.5);
     bullet.x = this.follow.min.x + this.startPos.x;
     bullet.y = this.follow.min.y + this.startPos.y;
@@ -172,7 +185,7 @@ export default class Shooter extends Container {
       this.shootVec = this.follow.rotation + this.direction;
       this.sprite.position.x = this.follow.min.x + this.startPos.x;
       this.sprite.position.y = this.follow.min.y + this.startPos.y;
-      this.sprite.rotation = this.shootVec - OFFSET;
+      this.sprite.rotation = this.shootVec - this.OFFSET;
     }
   }
 

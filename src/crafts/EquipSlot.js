@@ -18,7 +18,7 @@ export default class EquipSlotHint extends Container {
     this.r = radius;
     this.graphics = new Graphics();
     this.graphics.lineStyle(2, 0x0000ff);
-    this.alpha = 0.5;
+    this.alpha = 0.0;
     this.graphics.drawCircle(0, 0, radius);
     this.addChild(this.graphics);
     // this.on('pointerdown', this.onMouseClick);
@@ -26,7 +26,7 @@ export default class EquipSlotHint extends Container {
 
   update() {
     if (this.hit) this.alpha = 1;
-    else this.alpha = 0.5;
+    else this.alpha = 0.0;
   }
 
   checkInside(a) {

@@ -26,10 +26,11 @@ class AutoShooter extends ShootModule {
     };
 
     this.shootVec = utils.angleBetween(vec, aim);
+    // console.log(this.shootVec);
   }
 
   update() {
-    this.autoAim(this.aim);
+    // this.autoAim(this.aim);
     this.updateSlot();
     // const initBullets = [];
     this.bullets = this.bullets.slice(0).reduce((bullets, it) => {
@@ -54,7 +55,7 @@ class AutoShooter extends ShootModule {
 
     if (this.counter % 30 === 0) {
       this.shoot();
-      this.autoAim(this.aim);
+      //   this.autoAim(this.aim);
       if (
         utils.getSquaredDistance(this.sprite, this.aim) <
         (this.lifeSpan * this.speed) ** 2

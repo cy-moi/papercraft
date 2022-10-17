@@ -26,6 +26,7 @@ class BasicShape extends Container {
     debug,
     baseStats,
     texture,
+    color,
     mouseHandler,
   }) {
     const { engine } = window.playground;
@@ -33,7 +34,7 @@ class BasicShape extends Container {
     this.graphics = new Graphics();
 
     // this.addChild(this.graphics);
-    this.color = colors[Object.keys(colors)[this.getRandomInt(4)]];
+    this.color = color || colors[Object.keys(colors)[this.getRandomInt(4)]];
     this.health = health || 100;
 
     // TODO: fill shape with random color
@@ -88,12 +89,20 @@ class BasicShape extends Container {
       return prev;
     }, []);
 
-    this.graphics.beginFill(this.color);
-    this.graphics.drawPolygon(this.verts);
-    this.graphics.endFill();
-    this.texture =
-      texture || window.app.renderer.generateTexture(this.graphics);
-    this.sprite = new Sprite(this.texture);
+    // add sprite
+    if (texture) {
+      this.sprite = Sprite.from(texture);
+      const w = width || radius * 2;
+      const h = height || radius * 2;
+      this.sprite.width = w;
+      this.sprite.height = h;
+    } else {
+      this.graphics.beginFill(this.color);
+      this.graphics.drawPolygon(this.verts);
+      this.graphics.endFill();
+      this.texture = window.app.renderer.generateTexture(this.graphics);
+      this.sprite = new Sprite(this.texture);
+    }
 
     // interact with sprite
     this.interactive = true;
@@ -122,6 +131,11 @@ class BasicShape extends Container {
     Matter.Body.setAngle(this.physicBody, 0);
     Matter.World.add(engine.world, this.physicBody);
     Matter.Body.setPosition(this.physicBody, this.position);
+  }
+
+  scaleSprite(width, height) {
+    this.sprite.width = width;
+    this.sprite.height = height;
   }
 
   getEquipSlots() {
