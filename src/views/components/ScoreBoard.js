@@ -4,23 +4,14 @@ import { Divider, Paper, Typography } from '@mui/material';
 function ScoreBoard() {
   const [shapeStats, setStats] = useState({});
   const [attackerStats, setAttackerStats] = useState({});
+  const [timer, setTimer] = useState(0);
   const { playground } = window;
-  const [it, setIt] = useState(window.it);
-  const [numShooter, setNumShooter] = useState(0);
 
   useEffect(() => {
-    function handleChangeShape() {
-      setIt(window.it);
-      setNumShooter(window.it.weapons.length);
-    }
-    document.addEventListener('changeShape', handleChangeShape);
-
-    return (_) => {
-      document.removeEventListener('changeShape', handleChangeShape);
-    };
+    setInterval(() => setTimer(timer + 1), 500);
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const totalAttack = playground.attackers.reduce(
       (harm, cur) => harm + cur.slots.reduce((h, c) => h + c.harm, 0),
       0,
@@ -29,26 +20,26 @@ function ScoreBoard() {
     setAttackerStats({
       'Total Attack': totalAttack,
       'Num of Attackers:': playground.attackers.length,
-      'Total Defence': playground.attackers.reduce(
+      'Total Defense': playground.attackers.reduce(
         (health, cur) => health + cur.health,
         0,
       ),
     });
-  }, [playground.attackers]);
+  }, [timer]);
 
-  React.useEffect(() => {
-    // const { it } = window;
+  useEffect(() => {
+    const { it } = window;
     if (it && it.health) {
       // console.log('health', window.it.health);
       const attack = it.weapons.reduce((harm, cur) => harm + cur.harm, 0);
       const s = {
         'Total Attack': attack,
-        'Total Defence': it.health,
+        'Total Defense': it.health,
         'Num of Weapon': it.weapons.length,
       };
       setStats(s);
     }
-  }, [it, numShooter]);
+  }, [timer]);
 
   return (
     <Paper
