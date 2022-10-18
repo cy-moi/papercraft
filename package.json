@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.prd.js",
+    "build": "webpack --config webpack.config.dev.js",
     "start": "webpack-dev-server --config webpack.config.dev.js --open",
     "startA": "webpack-dev-server --open --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1",
