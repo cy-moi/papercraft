@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import Healthbar from './Healthbar';
 import AttackHealthbar from './AttackHealthbar';
 
@@ -46,7 +46,7 @@ function ScoreBoard() {
   // }, [timer]);
   //
   return (
-    <Paper
+    <Container
       sx={{
         width: '100%',
         height: '30%',
@@ -67,7 +67,7 @@ function ScoreBoard() {
       >
         Player Health
       </Typography>
-      <Healthbar />
+      <Healthbar player={window.it} />
       <Typography
         sx={{ fontSize: 16 }}
         variant="h2"
@@ -77,7 +77,7 @@ function ScoreBoard() {
         Attacker Health
       </Typography>
       <AttackHealthbar />
-    </Paper>
+    </Container>
   );
 }
 

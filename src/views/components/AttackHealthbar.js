@@ -27,15 +27,24 @@ function AttackHealthbar() {
   }, []);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box
+      sx={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
       <LinearProgress
         variant="buffer"
         color={health < 50 ? 'error' : 'success'}
         value={health}
         valueBuffer={buffer}
         sx={{
-          height: 15,
-          width: 300,
+          minHeight: '15px',
+          minWidth: '500px',
+          height: '100%',
+          width: '100%',
           borderRadius: 0,
           marginBottom: 2,
           backgroundColor: '#dfdfdf',
