@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
 // const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
@@ -43,15 +45,15 @@ const config = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-      {
-        test: /\.(gif|png|jpe?g|svg|xml|wav)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '/public/assets/[name].[ext]',
-          // publicPath: 'assets',
-          // outputPath: 'assets',
-        },
-      },
+      // {
+      //   test: /\.(gif|png|jpe?g|svg|xml|wav)$/i,
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '/public/assets/[name].[ext]',
+      //     // publicPath: 'assets',
+      //     // outputPath: 'assets',
+      //   },
+      // },
     ],
   },
   plugins: [
@@ -62,7 +64,12 @@ const config = {
       template: './index.html',
     }),
     new webpack.ProvidePlugin({ 'window.decomp': 'poly-decomp' }),
-    // new BundleAnalyzerPlugin()
+    new CopyPlugin([
+      {
+        from: './src/assets',
+        to: './assets',
+      },
+    ]), // new BundleAnalyzerPlugin()
   ],
   // optimization: {
   //   splitChunks: {
