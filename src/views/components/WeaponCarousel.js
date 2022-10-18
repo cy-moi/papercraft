@@ -15,22 +15,24 @@ const weapons = (sliderValue) => [
     },
     direction: sliderValue,
     action: 'keypress',
+    lifeSpan: 30,
   },
   {
     value: 'Laser',
     type: 'laser',
     slot: 1,
-    speed: 20,
+    speed: 40,
     config: {
       size: { width: 20, height: 2 },
     },
     direction: sliderValue,
     action: 'keypress',
+    lifeSpan: 5,
   },
   {
     value: 'Stone',
     type: 'bullet',
-    slot: 1,
+    slot: 2,
     speed: 5,
     config: {
       radius: 15,
@@ -38,6 +40,7 @@ const weapons = (sliderValue) => [
     },
     direction: sliderValue,
     action: 'keypress',
+    lifeSpan: 150,
   },
 ];
 

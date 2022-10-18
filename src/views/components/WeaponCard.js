@@ -36,19 +36,37 @@ function WeaponCard({ weapon }) {
             weapon.config,
             weapon.color,
             weapon.action,
+            weapon.lifeSpan,
           );
           changeSelect(e);
           // console.log(window.it.weapons);
         }}
       >
         <img
-          src={`Assets/${weapon.value}.svg`}
+          src={`Assets/${weapon.value.toLowerCase()}.svg`}
           width={50}
           height={60}
           alt={weapon.value}
         />
-        <Typography fontSize={8} variant="h6" component="div" color="white">
+        <Typography
+          fontSize={12}
+          variant="h6"
+          component="div"
+          color="white"
+          textAlign="center"
+        >
           {weapon.value}
+        </Typography>
+        <Typography
+          fontSize={10}
+          variant="h6"
+          component="div"
+          color="white"
+          textAlign="center"
+        >
+          {`speed: ${weapon.speed}`}
+          <br />
+          {`life span: ${weapon.lifeSpan}`}
         </Typography>
       </Box>
     </Grid>
