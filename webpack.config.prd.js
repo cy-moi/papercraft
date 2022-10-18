@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
 // const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
@@ -12,7 +14,7 @@ const config = {
     alias: {
       Src: path.resolve(__dirname, 'src/'),
       Core: path.resolve(__dirname, 'src/core/'),
-      Assets: path.resolve(__dirname, 'assets/'),
+      Assets: path.resolve(__dirname, './assets/'),
     },
     extensions: ['.js', '.tsx'],
   },
@@ -45,8 +47,13 @@ const config = {
       },
       // {
       //   test: /\.(gif|png|jpe?g|svg|xml|wav)$/i,
-      //   use: "file-loader"
-      // }
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '/public/assets/[name].[ext]',
+      //     // publicPath: 'assets',
+      //     // outputPath: 'assets',
+      //   },
+      // },
     ],
   },
   plugins: [
@@ -57,7 +64,12 @@ const config = {
       template: './index.html',
     }),
     new webpack.ProvidePlugin({ 'window.decomp': 'poly-decomp' }),
-    // new BundleAnalyzerPlugin()
+    new CopyPlugin([
+      {
+        from: './assets',
+        to: './assets',
+      },
+    ]), // new BundleAnalyzerPlugin()
   ],
   // optimization: {
   //   splitChunks: {
@@ -77,7 +89,7 @@ const config = {
     // filename: `${getAppName()}/[name].bundle.[hash:8].js`,
     filename: 'paparcraft.bundle.js',
     path: path.resolve(__dirname, './public'),
-    // publicPath: '/',
+    publicPath: '/',
   },
 };
 
