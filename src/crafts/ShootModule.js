@@ -113,7 +113,7 @@ export default class Shooter extends Container {
     bullet.rotation = this.shootVec;
     bullet.life = 0;
 
-    this.parent.addChild(bullet);
+    if (this.parent) this.parent.addChild(bullet);
     this.bullets.push(bullet);
   }
 
@@ -229,7 +229,7 @@ export default class Shooter extends Container {
     // const initBullets = [];
     this.bullets = this.bullets.slice(0).reduce((bullets, it) => {
       if (it.life > 100) {
-        this.parent.removeChild(it);
+        if (this.parent) this.parent.removeChild(it);
         return bullets;
       }
       it.x += Math.cos(it.rotation) * this.shootSpeed;

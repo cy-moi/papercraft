@@ -182,7 +182,7 @@ class BasicShape extends Container {
   }
 
   update() {
-    if (this.health < 0) {
+    if (this.health <= 0) {
       if (this === window.it) changeCraftSession();
       this.removeSelf();
       return;

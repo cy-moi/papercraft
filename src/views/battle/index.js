@@ -200,4 +200,5 @@ export const exitBattle = () => {
   it.buttonMode = true;
   it.health = 100;
   playground.addChild(it);
+  playground.craftAll.push(it);
 };

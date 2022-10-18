@@ -30,18 +30,11 @@ class AutoShooter extends ShootModule {
   }
 
   update() {
-    // this.autoAim(this.aim);
     this.updateSlot();
-    // const initBullets = [];
     this.bullets = this.bullets.slice(0).reduce((bullets, it) => {
-      // console.log(bullet.x, bullet.y, bullet.rotation)
-      // console.log(Math.cos(bullet.rotation))
       if (it.life > 100) {
-        this.parent.removeChild(it);
-        // this.parent.craftAll.splice(this.parent.craftAll.indexOf(e => e === it), 1);
+        if (this.parent) this.parent.removeChild(it);
         return bullets;
-        // bullet.destroy();
-        // return false;
       }
       it.x += Math.cos(it.rotation) * this.shootSpeed;
       it.y += Math.sin(it.rotation) * this.shootSpeed;
