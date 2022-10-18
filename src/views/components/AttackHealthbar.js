@@ -1,27 +1,21 @@
 import React from 'react';
 import { Box, LinearProgress } from '@mui/material';
 
-/**
- * Shows a health bar with a buffer indicator
- * @returns {JSX.Element}
- * @constructor
- */
-function Healthbar() {
+function AttackHealthbar() {
   const [health, setHealth] = React.useState(100);
   const [buffer, setBuffer] = React.useState(-10);
 
   const progressRef = React.useRef(() => {});
-  // update the current health and show a buffer for the next health (animation)
   React.useEffect(() => {
     progressRef.current = () => {
-      if (window.it && window.it.health) {
+      if (window.playground.attackers[0]) {
+        // console.log('health', window.it.health);
         setBuffer(health);
-        setHealth(window.it.health);
+        setHealth(window.playground.attackers[0].health);
       }
     };
   });
 
-  // update every 500ms
   React.useEffect(() => {
     const timer = setInterval(() => {
       progressRef.current();
@@ -52,4 +46,4 @@ function Healthbar() {
   );
 }
 
-export default Healthbar;
+export default AttackHealthbar;

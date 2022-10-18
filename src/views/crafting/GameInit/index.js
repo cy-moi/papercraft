@@ -77,7 +77,7 @@ window.equipShoot = async function shoot(
   config,
   color,
   action,
-  lifeSpan = 10,
+  lifeSpan = 100,
 ) {
   const { playground, addCraft } = window;
   if (!window.it) throw new Error('no body selected');

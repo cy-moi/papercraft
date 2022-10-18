@@ -6,6 +6,8 @@ export const initBattle = async () => {
   // app.viewport.fit(it);
   // app.viewport.follow(it);
 
+  it.setPosition(config.boundary.width / 2.0, config.boundary.height / 2.0);
+
   const followers = playground.craftAll.filter((el) => el.follow === it);
 
   removeAllCrafts(playground);
@@ -175,7 +177,7 @@ export const initBattle = async () => {
     sides: 5,
     isStatic: false,
     debug: true,
-    health: 200,
+    health: 100,
     mouseHandler: () => {
       console.log('do nothing');
     },

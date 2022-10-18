@@ -34,14 +34,15 @@ function WeaponCard({ weapon }) {
             weapon.speed,
             weapon.direction,
             weapon.config,
+            weapon.color,
             weapon.action,
           );
           changeSelect(e);
-          console.log(window.it.weapons);
+          // console.log(window.it.weapons);
         }}
       >
         <img
-          src={`assets/${weapon.value}.svg`}
+          src={`Assets/${weapon.value}.svg`}
           width={50}
           height={60}
           alt={weapon.value}

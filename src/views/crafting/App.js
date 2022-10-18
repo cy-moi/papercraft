@@ -1,13 +1,13 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import AppLayout from '../components/AppLayout';
-import Healthbar from '../components/Healthbar';
-
+import ScoreBoard from '../components/ScoreBoard';
 /**
  * React's entry point for app
  * @returns {JSX.Element}
  * @constructor
  */
+
 function App() {
   // state for showing the healthbar depending on the current scene (game or crafting)
   // using hooks we can set the state of the healthbar to show or hide
@@ -31,7 +31,7 @@ function App() {
       ) : (
         <div className="Footer">
           {' '}
-          <Healthbar />{' '}
+          <ScoreBoard />
         </div>
       )}
     </div>
