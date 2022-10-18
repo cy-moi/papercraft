@@ -43,10 +43,10 @@ const config = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-      // {
-      //   test: /\.(gif|png|jpe?g|svg|xml|wav)$/i,
-      //   use: "file-loader"
-      // }
+      {
+        test: /\.(gif|png|jpe?g|svg|xml|wav)$/i,
+        use: 'file-loader',
+      },
     ],
   },
   plugins: [
@@ -77,7 +77,7 @@ const config = {
     // filename: `${getAppName()}/[name].bundle.[hash:8].js`,
     filename: 'paparcraft.bundle.js',
     path: path.resolve(__dirname, './public'),
-    // publicPath: '/',
+    publicPath: '/',
   },
 };
 
