@@ -47,7 +47,8 @@ const config = {
         test: /\.(gif|png|jpe?g|svg|xml|wav)$/i,
         use: 'file-loader',
         options: {
-          publicPath: 'assets',
+          name: '/public/assets/[name].[ext]',
+          // publicPath: 'assets',
           // outputPath: 'assets',
         },
       },
