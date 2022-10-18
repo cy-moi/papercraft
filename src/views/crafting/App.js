@@ -4,8 +4,8 @@ import './App.css';
 // import { initBattle } from 'Src/views/battle';
 import React, { useState, useEffect } from 'react';
 import AppLayout from '../components/AppLayout';
-import Healthbar from '../components/Healthbar';
-
+// import Healthbar from '../components/Healthbar';
+import ScoreBoard from '../components/ScoreBoard';
 // const code = `// after RUN CODE
 // // Press key 'a' to shoot
 // const pistol = it.getEquipSlots()[0];
@@ -80,7 +80,7 @@ function App() {
       ) : (
         <div className="Footer">
           {' '}
-          <Healthbar />{' '}
+          <ScoreBoard />
         </div>
       )}
     </div>

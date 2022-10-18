@@ -24,10 +24,13 @@ function StatsCard() {
     if (it && it.health) {
       // console.log('health', window.it.health);
       const attack = it.weapons.reduce((harm, cur) => harm + cur.harm, 0);
+      const maxRate = it.weapons.reduce((max, cur) => 
+        max = max > cur.shootSpeed ? max : cur.shootSpeed, 0);
       const s = {
         'Total Attack': attack,
         'Total Defense': it.health,
         'Num of Weapon': it.weapons.length,
+        'Highest Fire Speed': maxRate 
       };
       setStats(s);
     }

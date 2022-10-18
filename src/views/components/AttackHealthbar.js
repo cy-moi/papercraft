@@ -1,17 +1,17 @@
 import React from 'react';
 import { Box, LinearProgress } from '@mui/material';
 
-function Healthbar() {
+function AttackHealthbar() {
   const [health, setHealth] = React.useState(100);
   const [buffer, setBuffer] = React.useState(-10);
 
   const progressRef = React.useRef(() => {});
   React.useEffect(() => {
     progressRef.current = () => {
-      if (window.it && window.it.health) {
+      if (window.playground.attackers[0]) {
         // console.log('health', window.it.health);
         setBuffer(health);
-        setHealth(window.it.health);
+        setHealth(window.playground.attackers[0].health);
       }
     };
   });
@@ -46,4 +46,4 @@ function Healthbar() {
   );
 }
 
-export default Healthbar;
+export default AttackHealthbar;

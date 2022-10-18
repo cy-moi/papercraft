@@ -74,7 +74,7 @@ export default class CraftApp extends Application {
     viewport = viewport.clamp({
       left: 0,
       right: viewport.worldWidth,
-      underflow: 'top-left',
+      underflow: 'center',
       top: 0,
       bottom: viewport.worldHeight,
     });
