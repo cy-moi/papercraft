@@ -12,6 +12,47 @@ function AppLayout() {
 
   return (
     <>
+      <Box
+        // align box to the center right
+        sx={{
+          position: 'fixed',
+          top: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}
+      >
+        {/* select menu */}
+        {dashboard === 'Core' && <ShapeCarousel />}
+        {dashboard === 'Weapons' && <WeaponCarousel />}
+      </Box>
+
+      <Box
+        sx={{
+          position: 'fixed',
+          height: '100%',
+          right: '20px',
+          marginRight: '30px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <StatsCard />
+      </Box>
+      <Box
+        // align box to the vertical center right
+        sx={{
+          position: 'fixed',
+          height: '100%',
+          left: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <SelectMenu onSelectDashboard={setDashboard} />
+      </Box>
+
       <Button
         size="large"
         color="success"
@@ -28,44 +69,6 @@ function AppLayout() {
       >
         Start
       </Button>
-
-      <Box
-        // align box to the center right
-        sx={{
-          display: 'flex',
-          position: 'fixed',
-          flexDirection: 'row',
-          justifyContent: 'flex-end',
-          height: '100%',
-          right: '20px',
-        }}
-      >
-        <StatsCard />
-      </Box>
-      <Box
-        // align box to the center right
-        sx={{
-          position: 'fixed',
-          height: '100%',
-          left: '20px',
-        }}
-      >
-        <SelectMenu onSelectDashboard={setDashboard} />
-      </Box>
-
-      <Box
-        // align box to the center right
-        sx={{
-          position: 'fixed',
-          top: '20px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      >
-        {/* select menu */}
-        {dashboard === 'Core' && <ShapeCarousel />}
-        {dashboard === 'Weapons' && <WeaponCarousel />}
-      </Box>
     </>
   );
 }

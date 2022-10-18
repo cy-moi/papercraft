@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Slider } from '@mui/material';
 import ShapeCard from './ShapeCard';
 
-// create a function to generate a list of shapes based on the slider value
+// create a function to generate a list of shapes with sizes based on the slider value
 const shapeList = (sliderValue) => [
   {
     value: 'circle',
@@ -47,11 +47,25 @@ const shapeList = (sliderValue) => [
   },
 ];
 
+/**
+ * Shows a carousel of selectable shapes in cards by mapping over the shapeList function's output
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function ShapeCarousel() {
   const [sliderValue, setSliderValue] = useState(50);
 
   return (
-    <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        overflow: 'hidden',
+        flexGrow: 1,
+      }}
+      // account for grid item spacing so that the slider is centered
+      marginRight={2}
+    >
       {shapeList(sliderValue).map((value, index) => (
         <ShapeCard shape={value} key={index.toString()} />
       ))}
