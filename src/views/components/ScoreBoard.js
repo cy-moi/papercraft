@@ -3,7 +3,7 @@ import { Paper, Typography } from '@mui/material';
 import Healthbar from './Healthbar';
 import AttackHealthbar from './AttackHealthbar';
 
-function ScoreBoard() {
+function ScoreBoard({player}) {
   // const [shapeStats, setStats] = useState({});
   // const [attackerStats, setAttackerStats] = useState({});
   // const [timer, setTimer] = useState(0);
@@ -62,7 +62,7 @@ function ScoreBoard() {
       >
         Player Health
       </Typography>
-      <Healthbar />
+      <Healthbar defaultHealth={player.health} />
       <Typography
         sx={{ fontSize: 16 }}
         variant="h2"

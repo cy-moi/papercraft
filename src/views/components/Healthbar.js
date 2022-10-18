@@ -1,17 +1,19 @@
 import React from 'react';
 import { Box, LinearProgress } from '@mui/material';
 
-function Healthbar() {
-  const [health, setHealth] = React.useState(100);
+function Healthbar({defaultHealth}) {
+  const [health, setHealth] = React.useState(0);
+  const [fullHealth, setFull] = React.useState(defaultHealth);
   const [buffer, setBuffer] = React.useState(-10);
 
   const progressRef = React.useRef(() => {});
+
   React.useEffect(() => {
     progressRef.current = () => {
       if (window.it && window.it.health) {
-        // console.log('health', window.it.health);
+        console.log('health', window.it.health, fullHealth);
         setBuffer(health);
-        setHealth(window.it.health);
+        setHealth(window.it.health/fullHealth * 100);
       }
     };
   });

@@ -80,7 +80,7 @@ function App() {
       ) : (
         <div className="Footer">
           {' '}
-          <ScoreBoard />
+          <ScoreBoard player={window.it} />
         </div>
       )}
     </div>
