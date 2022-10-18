@@ -66,7 +66,7 @@ const config = {
     new webpack.ProvidePlugin({ 'window.decomp': 'poly-decomp' }),
     new CopyPlugin([
       {
-        from: './src/assets',
+        from: './assets',
         to: './assets',
       },
     ]), // new BundleAnalyzerPlugin()
