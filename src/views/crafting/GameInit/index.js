@@ -28,6 +28,7 @@ window.counter = 0;
  * @param radius - radius of the craft (for circle)
  * @param sides - number of sides of the craft (for polygon)
  * @param type - type of the craft
+ * @param health - health of the craft
  * @returns {Promise<void>} - returns a promise that resolves when the craft is created
  */
 window.selectShape = async function add(
@@ -36,6 +37,7 @@ window.selectShape = async function add(
   radius = 0,
   sides = 0,
   type = '',
+  health = 100,
 ) {
   const { playground, addCraft } = window;
   // console.log(playground.children)
@@ -51,6 +53,7 @@ window.selectShape = async function add(
     },
     size,
     sides,
+    health,
     radius,
     isStatic: false,
     debug: true,

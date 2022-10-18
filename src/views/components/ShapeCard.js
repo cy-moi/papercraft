@@ -27,6 +27,7 @@ function ShapeCard({ shape }) {
           flexDirection: 'column',
           height: 140,
           width: 120,
+          gap: 1,
           backgroundColor: '#1A2027',
           transition: 'transform .2s',
           '&:hover': {
@@ -36,22 +37,26 @@ function ShapeCard({ shape }) {
         onClick={() => {
           // @ts-ignore
           window.selectShape(
-            shape.value,
+            shape.value.toLowerCase(),
             shape.size,
             shape.radius,
             shape.sides,
             shape.type,
+            shape.health,
           );
         }}
       >
         <img
-          src={`Assets/${shape.value}.svg`}
+          src={`Assets/${shape.value.toLowerCase()}.svg`}
           width={50}
           height={60}
           alt={shape.value}
         />
-        <Typography fontSize={8} variant="h6" component="div" color="white">
+        <Typography fontSize={12} variant="h5" component="div" color="white">
           {shape.value}
+        </Typography>
+        <Typography fontSize={9} variant="h6" component="div" color="white">
+          {`health: ${shape.health}`}
         </Typography>
       </Box>
     </Grid>
