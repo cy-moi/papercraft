@@ -1,8 +1,21 @@
 # PaperCraft
 
-This is a easy-to-use, minimalized 2D game with extensive crafting capabilities.
+This is a easy-to-use, minimalized 2D shooter game with extensive crafting capabilities.
+The game is separated into two modes, craft and playmode.
 
-The latest update at `dev` branch.
+##### Craftground
+
+When in the craftground, the user can choose the basic shape of the vessel, and weapons to attach to it.
+The slider changes the size of the vessel.
+After adding a weapon, you can drag and drop it to one of the other corners of the vessel (the corners appear when dragging the weapon).
+Simply drop it outside to delete it.
+Change the slider value to change weapon rotation.
+The top-right corner cart is displaying the player's vessel's statistics
+You can press [a] key to see it shoot before entering the battleground.
+
+##### Playground
+
+The playground is simply the game battleground, where the just-created vessel can shoot at ennemies.
 
 # How to run
 
