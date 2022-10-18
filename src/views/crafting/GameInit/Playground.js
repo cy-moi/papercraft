@@ -4,6 +4,9 @@ import { initEngine } from 'Core/MatterEngine';
 import { Runner, Engine } from 'matter-js';
 import config from './config';
 
+/**
+ * Takes care of the game's playground's initialization, and updating.
+ */
 export default class Playground extends Scene {
   constructor() {
     super();
@@ -36,6 +39,7 @@ export default class Playground extends Scene {
     this.tickCount = 0;
     const { tickCountMax } = config.runner;
 
+    // update the engine on each frame
     const onTick = () => {
       Engine.update(this.engine, 1000 / config.runner.fps);
       // window.app.ticker.update()

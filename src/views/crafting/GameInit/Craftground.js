@@ -9,6 +9,10 @@ import pixi from 'gsap/PixiPlugin';
 import * as PIXI from 'pixi.js';
 
 gsap.registerPlugin(pixi);
+
+/**
+ * Takes care of the game's craftground's initialization, resizing and other interactions.
+ */
 export default class CraftApp extends Application {
   constructor() {
     super(config.view);
