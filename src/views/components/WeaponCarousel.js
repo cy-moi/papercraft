@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Slider } from '@mui/material';
 import WeaponCard from './WeaponCard';
 
-// weapons array
+// weapons array, sliderValue is the angle of the weapons
 const weapons = (sliderValue) => [
   {
     value: 'Bullets',
@@ -29,10 +29,14 @@ const weapons = (sliderValue) => [
   },
 ];
 
+/**
+ * Shows a carousel of selectable weapons in cards by mapping over the weapons function's output
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function WeaponCarousel() {
   const [sliderValue, setSliderValue] = useState(1.57);
 
-  // console.log('weapons', weapons);
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
       {weapons(sliderValue).map((value, index) => (
@@ -42,6 +46,8 @@ function WeaponCarousel() {
         sx={{
           color: '#1A2027',
           marginTop: '10px',
+          // make slider a circle
+          borderRadius: '50%',
         }}
         orientation="horizontal"
         defaultValue={1.57}

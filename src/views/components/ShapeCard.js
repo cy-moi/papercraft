@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 
+// good ol' TypeScript
 // interface ShapeCardProps {
 //   value: string;
 //   type: string;
@@ -9,6 +10,12 @@ import { Box, Grid, Typography } from '@mui/material';
 //   sides: number;
 // }
 
+/**
+ * Displays a card with a shape in it
+ * @param shape follows the ShapeCardProps interface
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function ShapeCard({ shape }) {
   return (
     <Grid item key={shape.value}>

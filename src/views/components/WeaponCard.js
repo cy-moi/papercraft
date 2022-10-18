@@ -2,6 +2,12 @@ import React from 'react';
 import { changeSelect } from 'Src/utils/events';
 import { Box, Grid, Typography } from '@mui/material';
 
+/**
+ * Displays a card with a weapon in it (for the weapon carousel)
+ * @param weapon
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function WeaponCard({ weapon }) {
   console.log(weapon);
   return (

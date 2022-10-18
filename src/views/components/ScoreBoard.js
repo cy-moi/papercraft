@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Divider, Paper, Typography } from '@mui/material';
 
+/**
+ * Shows the current score based on the number of enemies killed
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function ScoreBoard() {
   const [shapeStats, setStats] = useState({});
   const [attackerStats, setAttackerStats] = useState({});

@@ -7,6 +7,11 @@ import { Box, Button } from '@mui/material';
 import WeaponCarousel from './WeaponCarousel';
 import StatsCard from './StatsCard';
 
+/**
+ * Shows the main page of the app, with the carousels, stats card, select menu and start button
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function AppLayout() {
   const [dashboard, setDashboard] = useState('Core');
 
