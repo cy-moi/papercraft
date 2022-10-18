@@ -8,7 +8,7 @@ const weapons = (sliderValue) => [
     value: 'Bullets',
     type: 'bullet',
     slot: 0,
-    speed: 10,
+    speed: 20,
     config: {
       radius: 5,
       blurSize: 5,
@@ -33,7 +33,7 @@ const weapons = (sliderValue) => [
     slot: 1,
     speed: 5,
     config: {
-      radius: 5,
+      radius: 15,
       blurSize: 5,
     },
     direction: sliderValue,
