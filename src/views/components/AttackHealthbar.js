@@ -8,7 +8,7 @@ function AttackHealthbar() {
   const progressRef = React.useRef(() => {});
   React.useEffect(() => {
     progressRef.current = () => {
-      if (window.playground.attackers[0]) {
+      if (window.playground.attackers && window.playground.attackers[0]) {
         // console.log('health', window.it.health);
         setBuffer(health);
         setHealth(window.playground.attackers[0].health);

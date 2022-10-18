@@ -16,7 +16,7 @@ function AppLayout() {
         size="large"
         color="success"
         variant="contained"
-        onClick={changeSession}
+        onClick={async () => await changeSession() }
         sx={{
           // make button black
           backgroundColor: '#1A2027',
