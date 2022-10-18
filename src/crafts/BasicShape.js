@@ -112,6 +112,7 @@ class BasicShape extends Container {
 
     const handler = mouseHandler || this.clickEventHandler;
     this.on('mousedown', handler);
+    // this.on('rightclick', this.rightclickHandler);
 
     this.x = x;
     this.y = y;

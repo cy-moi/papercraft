@@ -23,3 +23,10 @@ export const changeSelect = (e) => {
   changeShapeEvent.eventName = 'changeShape';
   document.dispatchEvent(changeShapeEvent);
 };
+export const triggerDrawPad = (e) => {
+  const triggerDrawPadEvent = document.createEvent('HTMLEvents');
+  triggerDrawPadEvent.initEvent('triggerDrawPad', true, true);
+  triggerDrawPadEvent.eventName = 'triggerDrawPad';
+
+  document.dispatchEvent(triggerDrawPadEvent);
+};
