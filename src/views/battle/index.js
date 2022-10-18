@@ -16,10 +16,12 @@ export const initBattle = async () => {
   // const obstacles = [];
   playground.attackers = [];
 
+  // generate random obstacles for the playground
   const seeds = Array.from({ length: 10 }, () =>
     Math.floor(Math.random() * config.game.width),
   );
 
+  // add a wall to the playground to prevent the craft from going out of bounds
   addCraft({
     id: 'wall',
     model: 'BasicShape',
@@ -36,6 +38,7 @@ export const initBattle = async () => {
     color: battleColors.yellow,
   });
 
+  // add a wall to the playground to prevent the craft from going out of bounds
   addCraft({
     id: 'wall',
     model: 'BasicShape',
@@ -52,6 +55,7 @@ export const initBattle = async () => {
     color: battleColors.yellow,
   });
 
+  // add a wall to the playground to prevent the craft from going out of bounds
   addCraft({
     id: 'wall',
     model: 'BasicShape',
@@ -71,6 +75,7 @@ export const initBattle = async () => {
     color: battleColors.yellow,
   });
 
+  // add a wall to the playground to prevent the craft from going out of bounds
   addCraft({
     id: 'wall',
     model: 'BasicShape',
@@ -87,7 +92,9 @@ export const initBattle = async () => {
     color: battleColors.yellow,
   });
 
+  // add the random obstacles to the playground
   seeds.forEach(async (value, id) => {
+    // add indestructible obstacles to the playground
     addCraft({
       id,
       model: 'BasicShape',
@@ -122,6 +129,7 @@ export const initBattle = async () => {
       color: battleColors.red,
     });
 
+    // add destructible obstacles to the playground
     addCraft({
       id: 'moveObstacles',
       model: 'MobileShape',
@@ -131,7 +139,7 @@ export const initBattle = async () => {
       radius: Math.random() * 30 + 10,
       isStatic: true,
       debug: false,
-      health: Infinity,
+      health: 200,
       mouseHandler: () => {
         console.log('do nothing');
       },
@@ -147,7 +155,7 @@ export const initBattle = async () => {
       sides: Math.random() * 15 + 5,
       isStatic: true,
       debug: false,
-      health: Infinity,
+      health: 200,
       mouseHandler: () => {
         console.log('do nothing');
       },
@@ -155,6 +163,7 @@ export const initBattle = async () => {
     });
   });
 
+  // create ennemies
   const attacker = await addCraft({
     id: 'attackers',
     model: 'AutoShape',
@@ -172,6 +181,7 @@ export const initBattle = async () => {
     },
     color: battleColors.green,
   });
+  // spawn attacker on the playground
   playground.attackers.push(attacker);
 
   attacker.getEquipSlots().forEach(async (slot, ind) => {
