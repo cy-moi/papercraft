@@ -43,7 +43,7 @@ function WeaponCard({ weapon }) {
         }}
       >
         <img
-          src={`Assets/${weapon.value.toLowerCase()}.svg`}
+          src={`assets/${weapon.value.toLowerCase()}.svg`}
           width={50}
           height={60}
           alt={weapon.value}

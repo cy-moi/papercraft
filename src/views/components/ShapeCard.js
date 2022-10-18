@@ -47,7 +47,7 @@ function ShapeCard({ shape }) {
         }}
       >
         <img
-          src={`Assets/${shape.value.toLowerCase()}.svg`}
+          src={`assets/${shape.value.toLowerCase()}.svg`}
           width={50}
           height={60}
           alt={shape.value}
