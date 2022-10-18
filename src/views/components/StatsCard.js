@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Divider, Paper, Typography } from '@mui/material';
 
 function StatsCard() {
-  const stats = {
-    'Total Attack': 100,
-    'Total Defence': 100,
-    'Fire Rate': 50,
-  };
+  const [shapeStats, setStats] = useState({});
+
+  const [it, setIt] = useState(window.it);
+  const [numShooter, setNumShooter] = useState(0);
+
+  useEffect(() => {
+    function handleChangeShape() {
+      setIt(window.it);
+      setNumShooter(window.it.weapons.length);
+    }
+    document.addEventListener('changeShape', handleChangeShape);
+
+    return (_) => {
+      document.removeEventListener('changeShape', handleChangeShape);
+    };
+  });
+
+  React.useEffect(() => {
+    // const { it } = window;
+    if (it && it.health) {
+      // console.log('health', window.it.health);
+      const attack = it.weapons.reduce((harm, cur) => harm + cur.harm, 0);
+      const s = {
+        'Total Attack': attack,
+        'Total Defence': it.health,
+        'Num of Weapon': it.weapons.length,
+      };
+      setStats(s);
+    }
+  }, [it, numShooter]);
 
   return (
     <Paper
@@ -42,7 +67,7 @@ function StatsCard() {
       />
 
       {/* iterate through stats and print as typosgraphy */}
-      {Object.keys(stats).map((key, index) => (
+      {Object.keys(shapeStats).map((key, index) => (
         <Typography
           sx={{ fontSize: 10 }}
           variant="h6"
@@ -50,7 +75,7 @@ function StatsCard() {
           color="white"
           key={index.toString()}
         >
-          {key} :{stats[key]}
+          {key} :{shapeStats[key]}
         </Typography>
       ))}
     </Paper>

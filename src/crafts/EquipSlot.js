@@ -31,7 +31,7 @@ export default class EquipSlotHint extends Container {
 
   checkInside(a) {
     this.hit = containersIntersect(a, this);
-    return this.hit;
+    return this.hit ? this : undefined;
   }
 
   // onMouseClick() {

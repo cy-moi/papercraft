@@ -17,6 +17,8 @@ export default class TrashBin extends EquipSlotHint {
     this.hit = false;
 
     this.sprite = Sprite.from(texture);
+    this.sprite.width = 20;
+    this.sprite.height = 20;
 
     this.addChild(this.sprite);
   }

@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'development') {
   window.PIXI = PIXI;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const app = new Application({
     antialias: true,
     resolution: window.devicePixelRatio || 1,
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // app.ticker.autoStart = false
   // app.ticker.stop();
   window.app = app;
-  app.init();
+  await app.init();
 });
 window.counter = 0;
 
@@ -69,8 +69,8 @@ window.equipShoot = async function shoot(
   speed,
   direction,
   config,
+  color,
   action,
-  color = 'blue',
   lifeSpan = 10,
 ) {
   const { playground, addCraft } = window;

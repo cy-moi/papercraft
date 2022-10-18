@@ -4,6 +4,7 @@ import ShootModule from '../crafts/ShootModule';
 import EquipSlot from '../crafts/EquipSlot';
 import AutoShape from '../crafts/AutoShape';
 import AutoShooter from '../crafts/AutoShooter';
+import TrashBin from '../crafts/TrashBin';
 
 const craftShop = [
   {
@@ -29,6 +30,10 @@ const craftShop = [
   {
     name: 'AutoShooter',
     constructor: AutoShooter,
+  },
+  {
+    name: 'TrashBin',
+    constructor: TrashBin,
   },
 ];
 

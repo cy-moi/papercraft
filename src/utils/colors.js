@@ -5,6 +5,8 @@ export const colors = {
   neonDblue: 0x04005e,
 };
 
+export const defaultColor = 0x4fc1e8;
+
 export const battleColors = {
   red: 0xfb565a,
   green: 0x1cc4ab,

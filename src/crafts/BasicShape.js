@@ -1,11 +1,10 @@
 import { Container, Graphics, Sprite } from 'pixi.js';
-// import * as drawUtils from '../utils/draw';
+import { changeSelect, changeCraftSession } from '../utils/events';
 import Matter from 'matter-js';
 import * as utils from '../utils/vec';
 import { colors } from '../utils/colors';
 import { bindKeyHandler, unbindKeyHandler } from '../utils/keyboard';
 import EquipSlotHint from './EquipSlot';
-import { changeCraftSession } from '../utils/events';
 
 export const North = { x: 0, y: -1 };
 
@@ -36,6 +35,7 @@ class BasicShape extends Container {
     // this.addChild(this.graphics);
     this.color = color || colors[Object.keys(colors)[this.getRandomInt(4)]];
     this.health = health || 100;
+    this.weapons = [];
 
     // TODO: fill shape with random color
     switch (type) {
@@ -208,6 +208,7 @@ class BasicShape extends Container {
     // select this
     bindKeyHandler(this);
     this.selected = !this.selected;
+    changeSelect(e);
   }
 
   removeSelf() {

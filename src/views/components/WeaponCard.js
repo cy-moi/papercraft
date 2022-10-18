@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { changeSelect } from 'Src/utils/events';
 import { Box, Grid, Typography } from '@mui/material';
 
 function WeaponCard({ weapon }) {
@@ -21,8 +21,8 @@ function WeaponCard({ weapon }) {
           },
         }}
         /* eslint-disable-next-line max-len */
-        onClick={() => {
-          window.equipShoot(
+        onClick={async (e) => {
+          await window.equipShoot(
             weapon.type,
             weapon.slot,
             weapon.speed,
@@ -30,6 +30,8 @@ function WeaponCard({ weapon }) {
             weapon.config,
             weapon.action,
           );
+          changeSelect(e);
+          console.log(window.it.weapons);
         }}
       >
         <img

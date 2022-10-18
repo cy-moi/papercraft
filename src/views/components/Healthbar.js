@@ -9,7 +9,7 @@ function Healthbar() {
   React.useEffect(() => {
     progressRef.current = () => {
       if (window.it && window.it.health) {
-        console.log('health', window.it.health);
+        // console.log('health', window.it.health);
         setBuffer(health);
         setHealth(window.it.health);
       }
@@ -36,7 +36,7 @@ function Healthbar() {
         sx={{
           height: 15,
           width: 600,
-          borderRadius: 5,
+          borderRadius: 0,
           marginBottom: 2,
           backgroundColor: '#dfdfdf',
           color: 'white',

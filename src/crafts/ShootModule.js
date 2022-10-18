@@ -1,7 +1,7 @@
 import { Container, Sprite, Graphics } from 'pixi.js';
-import { colors } from '../utils/colors';
-// import * as utils from 'Src/utils/vec';
-// import { MouseEvents } from 'Src/utils/events';
+import { defaultColor } from '../utils/colors';
+import * as utils from 'Src/utils/vec';
+import { changeSelect } from 'Src/utils/events';
 
 export const North = { x: 0, y: -1 };
 
@@ -29,10 +29,12 @@ export default class Shooter extends Container {
   }) {
     this.OFFSET = Math.PI / 4.0;
     this.follow = follow;
+    this.follow.weapons.push(this);
+
     this.slotId = slot || 0;
     this.harm = harm || 10;
     this.lifeSpan = lifeSpan || 100;
-    this.color = color || colors[Object.keys(colors)[this.getRandomInt(4)]];
+    this.color = color || defaultColor;
 
     const { size, radius, bulletTexture } = config;
     const { width, height } = size || { widht: radius * 2, height: radius * 2 };
@@ -133,9 +135,20 @@ export default class Shooter extends Container {
   onDragEnd() {
     this.alpha = 1;
     this.dragging = false;
+
     // set the interaction data to null
     this.data = null;
+
+    if (utils.getSquaredDistance(this.sprite, this.follow) > 10000)
+      this.destroySelf();
     this.updateSlot();
+
+    // set hightlight off
+    window.playground.craftAll.forEach((it) =>
+      it.slots || it.id === 'trash'
+        ? it.slots.forEach((s) => (s.hit = false))
+        : null,
+    );
 
     window.app.viewport.drag();
   }
@@ -144,12 +157,9 @@ export default class Shooter extends Container {
     if (this.dragging) {
       const newPosition = this.data.getLocalPosition(this.parent);
 
-      // console.log(this.data, this);
       this.sprite.x = newPosition.x;
       this.sprite.y = newPosition.y;
       this.detectSlot();
-      // this.slotId = t < 0 ? this.slotId : t;
-      // this.updateSlot();
     }
   }
 
@@ -164,17 +174,42 @@ export default class Shooter extends Container {
     });
   }
 
+  destroySelf() {
+    const { weapons } = this.follow;
+    weapons.splice(
+      weapons.indexOf((it) => it === this),
+      1,
+    );
+    changeSelect();
+    this.destroy();
+  }
+
   detectSlot() {
     window.playground.craftAll.forEach((child) => {
+      // if (!this.dragging) return;
+
       if (child.slots && child.slots.length > 0) {
         Object.keys(child.slots).forEach((slotId) => {
+          // if (!this.dragging) return;
+
+          // const slot = child.slots[slotId].checkInside(this);
           if (child.slots[slotId].checkInside(this)) {
             this.slotId = slotId;
-            this.follow = child.slots[slotId].host;
+            if (child !== this.follow) {
+              const { weapons } = this.follow;
+              weapons.splice(
+                weapons.indexOf((it) => it === this),
+                1,
+              );
+              this.follow = child;
+              child.weapons.push(this);
+            }
+            changeSelect();
           }
         });
       }
     });
+
     // return -1;
   }
 
@@ -193,14 +228,9 @@ export default class Shooter extends Container {
     this.updateSlot();
     // const initBullets = [];
     this.bullets = this.bullets.slice(0).reduce((bullets, it) => {
-      // console.log(bullet.x, bullet.y, bullet.rotation)
-      // console.log(Math.cos(bullet.rotation))
       if (it.life > 100) {
         this.parent.removeChild(it);
-        // this.parent.craftAll.splice(this.parent.craftAll.indexOf(e => e === it), 1);
         return bullets;
-        // bullet.destroy();
-        // return false;
       }
       it.x += Math.cos(it.rotation) * this.shootSpeed;
       it.y += Math.sin(it.rotation) * this.shootSpeed;
