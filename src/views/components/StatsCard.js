@@ -26,7 +26,7 @@ function StatsCard() {
       const attack = it.weapons.reduce((harm, cur) => harm + cur.harm, 0);
       const s = {
         'Total Attack': attack,
-        'Total Defence': it.health,
+        'Total Defense': it.health,
         'Num of Weapon': it.weapons.length,
       };
       setStats(s);
