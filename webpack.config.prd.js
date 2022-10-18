@@ -12,7 +12,7 @@ const config = {
     alias: {
       Src: path.resolve(__dirname, 'src/'),
       Core: path.resolve(__dirname, 'src/core/'),
-      Assets: path.resolve(__dirname, 'assets/'),
+      Assets: path.resolve(__dirname, './assets/'),
     },
     extensions: ['.js', '.tsx'],
   },
