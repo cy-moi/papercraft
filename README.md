@@ -47,7 +47,7 @@ The playground is simply the game battleground, where the just-created vessel ca
 
 # How to run
 
-**Node version: 16.13.0 is required**
+**Node version: 16.xx.x is required**
 
 1. Clone the repository
 
