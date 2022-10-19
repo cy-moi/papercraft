@@ -195,7 +195,7 @@ export const initBattle = async () => {
   attacker.getEquipSlots().forEach(async (slot, ind) => {
     const shooter = await addCraft({
       type: 'laser',
-      id: 'autoshooter',
+      id: 'shooter',
       model: 'AutoShooter',
       follow: attacker,
       host: playground,
