@@ -218,12 +218,12 @@ export const exitBattle = async () => {
   const { playground, it, removeAllCrafts } = window;
   window.battle = false;
   playground.attackers[0].follower = undefined;
-  const followers = playground.craftAll.filter((el) => el.follow === it);
+  // const followers = playground.craftAll.filter((el) => el.follow === it);
 
   // remove everything else but the player
   playground.craftAll.reduceRight((acc, e, ind) => {
     // if(e.id === 'autoshooter') e.removeSelf();
-    if (e !== window.it && followers.indexOf(e) === -1) {
+    if (e !== window.it) {
       e.removeSelf();
     }
   }, []);
