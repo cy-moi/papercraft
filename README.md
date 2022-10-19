@@ -38,20 +38,30 @@ You can press [a] key to see it shoot before entering the battleground.
 ### Drag and Drop
 <div align="center">
 <a>drag and drop weapons to auto-highlighted locations</a>
+<br />
 <img src="demo/dragdrop.gif" width="50%" height="50%">
+<br />
 <a>drag and drop across vessels</a>
+<br />
 <img src="demo/dragdrop2another.gif" width="50%" height="50%">
+<br />
 <a>drag, drop and throw to dispose</a>
+<br />
 <img src="demo/dragdropthrow.gif" width="50%" height="50%">
 </div>
 
 ### UI
 <div align="center">
 <a>slider and shape selector</a>
+<br />
 <img src="demo/shapeSlider.gif" width="50%" height="50%">
+<br />
 <a>pan and zoom</a>
+<br />
 <img src="demo/panzoom.gif" width="50%" height="50%">
+<br />
 <a>lively updated stats for comparation</a>
+<br />
 <img src="demo/statsUpdate.gif" width="50%" height="50%">
 </div>
 
