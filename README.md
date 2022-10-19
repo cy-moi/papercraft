@@ -45,6 +45,8 @@ The playground is simply the game battleground, where the just-created vessel ca
 <img src="demo/model.png" width="50%" height="50%">
 </div>
 
+
+
 # How to run
 
 **Node version: 16.xx.x is required**

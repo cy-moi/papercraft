@@ -27,6 +27,7 @@ const weapons = (sliderValue) => [
     },
     direction: sliderValue,
     action: 'keypress',
+    color: 0x99dd1c,
     lifeSpan: 5,
   },
   {
@@ -40,6 +41,7 @@ const weapons = (sliderValue) => [
     },
     direction: sliderValue,
     action: 'keypress',
+    color: 0xffaee0,
     lifeSpan: 150,
   },
 ];

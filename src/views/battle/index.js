@@ -16,11 +16,12 @@ export const initBattle = async () => {
 
   const followers = playground.craftAll.filter((el) => el.follow === it);
 
-  playground.craftAll.forEach((e) => {
+  playground.craftAll.reduceRight((acc, e, ind) => {
     if (e !== window.it && followers.indexOf(e) === -1) {
       e.removeSelf();
     }
-  });
+  }, []);
+  
   it.buttonMode = false;
 
   playground.attackers = [];
@@ -172,7 +173,7 @@ export const initBattle = async () => {
 
   // create ennemies
   const attacker = await addCraft({
-    id: 'attackers',
+    id: 'attacker',
     model: 'AutoShape',
     host: playground,
     type: 'polygon',
@@ -189,12 +190,12 @@ export const initBattle = async () => {
     color: battleColors.green,
   });
   // spawn attacker on the playground
-  playground.attackers.push(attacker);
+  playground.attackers.unshift(attacker);
 
   attacker.getEquipSlots().forEach(async (slot, ind) => {
     const shooter = await addCraft({
       type: 'laser',
-      id: 'shooter',
+      id: 'autoshooter',
       model: 'AutoShooter',
       follow: attacker,
       host: playground,
@@ -215,15 +216,21 @@ export const exitBattle = async () => {
   // eslint-disable-next-line no-unused-vars
   const { playground, it, removeAllCrafts } = window;
   window.battle = false;
+  playground.attackers[0].follower = undefined;
   const followers = playground.craftAll.filter((el) => el.follow === it);
 
-  // remove everything else but the play
-  playground.craftAll.forEach((e) => {
+  // remove everything else but the player
+  playground.craftAll.reduceRight((acc, e, ind) => {
+    // if(e.id === 'autoshooter') e.removeSelf();
     if (e !== window.it && followers.indexOf(e) === -1) {
       e.removeSelf();
     }
-  });
+  }, []);
+  
+  console.log(playground.craftAll);
 
+  playground.attackers[0].removeSelf();
+  playground.attackers = [];
   // check if the player dead
   if (it.health > 0) {
     it.buttonMode = true;
