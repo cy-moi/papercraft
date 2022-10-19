@@ -11,6 +11,7 @@ PaperCraft
 <h6 align="center">
 An easy-to-use, minimized 2D shooter game with extensive crafting capabilities.
 Supporting crafting and battlegrounds.
+  <br />
   <a href="https://papercraft-eight.vercel.app/">View Demo</a>
   ·
   <a href="https://github.com/cy-moi/papercraft/issues">Report Bug</a>
@@ -34,9 +35,15 @@ Change the slider value to change weapon rotation.
 The top-right corner cart is displaying the player's vessel's statistics
 You can press [a] key to see it shoot before entering the battleground.
 
-# Playground
+## Playground
 
 The playground is simply the game battleground, where the just-created vessel can shoot at enemies.
+
+## Player: Differential wheeled robot
+
+<div align="center">
+<img src="demo/model.png" width="50%" height="50%">
+</div>
 
 # How to run
 
