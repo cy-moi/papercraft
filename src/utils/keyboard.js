@@ -53,10 +53,10 @@ const stopKey = keyboard('C');
 
 export const bindKeyHandler = (shape) => {
   upkey.press = () => {
-    shape.speed += 1;
+    shape.speed += shape.speed >= 20 ? 0 : 1;
   };
   downKey.press = () => {
-    shape.speed -= 1;
+    shape.speed -= shape.speed <= -20 ? 0 : 1;
   };
   leftKey.press = () => {
     shape.steerDeg = (shape.steerDeg - 5) % 360;
