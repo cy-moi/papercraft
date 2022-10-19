@@ -33,7 +33,7 @@ function ScoreCard() {
         alignItems: 'center',
         justifyContent: 'center',
         top: 20,
-        right: 20,
+        left: 20,
         width: 100,
         height: 100,
         color: 'white',
