@@ -59,10 +59,12 @@ export const bindKeyHandler = (shape) => {
     shape.speed -= 1;
   };
   leftKey.press = () => {
-    shape.steering -= 0.01;
+    shape.steerDeg = (shape.steerDeg - 5) % 360;
+    shape.setSteering(shape.steerDeg);
   };
   rightKey.press = () => {
-    shape.steering += 0.01;
+    shape.steerDeg = (shape.steerDeg + 5) % 360;
+    shape.setSteering(shape.steerDeg);
   };
   stopKey.press = () => {
     shape.stop();

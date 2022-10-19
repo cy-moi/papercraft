@@ -208,6 +208,7 @@ export const initBattle = async () => {
       },
       color: battleColors.purple,
     });
+    shooter.parent = playground;
     shooter.autoAim(it);
   });
 };

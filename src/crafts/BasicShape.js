@@ -184,9 +184,9 @@ class BasicShape extends Container {
   }
 
   update() {
-    if (this.health <= 0 && window.battle) {
+    if (this.health <= 0) {
       this.removeSelf();
-      if (this === window.playground.attackers[0] || this === window.it)
+      if (window.battle && (this === window.playground.attackers[0] || this === window.it))
         changeCraftSession();
       return;
     }
@@ -217,14 +217,16 @@ class BasicShape extends Container {
   removeSelf() {
     Matter.Composite.remove(this.engine.world, this.physicBody);
     const { playground } = window;
-    const modules = playground.children.find(
+    const modules = playground.children.filter(
       (it) => it.follow && it.follow === this,
     );
-    playground.craftAll.slice(
+    modules.forEach(e => e.removeSelf());
+
+    playground.craftAll.splice(
       playground.craftAll.findIndex((el) => el === this),
       1,
     );
-    playground.removeChild(modules);
+    
     playground.removeChild(this);
   }
 

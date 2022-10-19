@@ -29,6 +29,10 @@ class AutoShooter extends ShootModule {
     // console.log(this.shootVec);
   }
 
+  removeSelf() {
+    super.removeSelf();
+  }
+
   update() {
     this.updateSlot();
     this.bullets = this.bullets.slice(0).reduce((bullets, it) => {

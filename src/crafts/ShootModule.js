@@ -25,11 +25,13 @@ export default class Shooter extends Container {
     harm,
     config,
     color,
+    host,
     texture,
   }) {
     this.OFFSET = Math.PI / 4.0;
     this.follow = follow;
     this.follow.weapons.push(this);
+    this.parent = host;
 
     this.slotId = slot || 0;
     this.harm = harm || 10;
@@ -177,11 +179,16 @@ export default class Shooter extends Container {
 
   removeSelf() {
     const { weapons } = this.follow;
-    weapons.slice(
+    weapons.splice(
       weapons.indexOf((it) => it === this),
       1,
     );
     this.bullets.forEach((it) => it.parent && it.parent.removeChild(it));
+    this.parent.removeChild(this);
+    window.playground.craftAll.splice(
+      window.playground.craftAll.indexOf((it) => it === this),
+      1,
+    )
     changeSelect();
     this.destroy();
   }
@@ -199,7 +206,7 @@ export default class Shooter extends Container {
             this.slotId = slotId;
             if (child !== this.follow) {
               const { weapons } = this.follow;
-              weapons.slice(
+              weapons.splice(
                 weapons.indexOf((it) => it === this),
                 1,
               );

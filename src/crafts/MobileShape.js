@@ -10,6 +10,7 @@ class MobileShape extends BasicShape {
 
     this.steering = 0;
     this.speed = 0;
+    this.steerDeg = 0;
     this.craftAll = [];
   }
 
