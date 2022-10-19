@@ -37,24 +37,36 @@ You can press [a] key to see it shoot before entering the battleground.
 
 ### Drag and Drop
 <div align="center">
+<a>drag and drop weapons to auto-highlighted locations</a>
 <img src="demo/dragdrop.gif" width="50%" height="50%">
+<a>drag and drop across vessels</a>
 <img src="demo/dragdrop2another.gif" width="50%" height="50%">
+<a>drag, drop and throw to dispose</a>
 <img src="demo/dragdropthrow.gif" width="50%" height="50%">
 </div>
 
 ### UI
 <div align="center">
+<a>slider and shape selector</a>
 <img src="demo/shapeSlider.gif" width="50%" height="50%">
+<a>pan and zoom</a>
 <img src="demo/panzoom.gif" width="50%" height="50%">
+<a>lively updated stats for comparation</a>
 <img src="demo/statsUpdate.gif" width="50%" height="50%">
 </div>
 
 ## Playground
 
-The playground is simply the game battleground, where the just-created vessel can shoot at enemies.
+The playground is simply the game battleground, where the just-created vessel can shoot at enemies. The enemies are static obstacles, move-able obstacles, and an attacking vessel. The mirroring vessel will have the same speed as the player and try to face at the player to shoot at it. Use arrow keys to move around, `[C] (Capital)`key to brake the vessel, `a` key to shoot!
 
-## Player: Differential wheeled robot
+### UI
+battle UI has health bars for both sides, and a control panel where the user can see their current steering degrees and speed.
+<div align="center">
+<img src="demo/battleUI.gif" width="50%" height="50%">
+</div>
 
+### Player: Differential wheeled robot
+For the motion model of the player, we adapted the differential wheeled robot which is very practical (robotics 101) and realistic. The `left` and `right` key will control the steering, but here the steer degree will be translated to the wheel differences.
 <div align="center">
 <img src="demo/model.png" width="50%" height="50%">
 </div>

@@ -80,6 +80,7 @@ class MobileShape extends BasicShape {
   stop() {
     this.setSpeed(0);
     this.setSteering(0);
+    this.steerDeg = 0;
   }
 
   setPosition(x, y) {
