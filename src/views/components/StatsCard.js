@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Divider, Paper, Typography } from '@mui/material';
 
+/**
+ * Show the selected shape's stats (attack, defense, number of weapons) in a card
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function StatsCard() {
   const [shapeStats, setStats] = useState({});
 
@@ -24,13 +29,16 @@ function StatsCard() {
     if (it && it.health) {
       // console.log('health', window.it.health);
       const attack = it.weapons.reduce((harm, cur) => harm + cur.harm, 0);
-      const maxRate = it.weapons.reduce((max, cur) => 
-        max = max > cur.shootSpeed ? max : cur.shootSpeed, 0);
+      // eslint-disable-next-line max-len
+      const maxRate = it.weapons.reduce(
+        (max, cur) => (max = max > cur.shootSpeed ? max : cur.shootSpeed),
+        0,
+      );
       const s = {
         'Total Attack': attack,
         'Total Defense': it.health,
         'Num of Weapon': it.weapons.length,
-        'Highest Fire Speed': maxRate 
+        'Highest Fire Speed': maxRate,
       };
       setStats(s);
     }
@@ -43,9 +51,9 @@ function StatsCard() {
         height: '30%',
         backgroundColor: '#1A2027',
         display: 'flex',
-        alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
+        alignItems: 'center',
         padding: 2,
         borderRadius: 4,
       }}

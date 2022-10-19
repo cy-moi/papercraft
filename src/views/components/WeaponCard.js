@@ -2,6 +2,12 @@ import React from 'react';
 import { changeSelect } from 'Src/utils/events';
 import { Box, Grid, Typography } from '@mui/material';
 
+/**
+ * Displays a card with a weapon in it (for the weapon carousel)
+ * @param weapon
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function WeaponCard({ weapon }) {
   console.log(weapon);
   return (
@@ -30,19 +36,37 @@ function WeaponCard({ weapon }) {
             weapon.config,
             weapon.color,
             weapon.action,
+            weapon.lifeSpan,
           );
           changeSelect(e);
           // console.log(window.it.weapons);
         }}
       >
         <img
-          src={`assets/${weapon.value}.svg`}
+          src={`assets/${weapon.value.toLowerCase()}.svg`}
           width={50}
           height={60}
           alt={weapon.value}
         />
-        <Typography fontSize={8} variant="h6" component="div" color="white">
+        <Typography
+          fontSize={12}
+          variant="h6"
+          component="div"
+          color="white"
+          textAlign="center"
+        >
           {weapon.value}
+        </Typography>
+        <Typography
+          fontSize={10}
+          variant="h6"
+          component="div"
+          color="white"
+          textAlign="center"
+        >
+          {`speed: ${weapon.speed}`}
+          <br />
+          {`life span: ${weapon.lifeSpan}`}
         </Typography>
       </Box>
     </Grid>

@@ -1,9 +1,14 @@
 import React from 'react';
-import { Paper, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import Healthbar from './Healthbar';
 import AttackHealthbar from './AttackHealthbar';
 
-function ScoreBoard({player}) {
+/**
+ * Shows the current score based on the number of enemies killed
+ * @returns {JSX.Element}
+ * @constructor
+ */
+function ScoreBoard({ player }) {
   // const [shapeStats, setStats] = useState({});
   // const [attackerStats, setAttackerStats] = useState({});
   // const [timer, setTimer] = useState(0);
@@ -41,7 +46,7 @@ function ScoreBoard({player}) {
   // }, [timer]);
   //
   return (
-    <Paper
+    <Container
       sx={{
         width: '100%',
         height: '30%',
@@ -72,7 +77,7 @@ function ScoreBoard({player}) {
         Attacker Health
       </Typography>
       <AttackHealthbar />
-    </Paper>
+    </Container>
   );
 }
 

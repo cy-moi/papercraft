@@ -180,7 +180,7 @@ export default class Shooter extends Container {
       weapons.indexOf((it) => it === this),
       1,
     );
-    this.bullets.forEach(it => it.parent && it.parent.removeChild(it))
+    this.bullets.forEach((it) => it.parent && it.parent.removeChild(it));
     changeSelect();
     this.destroy();
   }
@@ -229,7 +229,7 @@ export default class Shooter extends Container {
     this.updateSlot();
     // const initBullets = [];
     this.bullets = this.bullets.slice(0).reduce((bullets, it) => {
-      if (it.life > 100) {
+      if (it.life > this.lifeSpan) {
         if (this.parent) this.parent.removeChild(it);
         return bullets;
       }

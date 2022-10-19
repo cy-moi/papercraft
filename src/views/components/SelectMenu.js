@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
 import { Box, Chip } from '@mui/material';
 
+/**
+ * A select menu for the dashboard, it allows the user to select which dashboard they want to view,
+ * e.g. Core, Weapons, etc. for selecting the different elements to add to the craft
+ * @param onSelectDashboard
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function SelectMenu({ onSelectDashboard }) {
-  // const changeData = (event) => {
-  //   onSelectDashboard(event.target.textContent.toString());
-  // };
   // use state to keep track of the selected dashboard and change the color of the chip
   const [selected, setSelected] = React.useState('Core');
   const handleClick = (event) => {
@@ -83,39 +87,5 @@ function SelectMenu({ onSelectDashboard }) {
     </Box>
   );
 }
-
-//   return (
-//     <Box
-//       sx={{
-//         width: '10%',
-//         height: '30%',
-//         backgroundColor: '#1A2027',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         flexDirection: 'column',
-//         padding: 2,
-//         borderRadius: 4,
-//       }}
-//     >
-//       <Chip
-//         label="Core"
-//         variant="outlined"
-//         color={selected === 'Core' ? 'success' : 'default'}
-//         onClick={changeData}
-//       />
-//       <Chip
-//         label="Weapons"
-//         variant="outlined"
-//         color={selected === 'Weapons' ? 'success' : 'default'}
-//       />
-//       <Chip
-//         label="Stats"
-//         variant="outlined"
-//         color={selected === 'Stats' ? 'success' : 'default'}
-//         onClick={changeData}
-//       />
-//     </Box>
-//   );
-// }
 
 export default SelectMenu;

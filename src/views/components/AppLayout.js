@@ -7,52 +7,16 @@ import { Box, Button } from '@mui/material';
 import WeaponCarousel from './WeaponCarousel';
 import StatsCard from './StatsCard';
 
+/**
+ * Shows the main page of the app, with the carousels, stats card, select menu and start button
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function AppLayout() {
   const [dashboard, setDashboard] = useState('Core');
 
   return (
     <>
-      <Button
-        size="large"
-        color="success"
-        variant="contained"
-        onClick={async () => await changeSession() }
-        sx={{
-          // make button black
-          backgroundColor: '#1A2027',
-          position: 'fixed',
-          bottom: '20px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      >
-        Start
-      </Button>
-
-      <Box
-        // align box to the center right
-        sx={{
-          display: 'flex',
-          position: 'fixed',
-          flexDirection: 'row',
-          justifyContent: 'flex-end',
-          height: '100%',
-          right: '20px',
-        }}
-      >
-        <StatsCard />
-      </Box>
-      <Box
-        // align box to the center right
-        sx={{
-          position: 'fixed',
-          height: '100%',
-          left: '20px',
-        }}
-      >
-        <SelectMenu onSelectDashboard={setDashboard} />
-      </Box>
-
       <Box
         // align box to the center right
         sx={{
@@ -66,6 +30,50 @@ function AppLayout() {
         {dashboard === 'Core' && <ShapeCarousel />}
         {dashboard === 'Weapons' && <WeaponCarousel />}
       </Box>
+
+      <Box
+        sx={{
+          position: 'fixed',
+          height: '100%',
+          right: '20px',
+          marginRight: '30px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <StatsCard />
+      </Box>
+      <Box
+        // align box to the vertical center right
+        sx={{
+          position: 'fixed',
+          height: '100%',
+          left: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <SelectMenu onSelectDashboard={setDashboard} />
+      </Box>
+
+      <Button
+        size="large"
+        color="success"
+        variant="contained"
+        onClick={async () => changeSession()}
+        sx={{
+          // make button black
+          backgroundColor: '#1A2027',
+          position: 'fixed',
+          bottom: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}
+      >
+        Start
+      </Button>
     </>
   );
 }

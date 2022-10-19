@@ -2,20 +2,26 @@ import config from './config';
 import { battleColors } from 'Src/utils/colors';
 
 export const initBattle = async () => {
-  const { addCraft, playground, it, removeCraft } = window;
+  const {
+    // eslint-disable-next-line no-unused-vars
+    addCraft,
+    playground,
+    it,
+    removeCraft,
+  } = window;
   // app.viewport.fit(it);
   // app.viewport.follow(it);
-  window.battle = true; 
-  it.setPosition(config.boundary.width / 2.0, config.boundary.height /2.0);
-  
+  window.battle = true;
+
+  it.setPosition(config.boundary.width / 2.0, config.boundary.height / 2.0);
+
   const followers = playground.craftAll.filter((el) => el.follow === it);
 
-  playground.craftAll.forEach(e => {
-    if(e !== window.it && followers.indexOf(e) === -1) {
+  playground.craftAll.forEach((e) => {
+    if (e !== window.it && followers.indexOf(e) === -1) {
       e.removeSelf();
     }
-
-  })
+  });
   // removeAllCrafts(playground);
   it.buttonMode = false;
   // playground.addChild(it);
@@ -24,10 +30,12 @@ export const initBattle = async () => {
   // const obstacles = [];
   playground.attackers = [];
 
+  // generate random obstacles for the playground
   const seeds = Array.from({ length: 10 }, () =>
     Math.floor(Math.random() * config.game.width),
   );
 
+  // add a wall to the playground to prevent the craft from going out of bounds
   addCraft({
     id: 'wall',
     model: 'BasicShape',
@@ -44,6 +52,7 @@ export const initBattle = async () => {
     color: battleColors.yellow,
   });
 
+  // add a wall to the playground to prevent the craft from going out of bounds
   addCraft({
     id: 'wall',
     model: 'BasicShape',
@@ -60,6 +69,7 @@ export const initBattle = async () => {
     color: battleColors.yellow,
   });
 
+  // add a wall to the playground to prevent the craft from going out of bounds
   addCraft({
     id: 'wall',
     model: 'BasicShape',
@@ -79,6 +89,7 @@ export const initBattle = async () => {
     color: battleColors.yellow,
   });
 
+  // add a wall to the playground to prevent the craft from going out of bounds
   addCraft({
     id: 'wall',
     model: 'BasicShape',
@@ -95,7 +106,9 @@ export const initBattle = async () => {
     color: battleColors.yellow,
   });
 
+  // add the random obstacles to the playground
   seeds.forEach(async (value, id) => {
+    // add indestructible obstacles to the playground
     addCraft({
       id,
       model: 'BasicShape',
@@ -130,6 +143,7 @@ export const initBattle = async () => {
       color: battleColors.red,
     });
 
+    // add destructible obstacles to the playground
     addCraft({
       id: 'moveObstacles',
       model: 'MobileShape',
@@ -139,7 +153,7 @@ export const initBattle = async () => {
       radius: Math.random() * 30 + 10,
       isStatic: true,
       debug: false,
-      health: Infinity,
+      health: 200,
       mouseHandler: () => {
         console.log('do nothing');
       },
@@ -155,7 +169,7 @@ export const initBattle = async () => {
       sides: Math.random() * 15 + 5,
       isStatic: true,
       debug: false,
-      health: 600,
+      health: 200,
       mouseHandler: () => {
         console.log('do nothing');
       },
@@ -163,6 +177,7 @@ export const initBattle = async () => {
     });
   });
 
+  // create ennemies
   const attacker = await addCraft({
     id: 'attackers',
     model: 'AutoShape',
@@ -180,6 +195,7 @@ export const initBattle = async () => {
     },
     color: battleColors.green,
   });
+  // spawn attacker on the playground
   playground.attackers.push(attacker);
 
   attacker.getEquipSlots().forEach(async (slot, ind) => {
@@ -203,22 +219,23 @@ export const initBattle = async () => {
 };
 
 export const exitBattle = async () => {
+  // eslint-disable-next-line no-unused-vars
   const { playground, it, removeAllCrafts } = window;
   window.battle = false;
   const followers = playground.craftAll.filter((el) => el.follow === it);
-  
+
   // remove everything else but the play
-  playground.craftAll.forEach(e => { 
-    if(e !== window.it && followers.indexOf(e) === -1) {
+  playground.craftAll.forEach((e) => {
+    if (e !== window.it && followers.indexOf(e) === -1) {
       e.removeSelf();
     }
-  })
+  });
 
   // check if the player dead
-  if(it.health > 0) {
+  if (it.health > 0) {
     it.buttonMode = true;
     it.health = 100;
-  }else {
+  } else {
     it.removeSelf();
   }
 };

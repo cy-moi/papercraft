@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Slider } from '@mui/material';
 import WeaponCard from './WeaponCard';
 
-// weapons array
+// weapons array, sliderValue is the angle of the weapons
 const weapons = (sliderValue) => [
   {
     value: 'Bullets',
@@ -15,22 +15,24 @@ const weapons = (sliderValue) => [
     },
     direction: sliderValue,
     action: 'keypress',
+    lifeSpan: 30,
   },
   {
     value: 'Laser',
     type: 'laser',
     slot: 1,
-    speed: 20,
+    speed: 40,
     config: {
       size: { width: 20, height: 2 },
     },
     direction: sliderValue,
     action: 'keypress',
+    lifeSpan: 5,
   },
   {
     value: 'Stone',
     type: 'bullet',
-    slot: 1,
+    slot: 2,
     speed: 5,
     config: {
       radius: 15,
@@ -38,9 +40,15 @@ const weapons = (sliderValue) => [
     },
     direction: sliderValue,
     action: 'keypress',
+    lifeSpan: 150,
   },
 ];
 
+/**
+ * Shows a carousel of selectable weapons in cards by mapping over the weapons function's output
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function WeaponCarousel() {
   const [sliderValue, setSliderValue] = useState(1.57);
   const marks = [
@@ -57,19 +65,17 @@ function WeaponCarousel() {
       label: '90°',
     },
     {
-      value: Math.PI ,
+      value: Math.PI,
       label: '180°',
     },
     {
       value: Math.PI * 2.0,
       label: '360°',
-    }
+    },
   ];
 
-
-  const valueLabelFormat = (value) => {
-  return marks.findIndex((mark) => mark.value === value) + 1;
-}
+  const valueLabelFormat = (value) =>
+    marks.findIndex((mark) => mark.value === value) + 1;
   // console.log('weapons', weapons);
   return (
     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
@@ -77,6 +83,7 @@ function WeaponCarousel() {
         <WeaponCard weapon={value} key={`${index.toString()}weapon`} />
       ))}
       <Slider
+        // TODO: Make this a circle
         sx={{
           color: '#1A2027',
           marginTop: '10px',
