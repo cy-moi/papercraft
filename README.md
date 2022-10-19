@@ -35,6 +35,20 @@ Change the slider value to change weapon rotation.
 The top-right corner cart is displaying the player's vessel's statistics
 You can press [a] key to see it shoot before entering the battleground.
 
+### Drag and Drop
+<div align="center">
+<img src="demo/dragdrop.gif" width="50%" height="50%">
+<img src="demo/dragdrop2another.gif" width="50%" height="50%">
+<img src="demo/dragdropthrow.gif" width="50%" height="50%">
+</div>
+
+### UI
+<div align="center">
+<img src="demo/shapeSlider.gif" width="50%" height="50%">
+<img src="demo/panzoom.gif" width="50%" height="50%">
+<img src="demo/statsUpdate.gif" width="50%" height="50%">
+</div>
+
 ## Playground
 
 The playground is simply the game battleground, where the just-created vessel can shoot at enemies.
@@ -44,7 +58,6 @@ The playground is simply the game battleground, where the just-created vessel ca
 <div align="center">
 <img src="demo/model.png" width="50%" height="50%">
 </div>
-
 
 
 # How to run
