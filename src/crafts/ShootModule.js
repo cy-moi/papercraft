@@ -168,6 +168,7 @@ export default class Shooter extends Container {
       if (child.id !== 'shooter' && child !== this.follow) {
         if (child.checkInside(b)) {
           child.health -= this.harm;
+          if (child.life !== Infinity) this.follow.score += this.harm;
           b.life = Infinity;
         }
       }

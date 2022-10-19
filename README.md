@@ -11,8 +11,11 @@ PaperCraft
 <h6 align="center">
 An easy-to-use, minimized 2D shooter game with extensive crafting capabilities.
 Supporting crafting and battlegrounds.
-</h6>
+  <a href="https://papercraft-eight.vercel.app/">View Demo</a>
+  ·
+  <a href="https://github.com/cy-moi/papercraft/issues">Report Bug</a>
 
+</h6>
 <div align="center">
 <img src="assets/logo.png" width="50%" height="50%">
 </div>

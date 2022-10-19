@@ -35,6 +35,7 @@ class BasicShape extends Container {
     // this.addChild(this.graphics);
     this.color = color || colors[Object.keys(colors)[this.getRandomInt(4)]];
     this.health = health || 10;
+    this.score = 0;
     this.weapons = [];
 
     // TODO: fill shape with random color

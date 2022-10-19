@@ -7,6 +7,7 @@ export const changeSession = async (e) => {
   event.eventName = 'changeSession';
   document.dispatchEvent(event);
   window.playground.attackers = [];
+  window.it.score = 0;
   await initBattle();
 };
 
