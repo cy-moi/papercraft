@@ -42,7 +42,7 @@ function AttackHealthbar() {
         valueBuffer={buffer}
         sx={{
           minHeight: '15px',
-          minWidth: '500px',
+          minWidth: '50px',
           height: '100%',
           width: '100%',
           borderRadius: 0,
