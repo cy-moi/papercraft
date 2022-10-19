@@ -4,6 +4,7 @@ import HealthBoard from '../components/HealthBoard';
 // eslint-disable-next-line import/no-named-as-default
 import AppLayout from '../components/AppLayout';
 import ScoreCard from '../components/Score';
+import { GitHubShareButton } from '../components/GithubButton';
 /**
  * React's entry point for app
  * @returns {JSX.Element}
@@ -37,6 +38,7 @@ function App() {
           <ScoreCard />
         </div>
       )}
+      <GitHubShareButton />
     </div>
   );
 }
