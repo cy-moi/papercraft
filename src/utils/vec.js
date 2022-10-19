@@ -43,7 +43,7 @@ export function polygonIntersect(verts, container) {
   // console.log(x, y, verts);
   return verts.slice(0).reduce((inside, v, ind, arr) => {
     // console.log(inside);
-    if (!inside) arr.splice(1);
+    if (!inside) arr.slice(1);
     const next = (ind + 1) % arr.length;
     // console.log(next);
     // console.log(

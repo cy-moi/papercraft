@@ -176,7 +176,7 @@ export default class Shooter extends Container {
 
   removeSelf() {
     const { weapons } = this.follow;
-    weapons.splice(
+    weapons.slice(
       weapons.indexOf((it) => it === this),
       1,
     );
@@ -198,7 +198,7 @@ export default class Shooter extends Container {
             this.slotId = slotId;
             if (child !== this.follow) {
               const { weapons } = this.follow;
-              weapons.splice(
+              weapons.slice(
                 weapons.indexOf((it) => it === this),
                 1,
               );

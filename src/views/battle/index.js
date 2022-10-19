@@ -7,7 +7,6 @@ export const initBattle = async () => {
     addCraft,
     playground,
     it,
-    removeCraft,
   } = window;
   // app.viewport.fit(it);
   // app.viewport.follow(it);
@@ -22,20 +21,14 @@ export const initBattle = async () => {
       e.removeSelf();
     }
   });
-  // removeAllCrafts(playground);
   it.buttonMode = false;
-  // playground.addChild(it);
-  // followers.forEach((s) => playground.addChild(s));
 
-  // const obstacles = [];
   playground.attackers = [];
 
-  // generate random obstacles for the playground
   const seeds = Array.from({ length: 10 }, () =>
     Math.floor(Math.random() * config.game.width),
   );
 
-  // add a wall to the playground to prevent the craft from going out of bounds
   addCraft({
     id: 'wall',
     model: 'BasicShape',

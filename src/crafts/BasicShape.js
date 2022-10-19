@@ -185,7 +185,8 @@ class BasicShape extends Container {
   update() {
     if (this.health <= 0 && window.battle) {
       this.removeSelf();
-      if (this === window.playground.attackers[0] || this === window.it) changeCraftSession();
+      if (this === window.playground.attackers[0] || this === window.it)
+        changeCraftSession();
       return;
     }
     this.x = this.physicBody.position.x;
@@ -218,10 +219,10 @@ class BasicShape extends Container {
     const modules = playground.children.find(
       (it) => it.follow && it.follow === this,
     );
-    // playground.craftAll.splice(
-    //   playground.craftAll.findIndex((el) => el === this),
-    //   1,
-    // );
+    playground.craftAll.slice(
+      playground.craftAll.findIndex((el) => el === this),
+      1,
+    );
     playground.removeChild(modules);
     playground.removeChild(this);
   }
