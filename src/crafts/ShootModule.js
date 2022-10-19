@@ -140,7 +140,7 @@ export default class Shooter extends Container {
     this.data = null;
 
     if (utils.getSquaredDistance(this.sprite, this.follow) > 10000)
-      this.destroySelf();
+      this.removeSelf();
     this.updateSlot();
 
     // set hightlight off
@@ -174,12 +174,13 @@ export default class Shooter extends Container {
     });
   }
 
-  destroySelf() {
+  removeSelf() {
     const { weapons } = this.follow;
     weapons.splice(
       weapons.indexOf((it) => it === this),
       1,
     );
+    this.bullets.forEach((it) => it.parent && it.parent.removeChild(it));
     changeSelect();
     this.destroy();
   }

@@ -2,18 +2,30 @@ import config from './config';
 import { battleColors } from 'Src/utils/colors';
 
 export const initBattle = async () => {
-  const { addCraft, playground, it, removeAllCrafts } = window;
+  const {
+    // eslint-disable-next-line no-unused-vars
+    addCraft,
+    playground,
+    it,
+    removeCraft,
+  } = window;
   // app.viewport.fit(it);
   // app.viewport.follow(it);
+  window.battle = true;
 
   it.setPosition(config.boundary.width / 2.0, config.boundary.height / 2.0);
 
   const followers = playground.craftAll.filter((el) => el.follow === it);
 
-  removeAllCrafts(playground);
+  playground.craftAll.forEach((e) => {
+    if (e !== window.it && followers.indexOf(e) === -1) {
+      e.removeSelf();
+    }
+  });
+  // removeAllCrafts(playground);
   it.buttonMode = false;
-  playground.addChild(it);
-  followers.forEach((s) => playground.addChild(s));
+  // playground.addChild(it);
+  // followers.forEach((s) => playground.addChild(s));
 
   // const obstacles = [];
   playground.attackers = [];
@@ -206,11 +218,24 @@ export const initBattle = async () => {
   });
 };
 
-export const exitBattle = () => {
+export const exitBattle = async () => {
+  // eslint-disable-next-line no-unused-vars
   const { playground, it, removeAllCrafts } = window;
-  removeAllCrafts(playground);
-  it.buttonMode = true;
-  it.health = 100;
-  playground.addChild(it);
-  playground.craftAll.push(it);
+  window.battle = false;
+  const followers = playground.craftAll.filter((el) => el.follow === it);
+
+  // remove everything else but the play
+  playground.craftAll.forEach((e) => {
+    if (e !== window.it && followers.indexOf(e) === -1) {
+      e.removeSelf();
+    }
+  });
+
+  // check if the player dead
+  if (it.health > 0) {
+    it.buttonMode = true;
+    it.health = 100;
+  } else {
+    it.removeSelf();
+  }
 };

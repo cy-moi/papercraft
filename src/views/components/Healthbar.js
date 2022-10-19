@@ -6,17 +6,19 @@ import { Box, LinearProgress } from '@mui/material';
  * @returns {JSX.Element}
  * @constructor
  */
-function Healthbar({ player }) {
-  const [health, setHealth] = React.useState(100);
+function Healthbar({ defaultHealth }) {
+  const [health, setHealth] = React.useState(0);
+  const [fullHealth] = React.useState(defaultHealth);
   const [buffer, setBuffer] = React.useState(-10);
 
   const progressRef = React.useRef(() => {});
   // update the current health and show a buffer for the next health (animation)
   React.useEffect(() => {
     progressRef.current = () => {
-      if (player) {
+      if (window.it && window.it.health) {
+        console.log('health', window.it.health, fullHealth);
         setBuffer(health);
-        setHealth(player.health);
+        setHealth((window.it.health / fullHealth) * 100);
       }
     };
   });

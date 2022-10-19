@@ -1,20 +1,20 @@
 import { exitBattle } from '../views/battle';
 import { initBattle } from '../views/battle';
 
-export const changeSession = (e) => {
+export const changeSession = async (e) => {
   const event = document.createEvent('HTMLEvents');
   event.initEvent('changeSession', true, true);
   event.eventName = 'changeSession';
   document.dispatchEvent(event);
-  initBattle();
+  await initBattle();
 };
 
-export const changeCraftSession = (e) => {
+export const changeCraftSession = async (e) => {
   const event = document.createEvent('HTMLEvents');
   event.initEvent('changeSession', true, true);
   event.eventName = 'changeSession';
   document.dispatchEvent(event);
-  exitBattle();
+  await exitBattle();
 };
 
 export const changeSelect = (e) => {

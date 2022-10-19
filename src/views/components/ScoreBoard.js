@@ -8,7 +8,7 @@ import AttackHealthbar from './AttackHealthbar';
  * @returns {JSX.Element}
  * @constructor
  */
-function ScoreBoard() {
+function ScoreBoard({ player }) {
   // const [shapeStats, setStats] = useState({});
   // const [attackerStats, setAttackerStats] = useState({});
   // const [timer, setTimer] = useState(0);
@@ -67,7 +67,7 @@ function ScoreBoard() {
       >
         Player Health
       </Typography>
-      <Healthbar player={window.it} />
+      <Healthbar defaultHealth={player.health} />
       <Typography
         sx={{ fontSize: 16 }}
         variant="h2"
