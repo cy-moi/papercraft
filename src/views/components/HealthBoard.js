@@ -8,7 +8,7 @@ import AttackHealthbar from './AttackHealthbar';
  * @returns {JSX.Element}
  * @constructor
  */
-function ScoreBoard({ player }) {
+function HealthBoard({ player }) {
   // const [shapeStats, setStats] = useState({});
   // const [attackerStats, setAttackerStats] = useState({});
   // const [timer, setTimer] = useState(0);
@@ -81,4 +81,4 @@ function ScoreBoard({ player }) {
   );
 }
 
-export default ScoreBoard;
+export default HealthBoard;

@@ -1,8 +1,9 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import ScoreBoard from '../components/ScoreBoard';
+import HealthBoard from '../components/HealthBoard';
 // eslint-disable-next-line import/no-named-as-default
 import AppLayout from '../components/AppLayout';
+import ScoreCard from '../components/Score';
 /**
  * React's entry point for app
  * @returns {JSX.Element}
@@ -32,7 +33,8 @@ function App() {
       ) : (
         <div className="Footer">
           {' '}
-          <ScoreBoard player={window.it} />
+          <HealthBoard player={window.it} />
+          <ScoreCard />
         </div>
       )}
     </div>
