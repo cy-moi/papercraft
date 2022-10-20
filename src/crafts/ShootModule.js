@@ -18,7 +18,6 @@ export default class Shooter extends Container {
   async init({
     type,
     follow,
-    lifeSpan,
     slot, // from 0 to PI
     direction,
     speed,
@@ -35,8 +34,11 @@ export default class Shooter extends Container {
 
     this.slotId = slot || 0;
     this.harm = harm || 10;
-    this.lifeSpan = lifeSpan || 100;
+    this.lifeSpan = config.lifeSpan || 100;
     this.color = color || defaultColor;
+    this.fireRate = config.fireRate || 20;
+    this.frameCounter = 0;
+    this.cdTime = 0;
 
     const { size, radius, bulletTexture } = config;
     const { width, height } = size || { widht: radius * 2, height: radius * 2 };
@@ -65,13 +67,8 @@ export default class Shooter extends Container {
     this.sprite.rotation = this.shootVec - this.OFFSET;
     this.addChild(this.sprite);
 
-    // console.log(this.startPos);
-
     this.shootSpeed = speed;
-    // let options;
-    // console.log(config)
 
-    console.log(type);
     switch (type) {
       case 'bullet':
         console.log('circle');
@@ -105,8 +102,8 @@ export default class Shooter extends Container {
   }
 
   async shoot() {
-    // let bullet = new MobileShape('bullet');
-    // await bullet.init(this.options);
+    if (this.cdTime < this.fireRate) return;
+    else this.cdTime = 0;
 
     const bullet = this.bulletSprite || new Sprite(this.bulletTexture);
     bullet.anchor.set(0.5);
@@ -179,18 +176,25 @@ export default class Shooter extends Container {
 
   removeSelf() {
     const { weapons } = this.follow;
+
+    // remove itself from weapons list held by the object it follows
+    // so that the stats would be up-to-date
     weapons.splice(
-      weapons.indexOf((it) => it === this),
+      weapons.findIndex((it) => it === this),
       1,
     );
-    this.bullets.forEach((it) => it.parent && it.parent.removeChild(it));
-    this.parent.removeChild(this);
+
+    // console.log(window.playground.craftAll.findIndex((it) => it === this))
     window.playground.craftAll.splice(
-      window.playground.craftAll.indexOf((it) => it === this),
+      window.playground.craftAll.findIndex((it) => it === this),
       1,
-    )
+    );
+
+    // remove all bullets from the playground
+    this.bullets.forEach((it) => it.parent && it.parent.removeChild(it));
+
+    this.parent.removeChild(this);
     changeSelect();
-    this.destroy();
   }
 
   detectSlot() {
@@ -207,7 +211,7 @@ export default class Shooter extends Container {
             if (child !== this.follow) {
               const { weapons } = this.follow;
               weapons.splice(
-                weapons.indexOf((it) => it === this),
+                weapons.findIndex((it) => it === this),
                 1,
               );
               this.follow = child;
@@ -251,6 +255,8 @@ export default class Shooter extends Container {
       return bullets;
     }, []);
 
+    this.frameCounter++;
+    this.cdTime++;
     // console.log(this.bullets.length);
   }
 }

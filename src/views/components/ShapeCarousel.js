@@ -14,7 +14,7 @@ const shapeList = (sliderValue) => [
   },
   {
     value: 'Rectangle',
-    type: '',
+    type: 'rectangle',
     size: {
       width: 1.5 * sliderValue,
       height: sliderValue,
@@ -25,7 +25,7 @@ const shapeList = (sliderValue) => [
   },
   {
     value: 'Circle',
-    type: '',
+    type: 'circle',
     size: {},
     radius: sliderValue,
     sides: 0,

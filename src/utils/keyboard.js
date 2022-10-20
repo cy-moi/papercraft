@@ -71,6 +71,16 @@ export const bindKeyHandler = (shape) => {
   };
 };
 
+export const bindKeyAction = (action, callback) => {
+  const keyEvent = keyboard(action);
+  keyEvent.press = callback;
+};
+
+export const unbindKeyAction = (action) => {
+  const keyEvent = keyboard(action);
+  keyEvent.press = () => {};
+};
+
 export const unbindKeyHandler = (shape) => {
   upkey.press = () => {};
   downKey.press = () => {};
