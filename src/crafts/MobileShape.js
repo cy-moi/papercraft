@@ -4,6 +4,11 @@ import BasicShape from './BasicShape';
 
 export const North = { x: 0, y: -1 };
 
+/*
+ * This is a mobile inheritance from the basic controller
+ * It handles the graphics movements with Matter physics bodies
+ * and provides motion apis setSpeed and setSteering
+ */
 class MobileShape extends BasicShape {
   constructor(id) {
     super(id);
@@ -24,6 +29,7 @@ class MobileShape extends BasicShape {
     if (debug) this.drawForward();
   }
 
+  // This is for debug
   drawForward() {
     const { x, y } = this.pivot;
     this.forward = new drawUtils.Line([
@@ -38,9 +44,6 @@ class MobileShape extends BasicShape {
 
   update() {
     super.update();
-    // this.x = this.physicBody.position.x
-    // this.y = this.physicBody.position.y
-    // this.rotation = this.physicBody.angle
 
     Matter.Body.setAngle(
       this.physicBody,
@@ -60,7 +63,6 @@ class MobileShape extends BasicShape {
   setSteering(wheelDiff) {
     // runner base fps = 30 -> 0.203
     // exact fps 32 -> 0.196
-    // reason ?
     const gammar = (wheelDiff / 200) * 0.203;
     this.steering = gammar;
   }

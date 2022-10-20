@@ -1,5 +1,7 @@
 import { addCraft, getCraft } from './api';
 
+// [DEPRECATED]
+
 window.addEventListener('gameInit', async (e) => {
   // window.utils = utils
   // window.config = config

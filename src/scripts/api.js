@@ -1,7 +1,7 @@
 import craftShop from './craftShop';
 
 export async function addCraft(config) {
-  const { id, model, host } = config; // Be only used to add cars.
+  const { id, model, host } = config; // Be only used to add crafts.
   const craftModel = craftShop.find((it) => it.name === model);
   const craft = new craftModel.constructor(id);
   host.addChild(craft);
@@ -14,7 +14,6 @@ export async function addCraft(config) {
 export function removeCraft(host, id) {
   const craft = host.craftAll.find((it) => it.id === id);
   craft.removeSelf();
-  // host.removeChild(craft);
 }
 
 export async function removeAllCrafts(host) {
@@ -36,8 +35,8 @@ function delay(time) {
 }
 
 export const waitFrameToStop = (frame) => {
+  // stop after certain number of frames
   delay(frame).then(() => {
-    // console.log('ran after 1 second1 passed')
     window.it.stop();
   });
 };

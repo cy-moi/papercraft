@@ -28,8 +28,9 @@ Supporting crafting and battlegrounds.
 ## Craftground
 
 When in the craftground, the user can choose the basic shape of the vessel, and weapons to attach to it.
-<br />
+
 The slider changes the size of the vessel.
+`CLICK` on the vessel to add weapons to it! If it turns half-transparent, it is selected.
 After adding a weapon, you can drag and drop it to one of the other corners of the vessel (the corners appear when dragging the weapon). Simply drop it outside to delete it.
 <br />
 Change the slider value to change weapon rotation.
@@ -37,8 +38,12 @@ The top-right corner cart is displaying the player's vessel's statistics.
 <br />
 You can press [a] key to see it shoot before entering the battleground.
 Move around with arrow keys and use [C] key to brake.
+Notes: If the vessel is not selected, it wouldn't shoot!
 <br />
-Weapon attributes: shooting speed, life span for how far it can shoot, and cool down time indicating the time(frame) interval between each shoot.
+
+#### Weapon attributes:
+
+shooting speed, life span for how far it can shoot, and cool down time indicating the time(frame) interval between each shoot.
 
 ### Interaction: Drag and Drop to Equip weapons
 
@@ -76,6 +81,10 @@ Weapon attributes: shooting speed, life span for how far it can shoot, and cool 
 
 The playground is simply the game battleground, where the just-created vessel can shoot at enemies. The enemies are static obstacles, move-able obstacles, and an attacking vessel. The mirroring vessel will have the same speed as the player and try to face at the player to shoot at it. Use arrow keys to move around, `[C] (Capital)`key to brake the vessel, `a` key to shoot!
 
+### Level-Up
+
+If you win the battle, the player will be kept to next round of crafting with a reward of 100 health points. However, the opponent is generated base on the player's health, so it will always be stronger.
+
 ### Feedbacks: UI
 
 battle UI has health bars for both sides, and a control panel where the user can see their current steering degrees and speed.
@@ -96,7 +105,9 @@ For the motion model of the player, we adapted the differential wheeled robot wh
 
 ## MVC
 
-Crafts are controllers that combine the model(physics engine) and the view(graphics/textures/sprites). Same craft can combine different models with different renderers. Besides the physics models, there could also be non-physics models (shooters) or over-physics models (mobile shapes with differential wheeled robots).
+Crafts are controllers that combine the model(physics engine) and the view(graphics/textures/sprites). Same craft can combine different models with different renderers. Besides the physics models, there could also be non-physics models (shooters) or over-physics models (mobile shapes with differential wheeled robots). Find all the crafts controllers which called Matter.js and PIXI.js functions in the `crafts` folder. And the `craftshop` and `api` for adding and removing crafts are in the `scripts` folder.
+
+The react UI components are separated and located in the `views/components`. We were meant to have two separate scenes for crafting and battling, but under the time pressure, we decided to remove/add objects rather than scenes to achieve it.
 
 ## Tree-like
 
@@ -105,6 +116,26 @@ Crafts are connected in a tree-like structure, each craft holds a list of childr
 ## UI Events
 
 The outside UI layers (React) communicates with the renderer(PIXI) through DOM events, so that they can both provide interactive functionalities and share informations.
+
+# Future Improvement
+
+## Gameplay
+
+- [ ] More enchanting textures/themes/arts.
+- [ ] Animations of winning/losing/hitting.
+- [ ] Level up. Current level-up mechanism is shallow. We would like to add more mechanism to it, such as having more choices of weapons/core player bodies according to different levels.
+
+## Interaction
+
+- [ ] Customization process. We made a really powerful api which supports randmization and customization. If we had more time, we could reflect this by polishing more on the UI side.
+- [ ] Support touch/gesture interactions. We had a feature for users to sketch their own textures at `unstable-demo` branch. But it was removed because we wanted to focus more on gameplay, and the interaction of the sketch was not easy to fit in the whole gaming experiences. But we would like to keep it as a fun feature and it goes with our main purpose of Papercraft.
+- [ ] Create joints/composites. This is supported by the physics engines, but not our current controllers. To align the graphics rendering with such complex compositions took time. We have tried to add it at the branch `master-weird` (there were some weird behaviors due to graphics alignment issues).
+- [ ] Drag and drop from the selector. We currently have the weapon selection ui which put a weapon on a default slot which user can change later by drag and drop to another. But if we can make it generated at users cursor from the start, the interaction would be more intuitive.
+
+## Structure
+
+- [ ] The structure of battle init/exit needs to be more clear. We are now only using init() and exit() which could not support complex interaction requirements. Thanks to our crafting apis, we made the battle field in a short time. Such fact proves the importance of having a neat structure.
+- [ ] Make two separate scenes for crafting and battling.
 
 # How to run
 

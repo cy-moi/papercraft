@@ -5,6 +5,12 @@ import { changeSelect } from 'Src/utils/events';
 
 export const North = { x: 0, y: -1 };
 
+/*
+ * This is the base class for weapons
+ * It does not have a Matter physics body because the
+ * bullets from this weapon are not suppose to physically
+ * move any other objects, but only collide with it figuratively
+ */
 export default class Shooter extends Container {
   constructor(id, _options) {
     super();
@@ -87,6 +93,8 @@ export default class Shooter extends Container {
       default:
         break;
     }
+
+    // Generate texture from default graphics, but can support other textures
     this.bulletTexture = window.app.renderer.generateTexture(this.graphics);
     if (bulletTexture) {
       this.bulletSprite = Sprite.from(texture);
@@ -116,6 +124,10 @@ export default class Shooter extends Container {
     this.bullets.push(bullet);
   }
 
+  /*
+   * Below are interaction apis for PIXI
+   * They are binded with the view(PIXI) in the init functions
+   */
   onDragStart(event) {
     const { app } = window;
     app.viewport.plugins.remove('drag');
@@ -162,6 +174,10 @@ export default class Shooter extends Container {
     }
   }
 
+  /*
+   * Collision Checking for PIXI because it doesnt use Matter Engine
+   * @param b - bullet
+   */
   bulletHit(b) {
     window.playground.craftAll.forEach((child) => {
       if (child.id !== 'shooter' && child !== this.follow) {
@@ -197,15 +213,13 @@ export default class Shooter extends Container {
     changeSelect();
   }
 
+  /*
+   * Collision Checking for PIXI but to highlight slot
+   */
   detectSlot() {
     window.playground.craftAll.forEach((child) => {
-      // if (!this.dragging) return;
-
       if (child.slots && child.slots.length > 0) {
         Object.keys(child.slots).forEach((slotId) => {
-          // if (!this.dragging) return;
-
-          // const slot = child.slots[slotId].checkInside(this);
           if (child.slots[slotId].checkInside(this)) {
             this.slotId = slotId;
             if (child !== this.follow) {
@@ -239,7 +253,7 @@ export default class Shooter extends Container {
 
   update() {
     this.updateSlot();
-    // const initBullets = [];
+
     this.bullets = this.bullets.slice(0).reduce((bullets, it) => {
       if (it.life > this.lifeSpan) {
         if (this.parent) this.parent.removeChild(it);
@@ -257,6 +271,5 @@ export default class Shooter extends Container {
 
     this.frameCounter++;
     this.cdTime++;
-    // console.log(this.bullets.length);
   }
 }
