@@ -11,10 +11,10 @@ PaperCraft
 <h6 align="center">
 An easy-to-use, minimized 2D shooter game with extensive crafting capabilities.
 Supporting crafting and battlegrounds.
-  <br />
-  <a href="https://papercraft-eight.vercel.app/">View Demo</a>
-  ·
-  <a href="https://github.com/cy-moi/papercraft/issues">Report Bug</a>
+<br />
+<a href="https://papercraft-eight.vercel.app/">View Demo</a>
+·
+<a href="https://github.com/cy-moi/papercraft/issues">Report Bug</a>
 
 </h6>
 <div align="center">
@@ -24,6 +24,16 @@ Supporting crafting and battlegrounds.
 ---
 
 <br />
+
+## How to play
+
+1. Go to the [demo](https://papercraft-eight.vercel.app/) page.
+2. Click on the `Core` button to choose the shape of the vessel, use the slider to change the size and health of the vessel.
+3. Select the vessel by clicking on it, and then click on the `Weapons` button to choose the weapon to attach to the vessel. Use the slider to change the rotation of the weapon.
+4. Click on the `Play` button to enter the battleground.
+5. Use the arrow keys to move around, `[C] (Capital)`key to brake the vessel, `a` key to shoot!
+
+**Note**: Since we are using a differential wheeled robot model, acceleration, braking, and steering are additive. So click multiple times on the `up` arrow key to accelerate for example.
 
 ## Craftground
 
