@@ -78,7 +78,7 @@ function WeaponCarousel() {
     marks.findIndex((mark) => mark.value === value) + 1;
   // console.log('weapons', weapons);
   return (
-    <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+    <Grid container spacing={2} sx={{ flexGrow: 1 }} marginRight={2}>
       {weapons(sliderValue).map((value, index) => (
         <WeaponCard weapon={value} key={`${index.toString()}weapon`} />
       ))}

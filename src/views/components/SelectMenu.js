@@ -71,7 +71,7 @@ function SelectMenu({ onSelectDashboard }) {
         }}
       />
       <Chip
-        label="Stats"
+        label="Textures"
         variant="outlined"
         className="chip"
         onClick={handleClick}
