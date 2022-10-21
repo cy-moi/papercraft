@@ -9,7 +9,6 @@ import { Box, Grid, Typography } from '@mui/material';
  * @constructor
  */
 function WeaponCard({ weapon }) {
-  console.log(weapon);
   return (
     <Grid item key={weapon.value}>
       <Box

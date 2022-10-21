@@ -1,6 +1,12 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
+/**
+ * Show a score card with the current score.
+ * Craft gets a point for every enemy killed, or object hit on the playground.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function ScoreCard() {
   const [score, setScore] = React.useState(0);
 

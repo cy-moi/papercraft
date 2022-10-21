@@ -1,6 +1,11 @@
 import React from 'react';
 import { Box, LinearProgress } from '@mui/material';
 
+/**
+ * Shows a health bar with a progress bar for buffering animation
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function AttackHealthbar() {
   const [health, setHealth] = React.useState(100);
   const [buffer, setBuffer] = React.useState(-10);
