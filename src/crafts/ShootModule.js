@@ -5,6 +5,12 @@ import { changeSelect } from 'Src/utils/events';
 
 export const North = { x: 0, y: -1 };
 
+/*
+ * This is the base class for weapons
+ * It does not have a Matter physics body because the
+ * bullets from this weapon are not suppose to physically
+ * move any other objects, but only collide with it figuratively
+ */
 export default class Shooter extends Container {
   constructor(id, _options) {
     super();
@@ -18,23 +24,27 @@ export default class Shooter extends Container {
   async init({
     type,
     follow,
-    lifeSpan,
     slot, // from 0 to PI
     direction,
     speed,
     harm,
     config,
     color,
+    host,
     texture,
   }) {
     this.OFFSET = Math.PI / 4.0;
     this.follow = follow;
     this.follow.weapons.push(this);
+    this.parent = host;
 
     this.slotId = slot || 0;
     this.harm = harm || 10;
-    this.lifeSpan = lifeSpan || 100;
+    this.lifeSpan = config.lifeSpan || 100;
     this.color = color || defaultColor;
+    this.fireRate = config.fireRate || 20;
+    this.frameCounter = 0;
+    this.cdTime = 0;
 
     const { size, radius, bulletTexture } = config;
     const { width, height } = size || { widht: radius * 2, height: radius * 2 };
@@ -63,13 +73,8 @@ export default class Shooter extends Container {
     this.sprite.rotation = this.shootVec - this.OFFSET;
     this.addChild(this.sprite);
 
-    // console.log(this.startPos);
-
     this.shootSpeed = speed;
-    // let options;
-    // console.log(config)
 
-    console.log(type);
     switch (type) {
       case 'bullet':
         console.log('circle');
@@ -88,6 +93,8 @@ export default class Shooter extends Container {
       default:
         break;
     }
+
+    // Generate texture from default graphics, but can support other textures
     this.bulletTexture = window.app.renderer.generateTexture(this.graphics);
     if (bulletTexture) {
       this.bulletSprite = Sprite.from(texture);
@@ -103,8 +110,8 @@ export default class Shooter extends Container {
   }
 
   async shoot() {
-    // let bullet = new MobileShape('bullet');
-    // await bullet.init(this.options);
+    if (this.cdTime < this.fireRate) return;
+    else this.cdTime = 0;
 
     const bullet = this.bulletSprite || new Sprite(this.bulletTexture);
     bullet.anchor.set(0.5);
@@ -117,6 +124,10 @@ export default class Shooter extends Container {
     this.bullets.push(bullet);
   }
 
+  /*
+   * Below are interaction apis for PIXI
+   * They are binded with the view(PIXI) in the init functions
+   */
   onDragStart(event) {
     const { app } = window;
     app.viewport.plugins.remove('drag');
@@ -163,12 +174,16 @@ export default class Shooter extends Container {
     }
   }
 
+  /*
+   * Collision Checking for PIXI because it doesnt use Matter Engine
+   * @param b - bullet
+   */
   bulletHit(b) {
     window.playground.craftAll.forEach((child) => {
       if (child.id !== 'shooter' && child !== this.follow) {
         if (child.checkInside(b)) {
           child.health -= this.harm;
-          if (child.life !== Infinity) this.follow.score += this.harm;
+          if (child.health !== Infinity) this.follow.score += this.harm;
           b.life = Infinity;
         }
       }
@@ -177,30 +192,40 @@ export default class Shooter extends Container {
 
   removeSelf() {
     const { weapons } = this.follow;
-    weapons.slice(
-      weapons.indexOf((it) => it === this),
+
+    // remove itself from weapons list held by the object it follows
+    // so that the stats would be up-to-date
+    weapons.splice(
+      weapons.findIndex((it) => it === this),
       1,
     );
+
+    // console.log(window.playground.craftAll.findIndex((it) => it === this))
+    window.playground.craftAll.splice(
+      window.playground.craftAll.findIndex((it) => it === this),
+      1,
+    );
+
+    // remove all bullets from the playground
     this.bullets.forEach((it) => it.parent && it.parent.removeChild(it));
+
+    this.parent.removeChild(this);
     changeSelect();
-    this.destroy();
   }
 
+  /*
+   * Collision Checking for PIXI but to highlight slot
+   */
   detectSlot() {
     window.playground.craftAll.forEach((child) => {
-      // if (!this.dragging) return;
-
       if (child.slots && child.slots.length > 0) {
         Object.keys(child.slots).forEach((slotId) => {
-          // if (!this.dragging) return;
-
-          // const slot = child.slots[slotId].checkInside(this);
           if (child.slots[slotId].checkInside(this)) {
             this.slotId = slotId;
             if (child !== this.follow) {
               const { weapons } = this.follow;
-              weapons.slice(
-                weapons.indexOf((it) => it === this),
+              weapons.splice(
+                weapons.findIndex((it) => it === this),
                 1,
               );
               this.follow = child;
@@ -228,7 +253,7 @@ export default class Shooter extends Container {
 
   update() {
     this.updateSlot();
-    // const initBullets = [];
+
     this.bullets = this.bullets.slice(0).reduce((bullets, it) => {
       if (it.life > this.lifeSpan) {
         if (this.parent) this.parent.removeChild(it);
@@ -244,6 +269,7 @@ export default class Shooter extends Container {
       return bullets;
     }, []);
 
-    // console.log(this.bullets.length);
+    this.frameCounter++;
+    this.cdTime++;
   }
 }

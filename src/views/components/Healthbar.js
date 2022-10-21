@@ -16,7 +16,6 @@ function Healthbar({ defaultHealth }) {
   React.useEffect(() => {
     progressRef.current = () => {
       if (window.it && window.it.health) {
-        console.log('health', window.it.health, fullHealth);
         setBuffer(health);
         setHealth((window.it.health / fullHealth) * 100);
       }

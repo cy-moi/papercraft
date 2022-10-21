@@ -2,61 +2,35 @@ import React from 'react';
 import { Container, Typography } from '@mui/material';
 import Healthbar from './Healthbar';
 import AttackHealthbar from './AttackHealthbar';
-
+import ControlPanel from './ControlPanel';
 /**
  * Shows the current score based on the number of enemies killed
  * @returns {JSX.Element}
  * @constructor
  */
 function HealthBoard({ player }) {
-  // const [shapeStats, setStats] = useState({});
-  // const [attackerStats, setAttackerStats] = useState({});
-  // const [timer, setTimer] = useState(0);
-  // const { playground } = window;
-
-  // useEffect(() => {
-  //   setInterval(() => setTimer(timer + 1), 500);
-  // });
-  //
-  //     (harm, cur) => harm + cur.slots.reduce((h, c) => h + c.harm, 0),
-  //     0,
-  //   );
-  //
-  //   setAttackerStats({
-  //     'Total Attack': totalAttack,
-  //     'Num of Attackers:': playground.attackers.length,
-  //     'Total Defense': playground.attackers.reduce(
-  //       (health, cur) => health + cur.health,
-  //       0,
-  //     ),
-  //   });
-  // }, [timer]);
-  //
-
-  //   if (it && it.health) {
-  //     // console.log('health', window.it.health);
-  //     const attack = it.weapons.reduce((harm, cur) => harm + cur.harm, 0);
-  //     const s = {
-  //       'Total Attack': attack,
-  //       'Total Defense': it.health,
-  //       'Num of Weapon': it.weapons.length,
-  //     };
-  //     setStats(s);
-  //   }
-  // }, [timer]);
-  //
   return (
+<Container
+  sx={{
+        width: '100%',
+        height: '30%',
+        backgroundColor: 'rgba(0,0,0,0.5);',
+        display: 'flex',
+        alignItems: 'end',
+        flexDirection: 'row',
+        padding: 2,
+        borderRadius: 4
+  }}
+  >
     <Container
       sx={{
         width: '100%',
-        height: '30%',
-        backgroundColor: '#1A2027',
+        height: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
         padding: 2,
-        borderRadius: 4,
       }}
     >
       <Typography
@@ -77,6 +51,8 @@ function HealthBoard({ player }) {
         Attacker Health
       </Typography>
       <AttackHealthbar />
+    </Container>
+        <ControlPanel player={player} />
     </Container>
   );
 }

@@ -53,20 +53,32 @@ const stopKey = keyboard('C');
 
 export const bindKeyHandler = (shape) => {
   upkey.press = () => {
-    shape.speed += 1;
+    shape.speed += shape.speed >= 20 ? 0 : 1;
   };
   downKey.press = () => {
-    shape.speed -= 1;
+    shape.speed -= shape.speed <= -20 ? 0 : 1;
   };
   leftKey.press = () => {
-    shape.steering -= 0.01;
+    shape.steerDeg = (shape.steerDeg - 5) % 360;
+    shape.setSteering(shape.steerDeg);
   };
   rightKey.press = () => {
-    shape.steering += 0.01;
+    shape.steerDeg = (shape.steerDeg + 5) % 360;
+    shape.setSteering(shape.steerDeg);
   };
   stopKey.press = () => {
     shape.stop();
   };
+};
+
+export const bindKeyAction = (action, callback) => {
+  const keyEvent = keyboard(action);
+  keyEvent.press = callback;
+};
+
+export const unbindKeyAction = (action) => {
+  const keyEvent = keyboard(action);
+  keyEvent.press = () => {};
 };
 
 export const unbindKeyHandler = (shape) => {

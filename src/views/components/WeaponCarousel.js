@@ -11,11 +11,11 @@ const weapons = (sliderValue) => [
     speed: 20,
     config: {
       radius: 5,
-      blurSize: 5,
+      lifeSpan: 30,
+      fireRate: 20,
     },
     direction: sliderValue,
     action: 'keypress',
-    lifeSpan: 30,
   },
   {
     value: 'Laser',
@@ -24,10 +24,12 @@ const weapons = (sliderValue) => [
     speed: 40,
     config: {
       size: { width: 20, height: 2 },
+      lifeSpan: 5,
+      fireRate: 15,
     },
     direction: sliderValue,
     action: 'keypress',
-    lifeSpan: 5,
+    color: 0x99dd1c,
   },
   {
     value: 'Stone',
@@ -36,11 +38,12 @@ const weapons = (sliderValue) => [
     speed: 5,
     config: {
       radius: 15,
-      blurSize: 5,
+      lifeSpan: 150,
+      fireRate: 30,
     },
     direction: sliderValue,
     action: 'keypress',
-    lifeSpan: 150,
+    color: 0xffaee0,
   },
 ];
 

@@ -3,7 +3,12 @@ import { changeSelect, changeCraftSession } from '../utils/events';
 import Matter from 'matter-js';
 import * as utils from '../utils/vec';
 import { colors } from '../utils/colors';
-import { bindKeyHandler, unbindKeyHandler } from '../utils/keyboard';
+import {
+  bindKeyHandler,
+  unbindKeyHandler,
+  unbindKeyAction,
+  bindKeyAction,
+} from '../utils/keyboard';
 import EquipSlotHint from './EquipSlot';
 
 export const North = { x: 0, y: -1 };
@@ -32,13 +37,12 @@ class BasicShape extends Container {
     this.engine = engine;
     this.graphics = new Graphics();
 
-    // this.addChild(this.graphics);
     this.color = color || colors[Object.keys(colors)[this.getRandomInt(4)]];
     this.health = health || 10;
     this.score = 0;
-    this.weapons = [];
+    this.weapons = []; // this is for a easier retrieval of weapons
 
-    // TODO: fill shape with random color
+    // call Matter.js to generate the physical model
     switch (type) {
       case 'rectangle':
         console.log('rectangle');
@@ -56,7 +60,6 @@ class BasicShape extends Container {
         this.radius = radius;
         this.checkInside = (a) =>
           utils.circleIntersect(this.physicBody.position, radius, a);
-        // this.hitArea = new PIXI.Circle(0, 0, radius);
         break;
       case 'polygon':
         this.physicBody = Matter.Bodies.polygon(0, 0, sides, radius, {
@@ -64,23 +67,19 @@ class BasicShape extends Container {
         });
         this.checkInside = (a) =>
           utils.polygonIntersect(this.physicBody.vertices, a);
-        // console.log(this.physicBody.vertices);
         break;
       default:
         console.log('default');
         break;
     }
 
-    // Matter.Composite.add(engine.world, this.physicBody);
-    // Matter.Body.setPosition(this.physicBody, this.position);
-
-    // console.log(this.parent)
+    // calculate the pivot point of the body, because the PIXI point
+    // is decided by the rendering size of the whole container
+    // rather than the body itself
     this.pivot = {
       x: this.physicBody.position.x - this.physicBody.bounds.min.x,
       y: this.physicBody.position.y - this.physicBody.bounds.min.y,
     };
-
-    // console.log(this.pivot, 'realpivot');
 
     this.min = this.physicBody.bounds.min;
 
@@ -90,7 +89,7 @@ class BasicShape extends Container {
       return prev;
     }, []);
 
-    // add sprite
+    // use PIXI to generate sprite
     if (texture) {
       this.sprite = Sprite.from(texture);
       const w = width || radius * 2;
@@ -105,7 +104,7 @@ class BasicShape extends Container {
       this.sprite = new Sprite(this.texture);
     }
 
-    // interact with sprite
+    // interactions with sprite
     this.interactive = true;
     this.buttonMode = true;
     this.selected = false;
@@ -135,11 +134,6 @@ class BasicShape extends Container {
     Matter.Body.setPosition(this.physicBody, this.position);
   }
 
-  scaleSprite(width, height) {
-    this.sprite.width = width;
-    this.sprite.height = height;
-  }
-
   getEquipSlots() {
     // const vertNum = this.verts.length;
     const north = {
@@ -165,13 +159,15 @@ class BasicShape extends Container {
     }));
   }
 
+  // a helper function to debug
   drawShootingVec() {
     const shootPos = this.getEquipSlots();
-    // console.log(shootPos);
+
     this.slots = [];
     shootPos.map((pos, ind) => {
       const hint = new EquipSlotHint(`hint${ind}`);
       hint.init({
+        id: 'hint',
         host: this,
         position: pos.slot,
         radius: 10,
@@ -183,16 +179,28 @@ class BasicShape extends Container {
     });
   }
 
+  // this function will be called each frame
   update() {
-    if (this.health <= 0 && window.battle) {
+    if (this.health <= 0) {
+      // If the the shape has no more health destroy it
       this.removeSelf();
-      if (this === window.playground.attackers[0] || this === window.it)
+      if (
+        window.battle &&
+        (this === window.playground.attackers[0] || this === window.it)
+      )
         changeCraftSession();
       return;
     }
+
+    // update the position its children
     this.x = this.physicBody.position.x;
     this.y = this.physicBody.position.y;
     this.rotation = this.physicBody.angle;
+
+    // !TODO: this should be changed to update all children
+    // because this slots is not final ones and are only debug purposes
+    // circles for current arc-weapons, we added it inside the debug draw
+    // !TODO: Let user define the slots and update it as children
     if (this.slots) this.slots.forEach((it) => it.update());
     this.alpha = this.selected ? 0.5 : 1.0;
     if (this.selected) window.it = this;
@@ -202,29 +210,35 @@ class BasicShape extends Container {
     // unselect last
     if (window.it && window.it !== this) {
       window.it.selected = false;
-      // window.it.alpha = 1.0;
       unbindKeyHandler(window.it);
+      unbindKeyAction('a');
     }
 
     window.it = this;
 
     // select this
     bindKeyHandler(this);
+    bindKeyAction('a', () => window.it.weapons.forEach((it) => it.shoot()));
     this.selected = !this.selected;
     changeSelect(e);
   }
 
+  // remove itself from both matter engine and PIXI rendering
+  // also remote itself from the conrtoller lists
   removeSelf() {
     Matter.Composite.remove(this.engine.world, this.physicBody);
     const { playground } = window;
-    const modules = playground.children.find(
+    const modules = playground.craftAll.filter(
       (it) => it.follow && it.follow === this,
     );
-    playground.craftAll.slice(
+    console.log(modules);
+    modules.forEach((e) => e.removeSelf());
+
+    playground.craftAll.splice(
       playground.craftAll.findIndex((el) => el === this),
       1,
     );
-    playground.removeChild(modules);
+
     playground.removeChild(this);
   }
 

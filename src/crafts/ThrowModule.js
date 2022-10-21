@@ -3,7 +3,11 @@ import Matter from 'matter-js';
 import MobileShape from './MobileShape';
 
 export const North = { x: 0, y: -1 };
-
+/*
+ * This is a base class for weapons
+ * It has a Matter physics body
+ * TODO: put this in use!!
+ */
 export default class Shooter extends Container {
   constructor(id, options) {
     super();
