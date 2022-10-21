@@ -19,6 +19,4 @@ window.addEventListener('gameInit', async (e) => {
 
 async function init() {
   console.log('>>> run script');
-
-  // const { playground, addCraft } = window
 }

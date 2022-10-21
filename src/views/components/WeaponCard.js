@@ -9,7 +9,6 @@ import { Box, Grid, Typography } from '@mui/material';
  * @constructor
  */
 function WeaponCard({ weapon }) {
-  console.log(weapon);
   return (
     <Grid item key={weapon.value}>
       <Box
@@ -18,7 +17,7 @@ function WeaponCard({ weapon }) {
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'column',
-          height: 140,
+          height: 160,
           width: 120,
           backgroundColor: '#1A2027',
           transition: 'transform .2s',
@@ -28,16 +27,21 @@ function WeaponCard({ weapon }) {
         }}
         /* eslint-disable-next-line max-len */
         onClick={async (e) => {
-          await window.equipShoot(
-            weapon.type,
-            weapon.slot,
-            weapon.speed,
-            weapon.direction,
-            weapon.config,
-            weapon.color,
-            weapon.action,
-            weapon.lifeSpan,
-          );
+          const { type, slot, speed, direction, config, color } = weapon;
+          const { playground, it, addCraft } = window;
+          await addCraft({
+            id: 'shooter',
+            model: 'Weapon',
+            follow: it,
+            host: playground,
+            type,
+            slot,
+            speed,
+            direction,
+            config,
+            color,
+          });
+
           changeSelect(e);
           // console.log(window.it.weapons);
         }}
@@ -66,7 +70,9 @@ function WeaponCard({ weapon }) {
         >
           {`speed: ${weapon.speed}`}
           <br />
-          {`life span: ${weapon.lifeSpan}`}
+          {`life span: ${weapon.config.lifeSpan}`}
+          <br />
+          {`cool down: ${weapon.config.fireRate}`}
         </Typography>
       </Box>
     </Grid>

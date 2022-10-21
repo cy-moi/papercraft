@@ -11,11 +11,11 @@ const weapons = (sliderValue) => [
     speed: 20,
     config: {
       radius: 5,
-      blurSize: 5,
+      lifeSpan: 30,
+      fireRate: 20,
     },
     direction: sliderValue,
     action: 'keypress',
-    lifeSpan: 30,
   },
   {
     value: 'Laser',
@@ -24,11 +24,12 @@ const weapons = (sliderValue) => [
     speed: 40,
     config: {
       size: { width: 20, height: 2 },
+      lifeSpan: 5,
+      fireRate: 15,
     },
     direction: sliderValue,
     action: 'keypress',
     color: 0x99dd1c,
-    lifeSpan: 5,
   },
   {
     value: 'Stone',
@@ -37,12 +38,12 @@ const weapons = (sliderValue) => [
     speed: 5,
     config: {
       radius: 15,
-      blurSize: 5,
+      lifeSpan: 150,
+      fireRate: 30,
     },
     direction: sliderValue,
     action: 'keypress',
     color: 0xffaee0,
-    lifeSpan: 150,
   },
 ];
 
@@ -80,7 +81,7 @@ function WeaponCarousel() {
     marks.findIndex((mark) => mark.value === value) + 1;
   // console.log('weapons', weapons);
   return (
-    <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+    <Grid container spacing={2} sx={{ flexGrow: 1 }} marginRight={2}>
       {weapons(sliderValue).map((value, index) => (
         <WeaponCard weapon={value} key={`${index.toString()}weapon`} />
       ))}

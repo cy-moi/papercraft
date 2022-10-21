@@ -34,16 +34,26 @@ function ShapeCard({ shape }) {
             transform: 'scale(1.25)',
           },
         }}
-        onClick={() => {
+        onClick={async () => {
           // @ts-ignore
-          window.selectShape(
-            shape.value.toLowerCase(),
-            shape.size,
-            shape.radius,
-            shape.sides,
-            shape.type,
-            shape.health,
-          );
+          const { size, radius, sides, type, health } = shape;
+          const { playground, addCraft } = window;
+          await addCraft({
+            id: 'actor',
+            model: 'MobileShape',
+            host: playground,
+            type,
+            position: {
+              x: 500,
+              y: 500,
+            },
+            size,
+            sides,
+            health,
+            radius,
+            isStatic: false,
+            debug: true,
+          });
         }}
       >
         <img

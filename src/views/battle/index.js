@@ -14,14 +14,17 @@ export const initBattle = async () => {
 
   it.setPosition(config.boundary.width / 2.0, config.boundary.height / 2.0);
 
-  const followers = playground.craftAll.filter((el) => el.follow === it);
+  // const followers = playground.craftAll.filter((el) => el.follow === it);
 
-  playground.craftAll.reduceRight((acc, e, ind) => {
-    if (e !== window.it && followers.indexOf(e) === -1) {
-      e.removeSelf();
-    }
-  }, []);
-  
+  playground.craftAll
+    .slice()
+    .reverse()
+    .forEach((e) => {
+      if (e !== it && e.follow !== it) {
+        e.removeSelf();
+      }
+    }, []);
+
   it.buttonMode = false;
 
   playground.attackers = [];
@@ -199,7 +202,7 @@ export const initBattle = async () => {
       model: 'AutoShooter',
       follow: attacker,
       host: playground,
-      lifeSpan: 100,
+      lifeSpan: it.health + 100 * Math.random(3),
       slot: ind,
       speed: 20,
       direction: Math.PI * 2.0 * 0.5 * (ind + 1),
@@ -221,21 +224,23 @@ export const exitBattle = async () => {
   // const followers = playground.craftAll.filter((el) => el.follow === it);
 
   // remove everything else but the player
-  playground.craftAll.reduceRight((acc, e, ind) => {
-    // if(e.id === 'autoshooter') e.removeSelf();
-    if (e !== window.it) {
-      e.removeSelf();
-    }
-  }, []);
-  
+  playground.craftAll
+    .slice()
+    .reverse()
+    .forEach((e) => {
+      if (e !== it) {
+        e.removeSelf();
+      }
+    }, []);
+
   console.log(playground.craftAll);
 
-  playground.attackers[0].removeSelf();
+  // playground.attackers[0].removeSelf();
   playground.attackers = [];
   // check if the player dead
   if (it.health > 0) {
     it.buttonMode = true;
-    it.health = 100;
+    it.health += 100;
   } else {
     it.removeSelf();
   }

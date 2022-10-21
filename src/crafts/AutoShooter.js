@@ -10,7 +10,6 @@ class AutoShooter extends ShootModule {
 
   async init(options) {
     await super.init(options);
-    this.counter = 0;
   }
 
   autoAim(at) {
@@ -26,7 +25,6 @@ class AutoShooter extends ShootModule {
     };
 
     this.shootVec = utils.angleBetween(vec, aim);
-    // console.log(this.shootVec);
   }
 
   removeSelf() {
@@ -34,23 +32,9 @@ class AutoShooter extends ShootModule {
   }
 
   update() {
-    this.updateSlot();
-    this.bullets = this.bullets.slice(0).reduce((bullets, it) => {
-      if (it.life > 100) {
-        if (this.parent) this.parent.removeChild(it);
-        return bullets;
-      }
-      it.x += Math.cos(it.rotation) * this.shootSpeed;
-      it.y += Math.sin(it.rotation) * this.shootSpeed;
-      it.life += 1;
+    super.update();
 
-      this.bulletHit(it);
-
-      bullets.push(it);
-      return bullets;
-    }, []);
-
-    if (this.counter % 30 === 0) {
+    if (this.frameCounter % 30 === 0) {
       this.shoot();
       //   this.autoAim(this.aim);
       if (
@@ -60,8 +44,6 @@ class AutoShooter extends ShootModule {
         this.shoot();
       }
     }
-
-    this.counter++;
   }
 }
 
